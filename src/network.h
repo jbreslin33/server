@@ -26,7 +26,6 @@ class Network
 
 	Network();
 
-
 };
 
 #endif
