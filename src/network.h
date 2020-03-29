@@ -24,11 +24,11 @@ class Network
 
 	private:
 
-        int sock;
-        struct sockaddr_in sa;
-        char buffer[1024];
-        ssize_t recsize;
-        socklen_t fromlen;
+        int mSocket;
+        struct sockaddr_in mSocketAddressIn;
+        char mBuffer[1024];
+        ssize_t mReceivedMessageSize;
+        socklen_t mFromLength;
 
 
 };
