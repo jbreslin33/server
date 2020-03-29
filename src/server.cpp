@@ -4,6 +4,11 @@
 
 Server::Server()
 {
-	this->network = new Network();
+	this->mNetwork = new Network();
+
+	while(true)
+	{
+		this->mNetwork->readData();
+	}
 
 }

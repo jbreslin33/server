@@ -16,7 +16,7 @@ Network::Network()
                 close(sock);
                 exit(EXIT_FAILURE);
         }
-
+/*
         for (;;) 
         {
                 recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
@@ -30,13 +30,21 @@ Network::Network()
                 sleep(1);
                 printf("datagram: %.*s\n", (int)recsize, buffer);
         }
+*/
 }
-/*
-        Relay relay;
 
-        std::thread reader (readData, &relay);
-        std::thread writer (writeData, &relay);
-        reader.join();
-        writer.join();
-	*/
+
+void Network::readData()
+{
+	recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
+        if (recsize < 0) 
+        {
+        	fprintf(stderr, "%s\n", strerror(errno));
+                exit(EXIT_FAILURE);
+        }
+    
+        printf("recsize: %d\n ", (int)recsize);
+        sleep(1);
+       	printf("datagram: %.*s\n", (int)recsize, buffer);
+}
 

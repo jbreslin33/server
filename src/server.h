@@ -6,7 +6,7 @@ class Network;
 class Server
 {
 	private:
-		Network* network;
+		Network* mNetwork;
 
 	public:	
 

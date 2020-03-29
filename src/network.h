@@ -26,6 +26,8 @@ class Network
 
 	Network();
 
+	void readData();
+
 };
 
 #endif
