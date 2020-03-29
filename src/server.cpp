@@ -2,6 +2,7 @@
 
 #include "network.h"
 #include "client.h"
+#include "socket.h"
 
 Server::Server()
 {

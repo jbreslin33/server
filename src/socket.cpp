@@ -1,5 +1,6 @@
 #include "socket.h"
 #include "network.h"
+#include "server.h"
 
 Socket::Socket(Network* network, int port)
 {
@@ -15,7 +16,7 @@ Socket::Socket(Network* network, int port)
 
         mSocketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-        if (bind(mSocket, (struct sockaddr *)&mSocketAddressIn, sizeof mSocketAddressIn) == -1)
+        if (bind(mSocketId, (struct sockaddr *)&mSocketAddressIn, sizeof mSocketAddressIn) == -1)
         {
                 perror("error bind failed");
                 close(mSocketId);
@@ -26,7 +27,7 @@ Socket::Socket(Network* network, int port)
 
 void Socket::readData()
 {
-        mReceivedMessageSize = recvfrom(mSocket, (void*)mBuffer, sizeof mBuffer, 0, (struct sockaddr*)&mRemoteSocketAddressIn, &mFromLength);
+        mReceivedMessageSize = recvfrom(mSocketId, (void*)mBuffer, sizeof mBuffer, 0, (struct sockaddr*)&mRemoteSocketAddressIn, &mFromLength);
         if (mReceivedMessageSize < 0)
         {
                 fprintf(stderr, "%s\n", strerror(errno));

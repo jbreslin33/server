@@ -12,14 +12,15 @@
 #include <arpa/inet.h>
 
 class Server;
+class Socket;
 
 class Network
 {
 	public:
 
 	Network(Server* server);
-	void readData();
 	Server* mServer;
+	Socket* mListenSocket;
 
 
 	private:

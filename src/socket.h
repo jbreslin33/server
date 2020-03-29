@@ -1,12 +1,24 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+
 class Network;
 
 class Socket
 {
 	public:
-		Socket(Network* network);
+		Socket(Network* network, int port);
+		void readData();
 
 	private:
 		Network* mNetwork;
