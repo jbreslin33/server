@@ -31,5 +31,12 @@ Network::Network()
                 printf("datagram: %.*s\n", (int)recsize, buffer);
         }
 }
+/*
+        Relay relay;
 
+        std::thread reader (readData, &relay);
+        std::thread writer (writeData, &relay);
+        reader.join();
+        writer.join();
+	*/
 

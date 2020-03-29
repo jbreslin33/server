@@ -1,6 +1,6 @@
-#include "network.h"
+#include "server.h"
 
 int main(void)
 {
-	Network network;
+	Server server;
 }
