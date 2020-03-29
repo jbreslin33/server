@@ -26,7 +26,7 @@ Network::Network(Server* server, int listenPort)
 
 void Network::readData()
 {
-	mReceivedMessageSize = recvfrom(mSocket, (void*)mBuffer, sizeof mBuffer, 0, (struct sockaddr*)&mSocketAddressIn, &mFromLength);
+	mReceivedMessageSize = recvfrom(mSocket, (void*)mBuffer, sizeof mBuffer, 0, (struct sockaddr*)&mRemoteSocketAddressIn, &mFromLength);
         if (mReceivedMessageSize < 0) 
         {
         	fprintf(stderr, "%s\n", strerror(errno));
@@ -37,7 +37,7 @@ void Network::readData()
         sleep(1);
        	printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 
-	mServer->processData(mBuffer);
+	mServer->processData(mBuffer, mRemoteSocketAddressIn);
 }
 
 

@@ -25,7 +25,10 @@ class Network
 	private:
 
         int mSocket;
+
         struct sockaddr_in mSocketAddressIn;
+        struct sockaddr_in mRemoteSocketAddressIn;
+
         char mBuffer[1024];
         ssize_t mReceivedMessageSize;
         socklen_t mFromLength;

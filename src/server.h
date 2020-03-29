@@ -3,6 +3,10 @@
 
 #include <string>
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+
 class Network;
 
 class Server
@@ -14,9 +18,12 @@ class Server
 
 		Server();
 		void startGameLoop();
-		void processData(std::string s);
+		void processData(std::string s, struct sockaddr_in mSocketAddressIn);
 		
 		int mClientIdCounter;
+	     
+		struct sockaddr_in mSocketAddressIn;
+
 };
 
 

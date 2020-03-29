@@ -9,7 +9,6 @@ Server::Server()
 
 	this->mNetwork = new Network(this, 7654);
 
-
 	this->startGameLoop();
 }
 
@@ -21,8 +20,15 @@ void Server::startGameLoop()
 	}
 }
 
-void Server::processData(std::string s)
+void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 {
+	/*
+	struct in_addr {
+               uint32_t       s_addr;    
+           };
+*/
+	//printf("address: %d", socketAddressIn.in_addr.s_addr);
+	printf("address: %d", socketAddressIn.sin_addr.s_addr);
 	if (s.compare(0,1,"1") == 0)
 	{
 		//Move
