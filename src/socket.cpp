@@ -38,6 +38,12 @@ void Socket::readData()
         sleep(1);
         printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 
+	char *ip = inet_ntoa(mRemoteSocketAddressIn.sin_addr);
+	printf("%c\n",*ip);
+
+	char *s = inet_ntoa(mRemoteSocketAddressIn.sin_addr);
+	printf("IP address: %s\n", s);
+
         mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
 }
 
