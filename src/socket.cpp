@@ -8,6 +8,8 @@ Socket::Socket(Network* network, int port)
 
         mPort = port;
 
+	//mSocketAddressIn = 0;
+
         memset(&mSocketAddressIn, 0, sizeof mSocketAddressIn);
         mSocketAddressIn.sin_family = AF_INET;
         mSocketAddressIn.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -34,8 +36,8 @@ void Socket::readData()
                 exit(EXIT_FAILURE);
         }
 
-	char *ip = inet_ntoa(mRemoteSocketAddressIn.sin_addr);
-	printf("IP address: %s\n", ip);
+//	char *ip = inet_ntoa(mRemoteSocketAddressIn.sin_addr);
+//	printf("IP address: %s\n", ip);
         printf("recsize: %d\n ", (int)mReceivedMessageSize);
         printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 

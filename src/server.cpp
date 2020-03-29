@@ -36,6 +36,6 @@ void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 		printf ("%s \n", "New client connected.");
 
 		this->mClientIdCounter++;
-		Client* client = new Client(this->mClientIdCounter);
+		Client* client = new Client(this->mClientIdCounter, &socketAddressIn);
 	}
 }
