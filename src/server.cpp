@@ -6,7 +6,8 @@
 Server::Server()
 {
 	this->mClientIdCounter = 0;
-	this->mNetwork = new Network(this);
+
+	this->mNetwork = new Network(this, 7654);
 
 
 	this->startGameLoop();

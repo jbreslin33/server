@@ -17,7 +17,7 @@ class Network
 {
 	public:
 
-	Network(Server* server);
+	Network(Server* server, int listenPort);
 	void readData();
 	Server* mServer;
 
@@ -29,6 +29,8 @@ class Network
         char mBuffer[1024];
         ssize_t mReceivedMessageSize;
         socklen_t mFromLength;
+
+	int mListenPort;
 
 
 };

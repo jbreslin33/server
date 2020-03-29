@@ -2,14 +2,16 @@
 
 #include "server.h"
 
-Network::Network(Server* server)
+Network::Network(Server* server, int listenPort)
 {
 	mServer = server;
+
+	mListenPort = listenPort;
 
         memset(&mSocketAddressIn, 0, sizeof mSocketAddressIn);
         mSocketAddressIn.sin_family = AF_INET;
         mSocketAddressIn.sin_addr.s_addr = htonl(INADDR_ANY);
-        mSocketAddressIn.sin_port = htons(7654);
+        mSocketAddressIn.sin_port = htons(mListenPort);
         mFromLength = sizeof mSocketAddressIn;
 
         mSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
