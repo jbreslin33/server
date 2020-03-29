@@ -28,13 +28,9 @@ void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 	{
 		//Move
 		printf ("%s \n", "Move came in.");
-		
 	}
 	if (s.compare(0,1,"2") == 0)
 	{
-		//new client
-		printf ("%s \n", "New client connected.");
-
 		this->mClientIdCounter++;
 		Client* client = new Client(this->mClientIdCounter, &socketAddressIn);
 	}
