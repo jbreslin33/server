@@ -1,7 +1,10 @@
 #include "network.h"
 
-Network::Network()
+Network::Network(Server* server)
 {
+
+	mServer = server;
+
         memset(&sa, 0, sizeof sa);
         sa.sin_family = AF_INET;
         sa.sin_addr.s_addr = htonl(INADDR_ANY);

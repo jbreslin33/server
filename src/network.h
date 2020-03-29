@@ -11,9 +11,17 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+class Server;
 
 class Network
 {
+	public:
+
+	Network(Server* server);
+	void readData();
+	Server* mServer;
+
+
 	private:
 
         int sock;
@@ -22,11 +30,6 @@ class Network
         ssize_t recsize;
         socklen_t fromlen;
 
-	public:
-
-	Network();
-
-	void readData();
 
 };
 

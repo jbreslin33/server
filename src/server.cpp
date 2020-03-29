@@ -4,7 +4,7 @@
 
 Server::Server()
 {
-	this->mNetwork = new Network();
+	this->mNetwork = new Network(this);
 
 	while(true)
 	{
