@@ -4,12 +4,13 @@
 Client::Client(int id, struct sockaddr_in* socketAddressIn)
 {
 	this->setId(id);
-	printf ("New Client with id: %d \n", id);
 
+	//sockaddr_in remote client first made contact with us with
 	mSocketAddressIn = socketAddressIn;
 
+	//print ip to console
         char *ip = inet_ntoa(socketAddressIn->sin_addr);
-        printf("New Client with IP address: %s\n", ip);
+        printf("New Client id: %d AND IP address: %s\n",id,ip);
 
 
 }
