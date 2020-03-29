@@ -1,9 +1,11 @@
 #include "server.h"
 
 #include "network.h"
+#include "client.h"
 
 Server::Server()
 {
+	this->mClientIdCounter = 0;
 	this->mNetwork = new Network(this);
 
 
@@ -30,5 +32,8 @@ void Server::processData(std::string s)
 	{
 		//new client
 		printf ("%s \n", "New client connected.");
+
+		this->mClientIdCounter++;
+		Client* client = new Client(this->mClientIdCounter);
 	}
 }

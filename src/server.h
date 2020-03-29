@@ -15,6 +15,8 @@ class Server
 		Server();
 		void startGameLoop();
 		void processData(std::string s);
+		
+		int mClientIdCounter;
 };
 
 
