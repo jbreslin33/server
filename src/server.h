@@ -1,6 +1,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <string>
+
 class Network;
 
 class Server
@@ -12,6 +14,7 @@ class Server
 
 		Server();
 		void startGameLoop();
+		void processData(std::string s);
 };
 
 

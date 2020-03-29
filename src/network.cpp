@@ -1,5 +1,7 @@
 #include "network.h"
 
+#include "server.h"
+
 Network::Network(Server* server)
 {
 
@@ -19,23 +21,7 @@ Network::Network(Server* server)
                 close(sock);
                 exit(EXIT_FAILURE);
         }
-/*
-        for (;;) 
-        {
-                recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
-                if (recsize < 0) 
-                {
-                        fprintf(stderr, "%s\n", strerror(errno));
-                        exit(EXIT_FAILURE);
-                }
-    
-                printf("recsize: %d\n ", (int)recsize);
-                sleep(1);
-                printf("datagram: %.*s\n", (int)recsize, buffer);
-        }
-*/
 }
-
 
 void Network::readData()
 {
@@ -49,5 +35,8 @@ void Network::readData()
         printf("recsize: %d\n ", (int)recsize);
         sleep(1);
        	printf("datagram: %.*s\n", (int)recsize, buffer);
+
+	this->mServer->processData(buffer);
 }
+
 

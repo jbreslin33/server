@@ -17,3 +17,18 @@ void Server::startGameLoop()
 		this->mNetwork->readData();
 	}
 }
+
+void Server::processData(std::string s)
+{
+	if (s.compare(0,1,"1") == 0)
+	{
+		//Move
+		printf ("%s \n", "Move came in.");
+		
+	}
+	if (s.compare(0,1,"2") == 0)
+	{
+		//new client
+		printf ("%s \n", "New client connected.");
+	}
+}
