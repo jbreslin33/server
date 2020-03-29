@@ -11,6 +11,7 @@ class Server
 	public:	
 
 		Server();
+		void startGameLoop();
 };
 
 
