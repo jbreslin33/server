@@ -2,26 +2,12 @@
 
 #include "server.h"
 
-Network::Network(Server* server, int listenPort)
+Network::Network(Server* server)
 {
 	mServer = server;
+	
+	mListenSocket = new Socket(7654);
 
-	mListenPort = listenPort;
-
-        memset(&mSocketAddressIn, 0, sizeof mSocketAddressIn);
-        mSocketAddressIn.sin_family = AF_INET;
-        mSocketAddressIn.sin_addr.s_addr = htonl(INADDR_ANY);
-        mSocketAddressIn.sin_port = htons(mListenPort);
-        mFromLength = sizeof mSocketAddressIn;
-
-        mSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-        if (bind(mSocket, (struct sockaddr *)&mSocketAddressIn, sizeof mSocketAddressIn) == -1) 
-        {
-                perror("error bind failed");
-                close(mSocket);
-                exit(EXIT_FAILURE);
-        }
 }
 
 void Network::readData()

@@ -7,7 +7,7 @@ Server::Server()
 {
 	this->mClientIdCounter = 0;
 
-	this->mNetwork = new Network(this, 7654);
+	this->mNetwork = new Network(this);
 
 	this->startGameLoop();
 }
@@ -16,7 +16,7 @@ void Server::startGameLoop()
 {
 	while(true)
 	{
-		this->mNetwork->readData();
+		this->mNetwork->mListenSocket->readData();
 	}
 }
 

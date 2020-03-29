@@ -17,7 +17,7 @@ class Network
 {
 	public:
 
-	Network(Server* server, int listenPort);
+	Network(Server* server);
 	void readData();
 	Server* mServer;
 
