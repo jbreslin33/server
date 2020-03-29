@@ -4,6 +4,6 @@
 
 Server::Server()
 {
-	Network network;
+	this->network = new Network();
 
 }
