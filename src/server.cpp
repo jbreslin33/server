@@ -36,6 +36,6 @@ void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 		mNetwork->mClientVector.push_back(client);
 
 		//mNetwork->mClientVector.at(
-		client->sendMessage("MethactonBitches");
+		client->sendMessageToClient("MethactonBitches");
 	}
 }

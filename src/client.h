@@ -22,6 +22,7 @@ class Client
 		int getId();
 
 		void sendMessage(std::string s);
+		void sendMessageToClient(std::string s);
 		
 		int mId;
 		struct sockaddr_in* mSocketAddressIn;
