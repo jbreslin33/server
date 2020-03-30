@@ -39,6 +39,6 @@ void Socket::readData()
         printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 
         mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
-        sleep(1);
+        //sleep(1);
 }
  
