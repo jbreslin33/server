@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#include <string>
 
 class Client
 {
@@ -19,10 +20,26 @@ class Client
 
 		void setId(int id);
 		int getId();
-	private:
 
+		void sendMessage(std::string s);
+		
 		int mId;
 		struct sockaddr_in* mSocketAddressIn;
+	private:
+
+                //Berkeley Sockets
+                int mSocketId;
+
+                //struct sockaddr_in mSocketAddressIn;
+                //struct sockaddr_in mRemoteSocketAddressIn;
+
+                char mBuffer[1024];
+                ssize_t mReceivedMessageSize;
+                socklen_t mFromLength;
+
+                int mPort;
+
+
 
 
 };

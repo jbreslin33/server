@@ -1,6 +1,7 @@
 #include "socket.h"
 #include "network.h"
 #include "server.h"
+#include "client.h"
 
 Socket::Socket(Network* network, int port)
 {
@@ -40,6 +41,4 @@ void Socket::readData()
         mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
         sleep(1);
 }
-
-
-
+ 

@@ -11,16 +11,23 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#include <vector>
+
 class Server;
 class Socket;
+class Client;
 
 class Network
 {
 	public:
 
 	Network(Server* server);
+
 	Server* mServer;
 	Socket* mListenSocket;
+
+	std::vector<Client*> mClientVector;
+
 
 
 	private:

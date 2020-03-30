@@ -33,5 +33,9 @@ void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 	{
 		this->mClientIdCounter++;
 		Client* client = new Client(this->mClientIdCounter, &socketAddressIn);
+		mNetwork->mClientVector.push_back(client);
+
+		//mNetwork->mClientVector.at(
+		client->sendMessage("MethactonBitches");
 	}
 }

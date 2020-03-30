@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#include <string>
+
 
 class Network;
 
@@ -19,6 +21,7 @@ class Socket
 	public:
 		Socket(Network* network, int port);
 		void readData();
+		//void sendData(std::string s);
 
 	private:
 		Network* mNetwork;
