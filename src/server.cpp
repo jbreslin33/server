@@ -31,6 +31,10 @@ void Server::processData(std::string s, struct sockaddr_in socketAddressIn)
 	}
 	if (s.compare(0,1,"2") == 0)
 	{
+
+		//lets grab the port
+		std::string s.
+
 		this->mClientIdCounter++;
 		Client* client = new Client(this->mClientIdCounter, &socketAddressIn);
 		mNetwork->mClientVector.push_back(client);
