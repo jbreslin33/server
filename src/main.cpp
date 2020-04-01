@@ -92,6 +92,13 @@ void readSocketData(Relay* relay)
 			if (buffer[0] == 50)
 			{
 				printf("NEW CLIENT\n");
+				std::string port;
+				for (int i = 1; i < 6; i++)
+				{
+					port.push_back(buffer[i]);
+				}	
+				printf("PORT:%s\n",port.c_str());
+
 			}
 			if (buffer[0] == 51)
 			{
