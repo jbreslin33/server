@@ -6,42 +6,52 @@
 
 void writeData(Relay* relay)
 {
-	int sock;
-  	struct sockaddr_in sa;
-  	int bytes_sent;
-  	char buffer[200];
- 
-  	strcpy(buffer, "hello to client from serve!");
- 
-  	/* create an Internet, datagram, socket using UDP */
-  	sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-  	if (sock == -1) 
+	printf("in writeData");
+	while (true)
 	{
-      		/* if socket failed to initialize, exit */
-      		printf("Error Creating Socket");
-      		exit(EXIT_FAILURE);
-  	}
+		if (relay->mMessage.length() > 0)
+        	{
+
+			int sock;
+  			struct sockaddr_in sa;
+  			int bytes_sent;
+  			char buffer[200];
  
-  	/* Zero out socket address */
-  	memset(&sa, 0, sizeof sa);
+  			strcpy(buffer, "hello to client from serve!");
+ 
+  			/* create an Internet, datagram, socket using UDP */
+  			sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  			if (sock == -1) 
+			{
+      				/* if socket failed to initialize, exit */
+      				printf("Error Creating Socket");
+     	 			exit(EXIT_FAILURE);
+  			}
+ 
+  			/* Zero out socket address */
+  			memset(&sa, 0, sizeof sa);
   
-  	/* The address is IPv4 */
-  	sa.sin_family = AF_INET;
+ 	 		/* The address is IPv4 */
+ 	 		sa.sin_family = AF_INET;
  
-   	/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
-  	sa.sin_addr.s_addr = inet_addr("127.0.0.1");
+  	 		/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
+  			sa.sin_addr.s_addr = inet_addr("127.0.0.1");
   
-  	/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  	sa.sin_port = htons(8765);
+  			/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
+  			sa.sin_port = htons(8765);
+
+	      		printf("sendto called"); 	
+  			bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
+  			if (bytes_sent < 0) 
+			{
+    				printf("Error sending packet: %s\n", strerror(errno));
+    				exit(EXIT_FAILURE);
+  			}
  
-  	bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
-  	if (bytes_sent < 0) 
-	{
-    		printf("Error sending packet: %s\n", strerror(errno));
-    		exit(EXIT_FAILURE);
-  	}
- 
-  	close(sock); /* close the socket */
+  			close(sock); /* close the socket */
+	  		relay->mMessage.clear();
+		}
+	}
 }
 
 void readSocketData(Relay* relay)
@@ -75,6 +85,7 @@ void readSocketData(Relay* relay)
       			exit(EXIT_FAILURE);
     		}
     		printf("recsize: %d\n ", (int)recsize);
+		relay->mMessage = "yo mon";
     		sleep(1);
     		printf("datagram: %.*s\n", (int)recsize, buffer);
   	}
