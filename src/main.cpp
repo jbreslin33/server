@@ -79,12 +79,12 @@ void readSocketData(Relay* relay)
   	for (;;) 
 	{
 		printf("waiting on port %d\n", 7654);
+
     		recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
-  		//printf("received %d bytes\n", recsize);
+
                 if (recsize > 0) 
 		{
                         buffer[recsize] = 0;
-                        printf("received message: \"%s\"\n", buffer);
 			if (buffer[0] == 49)
 			{
 				printf("MOVE\n");
