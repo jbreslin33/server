@@ -4,7 +4,7 @@
 #include "relay.h"
 
 
-void writeData(Relay* relay)
+void writeSocketData(Relay* relay)
 {
 	printf("in writeData");
 	while (true)
@@ -104,11 +104,11 @@ int main(void)
 {
 	Relay relay;
 
-        std::thread socketReader (readSocketData, &relay);
-        std::thread writer       (writeData, &relay);
+        std::thread tReadSocketData (readSocketData, &relay);
+        std::thread tWriteSocketData (writeSocketData, &relay);
 
-        socketReader.join();
-        writer.join();
+        tReadSocketData.join();
+        tWriteSocketData.join();
 
         return 0;
 
