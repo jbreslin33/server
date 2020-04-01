@@ -104,69 +104,7 @@ void readSocketData(Relay* relay)
 			{
 				printf("END GAME\n");
 			}
-
-
                 }
-		
-		/*
-    		if (recsize < 0) 
-		{
-      			fprintf(stderr, "%s\n", strerror(errno));
-      			exit(EXIT_FAILURE);
-    		}
-    		if (recsize == 0)
-    		{
-        		// socket closed, finalise, break
-    		}
-    		else
-    		{
-        		data.insert(data.end(), buffer, buffer + recsize);
-   		}
-		buffer[recsize] = '\0';
-		//printf("received message: \"%s\"\n", buffer);
-		//printf("received message: %s\n", buffer);
-		if (buffer[0] == 50)
-		{
-			printf("got fitty");
-		}
-		else
-		{
-			printf("got other");
-		}
-
-		//std::string s = std::to_string(buffer[0]);
-		//printf("s:%s",s.c_str());
-		//char const *pchar = s.c_str();  //use char const* as target type
-
-		//printf("received message: %s\n", pchar);
-		*/
-	/*	
-		if (buffer[0] == 50)
-		{
-			printf("new client");
-		}
-		else
-		{	
-			printf("something other than 2 or 50");
-		}
-		*/
-		//printf("buffer[0]:%s\n",buffer[0]);
-
-    		//printf("recsize: %d\n ", (int)recsize);
-    	//	printf("datagram: %.*s\n", (int)recsize, buffer);
-
-		//process
-		/*
-                if (buffer[0] == '2')
-		{
-			printf("connection code");
-		}
-		else
-		{
-			printf("NOT code");
-		}
-	*/	
-			
 	}
 }
 
