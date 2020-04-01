@@ -85,10 +85,22 @@ void readSocketData(Relay* relay)
       			exit(EXIT_FAILURE);
     		}
     		printf("recsize: %d\n ", (int)recsize);
-		relay->mMessage = "yo mon";
-    		sleep(1);
+		//relay->mMessage = "yo mon";
+    		//sleep(1);
     		printf("datagram: %.*s\n", (int)recsize, buffer);
-  	}
+
+		//process
+                if (buffer[0] == '2')
+		{
+			printf("connection code");
+		}
+		else
+		{
+			printf("NOT code");
+		}
+		
+			
+	}
 
 	/*
         while (true)
