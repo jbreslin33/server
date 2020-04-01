@@ -78,13 +78,26 @@ void readSocketData(Relay* relay)
 
   	for (;;) 
 	{
+		printf("waiting on port %d\n", 7654);
     		recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
+  		//printf("received %d bytes\n", recsize);
+                if (recsize > 0) 
+		{
+                        buffer[recsize] = 0;
+                        printf("received message: \"%s\"\n", buffer);
+			if (buffer[0] == 50)
+			{
+				printf("true");
+			}
+
+                }
+		
+		/*
     		if (recsize < 0) 
 		{
       			fprintf(stderr, "%s\n", strerror(errno));
       			exit(EXIT_FAILURE);
     		}
-/*
     		if (recsize == 0)
     		{
         		// socket closed, finalise, break
@@ -93,16 +106,24 @@ void readSocketData(Relay* relay)
     		{
         		data.insert(data.end(), buffer, buffer + recsize);
    		}
-		*/
-		buffer[recsize] = 0;
+		buffer[recsize] = '\0';
 		//printf("received message: \"%s\"\n", buffer);
-		printf("received message: %s\n", buffer);
+		//printf("received message: %s\n", buffer);
+		if (buffer[0] == 50)
+		{
+			printf("got fitty");
+		}
+		else
+		{
+			printf("got other");
+		}
 
-		std::string s = std::to_string(buffer[0]);
-		printf("s:%s",s);
-		char const *pchar = s.c_str();  //use char const* as target type
+		//std::string s = std::to_string(buffer[0]);
+		//printf("s:%s",s.c_str());
+		//char const *pchar = s.c_str();  //use char const* as target type
 
 		//printf("received message: %s\n", pchar);
+		*/
 	/*	
 		if (buffer[0] == 50)
 		{
