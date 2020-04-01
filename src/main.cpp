@@ -85,10 +85,19 @@ void readSocketData(Relay* relay)
 		{
                         buffer[recsize] = 0;
                         printf("received message: \"%s\"\n", buffer);
+			if (buffer[0] == 49)
+			{
+				printf("MOVE\n");
+			}
 			if (buffer[0] == 50)
 			{
-				printf("true");
+				printf("NEW CLIENT\n");
 			}
+			if (buffer[0] == 51)
+			{
+				printf("END GAME\n");
+			}
+
 
                 }
 		
