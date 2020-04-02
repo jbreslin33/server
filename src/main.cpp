@@ -104,10 +104,20 @@ void readSocketData(Relay* relay)
 			if (buffer[0] == 49)
 			{
 				printf("MOVE\n");
+
+                                //lets send message back to client and clients later....
+                                std::string m = "1"; //new client
+
+                                //std::string id = std::to_string(client->mId);
+                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
+
+				relay->mMessage = m;
+
 			}
 			if (buffer[0] == 50)
 			{
 				printf("NEW CLIENT\n");
+
 				std::string port;
 				for (int i = 1; i < 6; i++)
 				{
@@ -145,6 +155,14 @@ void readSocketData(Relay* relay)
 			if (buffer[0] == 51)
 			{
 				printf("END GAME\n");
+                                
+				//lets send message back to client and clients later....
+                                std::string m = "3"; //new client
+
+                                //std::string id = std::to_string(client->mId);
+                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
+
+				relay->mMessage = m;
 			}
                 }
 	}
