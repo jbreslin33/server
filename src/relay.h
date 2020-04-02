@@ -15,6 +15,8 @@
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
+class Server;
+
 class Relay
 {
 	private:
@@ -26,6 +28,8 @@ class Relay
 	std::string mMessage;
 
 	int mPort;
+
+	Server* mServer;
 
 
 };

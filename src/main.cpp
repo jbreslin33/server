@@ -2,6 +2,18 @@
 #include <thread>
 
 #include "relay.h"
+#include "server.h"
+
+void server(Relay* relay)
+{
+	Server* theServer = new Server(); 
+	relay->mServer = theServer;	
+
+	while (true)
+	{
+
+	}
+}
 
 
 void writeSocketData(Relay* relay)
@@ -135,9 +147,11 @@ int main(void)
 
         std::thread tReadSocketData (readSocketData, &relay);
         std::thread tWriteSocketData (writeSocketData, &relay);
+        std::thread tServer          (server, &relay);
 
         tReadSocketData.join();
         tWriteSocketData.join();
+        tServer.join();
 
         return 0;
 

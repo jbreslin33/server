@@ -1,10 +1,11 @@
 #include "relay.h"
+#include "server.h"
 
 #include <fstream>
 
 Relay::Relay()
 {
-
+//	mServer = new Server();
 }
 /*
 void Relay::sendToServer(std::string s)
