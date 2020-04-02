@@ -27,8 +27,6 @@ class Relay
 	void log(std::string s);
 	std::string mMessage;
 
-	int mPort;
-
 	Server* mServer;
 
 

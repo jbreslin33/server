@@ -7,6 +7,7 @@ class Client
 
 	public:
 		Client(int id, int port);
+		int mId;
 		int mPort;
 };
 
