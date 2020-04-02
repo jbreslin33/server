@@ -2,5 +2,5 @@
 
 Server::Server()
 {
-
+	mClientIdCounter = 0;
 }

@@ -3,6 +3,7 @@
 
 #include "relay.h"
 #include "server.h"
+#include "client.h"
 
 void server(Relay* relay)
 {
@@ -131,6 +132,9 @@ void readSocketData(Relay* relay)
 				std::string m = "Hi client I got your port it is:";
 				m.append(port);
 				relay->mMessage = m;
+
+				//lets create a client
+				Client* client = new Client(relay->mServer->mClientIdCounter++,relay->mPort);
 
 			}
 			if (buffer[0] == 51)
