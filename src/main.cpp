@@ -39,7 +39,8 @@ void writeSocketData(Relay* relay)
   			sa.sin_addr.s_addr = inet_addr("127.0.0.1");
   
   			/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  			sa.sin_port = htons(8765);
+  			//sa.sin_port = htons(8765);
+  			sa.sin_port = htons(relay->mPort);
 
 	      		printf("sendto called"); 	
   			bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
@@ -109,7 +110,10 @@ void readSocketData(Relay* relay)
 					}
 					port.push_back(buffer[i]);
 				}	
-				relay->mPort = (unsigned short) strtoul(port.c_str(), NULL, 0);
+				//relay->mPort = (unsigned short) strtous(port.c_str(), NULL, 0);
+				//std::stringstream geek(port);
+				relay->mPort = stoi(port);
+				printf("mPort:%d",relay->mPort);
 				printf("PORT:%s\n",port.c_str());
 
 				//lets send message back to client
