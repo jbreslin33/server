@@ -17,7 +17,8 @@ void writeSocketData(Relay* relay)
   			int bytes_sent;
   			char buffer[200];
  
-  			strcpy(buffer, "hello to client from serve!");
+  			//strcpy(buffer, "hello to client from serve!");
+  			strcpy(buffer, relay->mMessage.c_str());
  
   			/* create an Internet, datagram, socket using UDP */
   			sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -108,7 +109,11 @@ void readSocketData(Relay* relay)
 					}
 					port.push_back(buffer[i]);
 				}	
+				relay->mPort = (unsigned short) strtoul(port.c_str(), NULL, 0);
 				printf("PORT:%s\n",port.c_str());
+
+				//lets send message back to client
+				relay->mMessage = "hi client i got your message";
 
 			}
 			if (buffer[0] == 51)

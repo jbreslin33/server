@@ -25,6 +25,9 @@ class Relay
 	void log(std::string s);
 	std::string mMessage;
 
+	unsigned short mPort;
+
+
 };
 
 #endif
