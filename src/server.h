@@ -14,5 +14,7 @@ class Server
 		std::vector<Client*> mClientVector;
 
 		int mClientIdCounter;
+
+		int getNextClientId();
 };
 #endif

@@ -4,6 +4,6 @@
 
 Client::Client(int id, int port)
 {
-	printf("client %d listening on port %d",id,port);
+	printf("client %d listening on port %d\n",id,port);
 }
 

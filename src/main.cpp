@@ -134,7 +134,7 @@ void readSocketData(Relay* relay)
 				relay->mMessage = m;
 
 				//lets create a client
-				Client* client = new Client(relay->mServer->mClientIdCounter++,relay->mPort);
+				Client* client = new Client(relay->mServer->getNextClientId(),relay->mPort);
 
 			}
 			if (buffer[0] == 51)
