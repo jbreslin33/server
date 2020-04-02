@@ -107,7 +107,10 @@ void readSocketData(Relay* relay)
 							port.push_back(buffer[i]);
 						}
 					}
-					port.push_back(buffer[i]);
+					else
+					{
+						port.push_back(buffer[i]);
+					}
 				}	
 				relay->mPort = stoi(port);
 				printf("Grabbed client port it is:%d",relay->mPort);
