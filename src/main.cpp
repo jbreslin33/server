@@ -39,7 +39,6 @@ void writeSocketData(Relay* relay)
   			sa.sin_addr.s_addr = inet_addr("127.0.0.1");
   
   			/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  			//sa.sin_port = htons(8765);
   			sa.sin_port = htons(relay->mPort);
 
 	      		printf("sendto called"); 	
@@ -110,14 +109,13 @@ void readSocketData(Relay* relay)
 					}
 					port.push_back(buffer[i]);
 				}	
-				//relay->mPort = (unsigned short) strtous(port.c_str(), NULL, 0);
-				//std::stringstream geek(port);
 				relay->mPort = stoi(port);
-				printf("mPort:%d",relay->mPort);
-				printf("PORT:%s\n",port.c_str());
+				printf("Grabbed client port it is:%d",relay->mPort);
 
 				//lets send message back to client
-				relay->mMessage = "hi client i got your message";
+				std::string m = "Hi client I got your port it is:";
+				m.append(port);
+				relay->mMessage = m;
 
 			}
 			if (buffer[0] == 51)
