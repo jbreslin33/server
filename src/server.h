@@ -4,6 +4,7 @@
 #include <vector>
 
 class Client;
+class Utility;
 
 class Server
 {
@@ -11,10 +12,10 @@ class Server
 
 	public:
 		Server();
-		std::vector<Client*> mClientVector;
-
-		int mClientIdCounter;
-
 		int getNextClientId();
+
+		Utility* mUtility;
+		std::vector<Client*> mClientVector;
+		int mClientIdCounter;
 };
 #endif

@@ -4,6 +4,7 @@
 #include "relay.h"
 #include "server.h"
 #include "client.h"
+#include "utility.h"
 
 void server(Relay* relay)
 {
@@ -12,7 +13,7 @@ void server(Relay* relay)
 
 	while (true)
 	{
-
+				
 	}
 }
 
@@ -56,10 +57,8 @@ void writeSocketData(Relay* relay)
   				sa.sin_addr.s_addr = inet_addr("127.0.0.1");
   
   				/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  				//sa.sin_port = htons(relay->mPort);
   				sa.sin_port = htons(relay->mServer->mClientVector.at(c)->mPort);
 
-	      			printf("sendto called"); 	
   				bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
   				if (bytes_sent < 0) 
 				{
@@ -137,11 +136,13 @@ void readSocketData(Relay* relay)
 				//lets create a client
 				Client* client = new Client(relay->mServer->getNextClientId(),portInt);
 				relay->mServer->mClientVector.push_back(client);
-				//printf("Grabbed client port it is:%d",relay->mPort);
 
 				//lets send message back to client and clients later....
-				std::string m = "Hi client I got your port it is:";
-				m.append(port);
+				std::string m = "2"; //new client
+
+				std::string id = std::to_string(client->mId); 
+				m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
+
 				relay->mMessage = m;
 
 
