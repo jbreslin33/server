@@ -95,6 +95,17 @@ void readSocketData(Relay* relay)
 				std::string port;
 				for (int i = 1; i < 6; i++)
 				{
+					if (i == 1)
+					{
+						if (buffer[i] == 48)
+						{
+							//port is below 10000 and has leading zero from client so dont put in port string
+						}
+						else
+						{
+							port.push_back(buffer[i]);
+						}
+					}
 					port.push_back(buffer[i]);
 				}	
 				printf("PORT:%s\n",port.c_str());
