@@ -22,14 +22,11 @@ void writeSocketData(Relay* relay)
 {
 	while (true)
 	{
-		//printf("A\n");
 		if (relay->mMessage.length() > 0)
         	{
-			printf("B\n");
 			//we then should loop clients......
 			for (int c = 0; c < relay->mServer->mClientVector.size(); c++)
 			{
-				printf("C\n");
 
 				int sock;
   				struct sockaddr_in sa;
@@ -144,8 +141,6 @@ void readSocketData(Relay* relay)
 				m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
 
 				relay->mMessage = m;
-
-
 			}
 			if (buffer[0] == 51)
 			{
