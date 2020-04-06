@@ -6,7 +6,7 @@
 class Rondo : public Game 
 {
 	public: 
-		Rondo(int id);
+		Rondo(Server* server, int id);
 	private:
 
 };

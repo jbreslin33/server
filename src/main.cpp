@@ -15,7 +15,7 @@ void server(Relay* relay)
 
 	//create game here. later this could be scheduled like a game or practice..
 	
-	Game* rondo = new Rondo(theServer->getNextGameId());
+	Game* rondo = new Rondo(theServer, theServer->getNextGameId());
 	relay->mServer->mGameVector.push_back(rondo);
 
 	while (true)
@@ -55,6 +55,22 @@ void readSocketData(Relay* relay)
                 if (recsize > 0) 
 		{
                         buffer[recsize] = 0;
+			char* cBuffer;
+			cBuffer = (char*)buffer;
+				
+			int n = int(buffer[0]);
+			int e = n - 49;	
+			printf("game element:%d\n",e);
+			relay->mServer->mGameVector.at(e)->processBuffer(cBuffer);				
+/*
+			if (buffer[0] == 49) //game 1 rondo
+			{
+				int n = int(buffer[0]);
+				int e = n - 1;	
+				relay->mServer->mGameVector.at(e)->processBuffer(buffer);				
+			}
+
+
 			if (buffer[0] == 49)
 			{
 				printf("MOVE\n");
@@ -66,12 +82,10 @@ void readSocketData(Relay* relay)
                                 //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
 
 				relay->mMessage = m;
-
+			
 			}
 			if (buffer[0] == 50)
 			{
-				printf("NEW CLIENT\n");
-
 				std::string port;
 				for (int i = 1; i < 6; i++)
 				{
@@ -118,6 +132,8 @@ void readSocketData(Relay* relay)
 
 				relay->mMessage = m;
 			}
+		*/
+			
                 }
 	}
 }
@@ -130,48 +146,50 @@ void writeSocketData(Relay* relay)
 		if (relay->mMessage.length() > 0)
         	{
 			//we then should loop clients......
-			for (int c = 0; c < relay->mServer->mClientVector.size(); c++)
+			for (int g = 0; g < relay->mServer->mGameVector.size(); g++)
 			{
-
-				int sock;
-  				struct sockaddr_in sa;
-  				int bytes_sent;
-  				char buffer[200];
- 
-  				strcpy(buffer, relay->mMessage.c_str());
- 
-  				/* create an Internet, datagram, socket using UDP */
-  				sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-  				if (sock == -1) 
+				for (int c = 0; c < relay->mServer->mGameVector.at(g)->mClientVector.size(); c++)
 				{
-      					/* if socket failed to initialize, exit */
-      					printf("Error Creating Socket");
-     	 				exit(EXIT_FAILURE);
-  				}
+					int sock;
+  					struct sockaddr_in sa;
+  					int bytes_sent;
+  					char buffer[200];
  
-  				/* Zero out socket address */
-  				memset(&sa, 0, sizeof sa);
-  
- 	 			/* The address is IPv4 */
- 	 			sa.sin_family = AF_INET;
+  					strcpy(buffer, relay->mMessage.c_str());
  
-  	 			/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
-  				sa.sin_addr.s_addr = inet_addr("127.0.0.1");
+  					/* create an Internet, datagram, socket using UDP */
+  					sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  					if (sock == -1) 
+					{
+      						/* if socket failed to initialize, exit */
+      						printf("Error Creating Socket");
+     	 					exit(EXIT_FAILURE);
+  					}
+ 
+  					/* Zero out socket address */
+  					memset(&sa, 0, sizeof sa);
   
-  				/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  				sa.sin_port = htons(relay->mServer->mClientVector.at(c)->mPort);
+ 	 				/* The address is IPv4 */
+ 	 				sa.sin_family = AF_INET;
+ 
+  	 				/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
+  					sa.sin_addr.s_addr = inet_addr("127.0.0.1");
+  
+  					/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
+  					sa.sin_port = htons(relay->mServer->mGameVector.at(g)->mClientVector.at(c)->mPort);
 
-  				bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
-  				if (bytes_sent < 0) 
-				{
-    					printf("Error sending packet: %s\n", strerror(errno));
-    					exit(EXIT_FAILURE);
-  				}
+  					bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
+  					if (bytes_sent < 0) 
+					{
+    						printf("Error sending packet: %s\n", strerror(errno));
+    						exit(EXIT_FAILURE);
+  					}
  
-  				close(sock); /* close the socket */
+  					close(sock); /* close the socket */
+				}
 			}
-	  		relay->mMessage.clear();
 		}
+	  	relay->mMessage.clear();
 	}
 }
 

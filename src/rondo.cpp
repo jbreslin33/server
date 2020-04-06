@@ -1,6 +1,7 @@
 #include "rondo.h"
 
-Rondo::Rondo(int id) : Game(id)
+
+Rondo::Rondo(Server* server, int id) : Game(server,id)
 {
 
 }
