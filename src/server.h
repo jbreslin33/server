@@ -13,6 +13,7 @@ class Server
 
 	public:
 		Server();
+		void update();
 		int getNextGameId();
 		int getNextClientId();
 

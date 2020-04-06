@@ -1,5 +1,6 @@
 #include "server.h"
 #include "utility.h"
+#include "game.h"
 
 Server::Server()
 {
@@ -19,5 +20,14 @@ int Server::getNextClientId()
 {
 	mClientIdCounter++;
 	return mClientIdCounter;
+}
+
+void Server::update()
+{
+	for (int i = 0; i < mGameVector.size(); i++)
+	{
+		mGameVector.at(i)->update();		
+	}                 
+
 }
 

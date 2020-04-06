@@ -19,8 +19,8 @@ void server(Relay* relay)
 
 	while (true)
 	{
+		relay->mServer->update();
 	}	
-
 }
 
 void readSocketData(Relay* relay)
