@@ -8,7 +8,9 @@ class Game
 	public:
 		Game(int id);
 		void update();
+		void tick();
 		int mId;
+		bool mRunning;
 };
 
 #endif

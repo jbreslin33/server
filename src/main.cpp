@@ -16,6 +16,7 @@ void server(Relay* relay)
 	//create game here. later this could be scheduled like a game or practice..
 	
 	Game* rondo = new Rondo(theServer->getNextGameId());
+	relay->mServer->mGameVector.push_back(rondo);
 
 	while (true)
 	{
