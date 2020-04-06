@@ -1,53 +1,43 @@
 #include <iostream>
 
 #include "game.h"
-#include <chrono>
 
-using namespace std::chrono;
+#include <sys/time.h>
 
 Game::Game(int id)
 {
 	mId = id;
 	printf("game id %d started.\n", mId);
-/*
-	milliseconds ms = duration_cast< milliseconds >
-	(
-    		system_clock::now().time_since_epoch()
-	);
-	*/
 
 	mRunning = true;
+
+	mGameStartTime = getCurrentMilliseconds();
+	mLastTime = mGameStartTime;
+	mDelta = 0;
+	mTickCount = 0;
+}
+
+long Game::getCurrentMilliseconds()
+{
+	struct timeval tp;
+	gettimeofday(&tp, NULL);
+	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+	return ms;
 }
 
 void Game::update()
 {
+	mDelta = getCurrentMilliseconds() - mLastTime;
 
-	//printf("update game id: %d \n", mId);
-	/*
-
-	double ns = 1000000000.0 / 60.0;
-    	double delta = 0;
-
-   	long lastTime = System.nanoTime();
-    	long timer = System.currentTimeMillis();
-
-    	while (mRunning) 
+	if (mDelta > 30)
 	{
-        	long now = System.nanoTime();
-        	delta += (now - lastTime) / ns;
-        	lastTime = now;
-
-        	while (delta >= 1) 
-		{
-            		tick();
-            		delta--;
-        	}
-    	}
-	*/
+		tick();	
+		mLastTime = getCurrentMilliseconds();
+	}
 }
 
 void Game::tick()
 {
-
+	//printf("tick:%ld\n",mDelta);
 }
 
