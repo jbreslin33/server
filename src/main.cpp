@@ -5,69 +5,22 @@
 #include "server.h"
 #include "client.h"
 #include "utility.h"
+#include "game.h"
+#include "rondo.h"
 
 void server(Relay* relay)
 {
 	Server* theServer = new Server(); 
 	relay->mServer = theServer;	
 
+	//create game here. later this could be scheduled like a game or practice..
+	
+	Game* rondo = new Rondo(theServer->getNextGameId());
+
 	while (true)
 	{
-				
-	}
-}
+	}	
 
-
-void writeSocketData(Relay* relay)
-{
-	while (true)
-	{
-		if (relay->mMessage.length() > 0)
-        	{
-			//we then should loop clients......
-			for (int c = 0; c < relay->mServer->mClientVector.size(); c++)
-			{
-
-				int sock;
-  				struct sockaddr_in sa;
-  				int bytes_sent;
-  				char buffer[200];
- 
-  				strcpy(buffer, relay->mMessage.c_str());
- 
-  				/* create an Internet, datagram, socket using UDP */
-  				sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-  				if (sock == -1) 
-				{
-      					/* if socket failed to initialize, exit */
-      					printf("Error Creating Socket");
-     	 				exit(EXIT_FAILURE);
-  				}
- 
-  				/* Zero out socket address */
-  				memset(&sa, 0, sizeof sa);
-  
- 	 			/* The address is IPv4 */
- 	 			sa.sin_family = AF_INET;
- 
-  	 			/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
-  				sa.sin_addr.s_addr = inet_addr("127.0.0.1");
-  
-  				/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
-  				sa.sin_port = htons(relay->mServer->mClientVector.at(c)->mPort);
-
-  				bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
-  				if (bytes_sent < 0) 
-				{
-    					printf("Error sending packet: %s\n", strerror(errno));
-    					exit(EXIT_FAILURE);
-  				}
- 
-  				close(sock); /* close the socket */
-			}
-	  		relay->mMessage.clear();
-		}
-	}
 }
 
 void readSocketData(Relay* relay)
@@ -167,6 +120,60 @@ void readSocketData(Relay* relay)
                 }
 	}
 }
+
+
+void writeSocketData(Relay* relay)
+{
+	while (true)
+	{
+		if (relay->mMessage.length() > 0)
+        	{
+			//we then should loop clients......
+			for (int c = 0; c < relay->mServer->mClientVector.size(); c++)
+			{
+
+				int sock;
+  				struct sockaddr_in sa;
+  				int bytes_sent;
+  				char buffer[200];
+ 
+  				strcpy(buffer, relay->mMessage.c_str());
+ 
+  				/* create an Internet, datagram, socket using UDP */
+  				sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  				if (sock == -1) 
+				{
+      					/* if socket failed to initialize, exit */
+      					printf("Error Creating Socket");
+     	 				exit(EXIT_FAILURE);
+  				}
+ 
+  				/* Zero out socket address */
+  				memset(&sa, 0, sizeof sa);
+  
+ 	 			/* The address is IPv4 */
+ 	 			sa.sin_family = AF_INET;
+ 
+  	 			/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
+  				sa.sin_addr.s_addr = inet_addr("127.0.0.1");
+  
+  				/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
+  				sa.sin_port = htons(relay->mServer->mClientVector.at(c)->mPort);
+
+  				bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
+  				if (bytes_sent < 0) 
+				{
+    					printf("Error sending packet: %s\n", strerror(errno));
+    					exit(EXIT_FAILURE);
+  				}
+ 
+  				close(sock); /* close the socket */
+			}
+	  		relay->mMessage.clear();
+		}
+	}
+}
+
 
 int main(void)
 {
