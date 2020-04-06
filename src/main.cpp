@@ -179,13 +179,13 @@ int main(void)
 {
 	Relay relay;
 
+        std::thread tServer          (server, &relay);
         std::thread tReadSocketData (readSocketData, &relay);
         std::thread tWriteSocketData (writeSocketData, &relay);
-        std::thread tServer          (server, &relay);
 
+        tServer.join();
         tReadSocketData.join();
         tWriteSocketData.join();
-        tServer.join();
 
         return 0;
 

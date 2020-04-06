@@ -5,6 +5,11 @@
 Game::Game(int id)
 {
 	mId = id;
-	printf("game id %d started.", mId);
+	printf("game id %d started.\n", mId);
+}
+
+void Game::update()
+{
+		
 }
 

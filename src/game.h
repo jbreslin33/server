@@ -7,6 +7,7 @@ class Game
 
 	public:
 		Game(int id);
+		void update();
 		int mId;
 };
 
