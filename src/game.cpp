@@ -104,20 +104,7 @@ void Game::processBuffer(char* buffer)
 
 			}
 		}
-               	//Client* client = new Client(relay->mServer->getNextClientId(),portInt);
-               	//relay->mServer->mClientVector.push_back(client);
-
-               	//lets send message back to client and clients later....
-		/*
-              	std::string m = "2"; //new client
-
-               	std::string id = std::to_string(client->mId); 
-               	m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
-
-               	relay->mMessage = m;
-		*/
 	}
-
 }
 
 int Game::getNextClientId()
