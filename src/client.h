@@ -9,6 +9,8 @@ class Client
 		Client(int id, int port);
 		int mId;
 		int mPort;
+
+		bool mSentToClient;
 };
 
 #endif

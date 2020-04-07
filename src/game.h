@@ -18,6 +18,8 @@ class Game
 		Game(Server* server, int id);
 		void update();
 		void tick();
+		void sendToClient(Client* client, std::string message);
+
 		long getCurrentMilliseconds();
 
 		//buffer

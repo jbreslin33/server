@@ -8,6 +8,17 @@
 
 #include <sys/time.h>
 
+//berkeley sockets
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
 Game::Game(Server* server, int id)
 {
 	//server
@@ -93,6 +104,7 @@ void Game::processBuffer(char* buffer)
 				mClientVector.at(c)->mPort = portInt;
 		
                			//lets send message back to client and clients later....
+				/*
               			std::string m = "2"; //new client
                	
 				std::string id = std::to_string(mClientVector.at(c)->mId); 
@@ -101,7 +113,9 @@ void Game::processBuffer(char* buffer)
                			//mMessage = m;
 
 				//break out
+				*/
 				c = mClientVector.size() + 3;
+
 
 			}
 		}
@@ -143,5 +157,64 @@ void Game::update()
 void Game::tick()
 {
 	//printf("tick:%ld\n",mDelta);
+	//any new clients
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
+		{
+			//then we need to send to client so lets construct a messsage
+
+                        std::string message = "2"; //new client
+
+                        std::string id = std::to_string(mClientVector.at(c)->mId); //client id
+
+                        message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
+                        printf("Game sending this message to client id %s: %s\n",id.c_str(),message.c_str()); //print to console what we are about to send
+
+			sendToClient(mClientVector.at(c),message);
+
+			mClientVector.at(c)->mSentToClient = true;
+		}
+	}
+}
+
+void Game::sendToClient(Client* client, std::string message)
+{
+	int sock;
+        struct sockaddr_in sa;
+        int bytes_sent;
+       	char buffer[200];
+
+       	strcpy(buffer, message.c_str());
+
+       	/* create an Internet, datagram, socket using UDP */
+	sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+       	if (sock == -1)
+	{
+       		/* if socket failed to initialize, exit */
+               	printf("Error Creating Socket");
+                exit(EXIT_FAILURE);
+	}
+
+        /* Zero out socket address */
+        memset(&sa, 0, sizeof sa);
+
+	/* The address is IPv4 */
+       	sa.sin_family = AF_INET;
+
+       	/* IPv4 adresses is a uint32_t, convert a string representation of the octets to the appropriate value */
+        sa.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+	/* sockets are unsigned shorts, htons(x) ensures x is in network byte order, set the port to 7654 */
+        sa.sin_port = htons(client->mPort);
+
+        bytes_sent = sendto(sock, buffer, strlen(buffer), 0,(struct sockaddr*)&sa, sizeof sa);
+        if (bytes_sent < 0)
+        {
+        	printf("Error sending packet: %s\n", strerror(errno));
+                exit(EXIT_FAILURE);
+       	}
+
+	close(sock); /* close the socket */
 }
 
