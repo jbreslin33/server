@@ -68,58 +68,60 @@ Game::Game(Server* server, int id)
 	
 
 }
-void Game::processBuffer(char* buffer)
+
+void Game::processNewClient(char* buffer)
 {
+	bool foundClient = false;
 
-  	if (buffer[1] == 50)
-	{
-		bool foundClient = false;
-
-		printf("we have a 50 which is a connect.\n");
-		std::string port;
-        	for (int i = 2; i < 7; i++)
-        	{
-         		if (i == 1)
+	printf("we have a 50 which is a connect.\n");
+	std::string port;
+        for (int i = 2; i < 7; i++)
+        {
+        	if (i == 1)
+                {
+                   	if (buffer[i] == 48)
                         {
-                        	if (buffer[i] == 48)
-                                {
-                                	//port is below 10000 and has leading zero from client so dont put in port string
-                                }
-                                else
-                                {
-                                	port.push_back(buffer[i]);
-                                }
-                       	}
+                              	//port is below 10000 and has leading zero from client so dont put in port string
+                        }
                         else
                         {
-                        	port.push_back(buffer[i]);
+                             	port.push_back(buffer[i]);
                         }
-		}       
-                //relay->mPort = stoi(port);
-               	int portInt = stoi(port);
+               }
+               else
+               {
+                   	port.push_back(buffer[i]);
+               }
+	}       
+        //relay->mPort = stoi(port);
+       	int portInt = stoi(port);
 
-               	//lets find a client with a port 0 so its not being used by human
-		for (int c = 0; c < mClientVector.size(); c++)
-		{
-			if (!foundClient)
-			{
-				if (mClientVector.at(c)->mPort == 0)
-				{
-					printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
-					mClientVector.at(c)->mPort = portInt;
-	
-					//breakout	
-					//c = mClientVector.size() + 3;
-
-					foundClient = true;
-				}
-			}
-		}
-
+       	//lets find a client with a port 0 so its not being used by human
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
 		if (!foundClient)
 		{
-			printf("Game is full!!! we need another game");
+			if (mClientVector.at(c)->mPort == 0)
+			{
+				printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
+				mClientVector.at(c)->mPort = portInt;
+	
+				foundClient = true;
+			}
 		}
+	}		
+
+	if (!foundClient)
+	{
+		printf("Game is full!!! we need another game");
+	}
+}
+
+void Game::processBuffer(char* buffer)
+{
+  	if (buffer[1] == 50)
+	{
+		processNewClient(buffer);
 	}
 }
 
