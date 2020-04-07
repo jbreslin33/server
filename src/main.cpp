@@ -19,11 +19,6 @@
 
 void serverThread(Server* server)
 {
-	//create game here. later this could be scheduled like a game or practice..
-	
-	Game* rondo = new Rondo(server, server->getNextGameId());
-	server->mGameVector.push_back(rondo);
-
 	while (true)
 	{
 		server->update();
@@ -75,6 +70,9 @@ void readSocketData(Server* server)
 int main(void)
 {
 	Server server;
+	
+	Game* rondo = new Rondo(&server, server.getNextGameId());
+	server.mGameVector.push_back(rondo);
 
         std::thread tServer          (serverThread, &server);
         std::thread tReadSocketData (readSocketData, &server);
