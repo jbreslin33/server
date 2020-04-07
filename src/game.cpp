@@ -117,11 +117,21 @@ void Game::processNewClient(char* buffer)
 	}
 }
 
+void Game::processMove(char* buffer)
+{
+
+}
+
 void Game::processBuffer(char* buffer)
 {
   	if (buffer[1] == 50)
 	{
 		processNewClient(buffer);
+	}
+
+  	if (buffer[1] == 49)
+	{
+		processMove(buffer);
 	}
 }
 

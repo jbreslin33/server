@@ -24,6 +24,7 @@ class Game
 
 		//buffer
 		void processBuffer(char* buffer);
+		void processMove(char* buffer);
 		void processNewClient(char* buffer);
 
 		//message to clients
