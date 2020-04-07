@@ -62,82 +62,9 @@ void readSocketData(Relay* relay)
 			int e = n - 49;	
 			printf("game element:%d\n",e);
 			relay->mServer->mGameVector.at(e)->processBuffer(cBuffer);				
-/*
-			if (buffer[0] == 49) //game 1 rondo
-			{
-				int n = int(buffer[0]);
-				int e = n - 1;	
-				relay->mServer->mGameVector.at(e)->processBuffer(buffer);				
-			}
-
-
-			if (buffer[0] == 49)
-			{
-				printf("MOVE\n");
-
-                                //lets send message back to client and clients later....
-                                std::string m = "1"; //new client
-
-                                //std::string id = std::to_string(client->mId);
-                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
-
-				relay->mMessage = m;
-			
-			}
-			if (buffer[0] == 50)
-			{
-				std::string port;
-				for (int i = 1; i < 6; i++)
-				{
-					if (i == 1)
-					{
-						if (buffer[i] == 48)
-						{
-							//port is below 10000 and has leading zero from client so dont put in port string
-						}
-						else
-						{
-							port.push_back(buffer[i]);
-						}
-					}
-					else
-					{
-						port.push_back(buffer[i]);
-					}
-				}	
-				//relay->mPort = stoi(port);
-				int portInt = stoi(port);
-
-				//lets create a client
-				Client* client = new Client(relay->mServer->getNextClientId(),portInt);
-				relay->mServer->mClientVector.push_back(client);
-
-				//lets send message back to client and clients later....
-				std::string m = "2"; //new client
-
-				std::string id = std::to_string(client->mId); 
-				m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
-
-				relay->mMessage = m;
-			}
-			if (buffer[0] == 51)
-			{
-				printf("END GAME\n");
-                                
-				//lets send message back to client and clients later....
-                                std::string m = "3"; //new client
-
-                                //std::string id = std::to_string(client->mId);
-                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
-
-				relay->mMessage = m;
-			}
-		*/
-			
                 }
 	}
 }
-
 
 void writeSocketData(Relay* relay)
 {
