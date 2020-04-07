@@ -19,7 +19,7 @@
 
 void serverThread(Server* server)
 {
-	while (true)
+	while (server->mRunning == true)
 	{
 		server->update();
 	}	

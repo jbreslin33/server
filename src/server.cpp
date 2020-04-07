@@ -6,6 +6,8 @@ Server::Server()
 {
 	mUtility = new Utility();
 	mGameIdCounter = 0;
+
+	mRunning = true;
 }
 
 int Server::getNextGameId()

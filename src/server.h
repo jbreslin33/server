@@ -25,5 +25,6 @@ class Server
 		std::vector<Game*> mGameVector;
 
 		int mGameIdCounter;
+		bool mRunning;
 };
 #endif
