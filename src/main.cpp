@@ -1,30 +1,36 @@
+//berkeley socket for read server
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <unistd.h> /* for close() for socket */ 
+#include <stdlib.h>
+
 #include <iostream>
 #include <thread>
 
-#include "relay.h"
 #include "server.h"
 #include "client.h"
 #include "utility.h"
 #include "game.h"
 #include "rondo.h"
 
-void server(Relay* relay)
+void serverThread(Server* server)
 {
-	Server* theServer = new Server(); 
-	relay->mServer = theServer;	
-
 	//create game here. later this could be scheduled like a game or practice..
 	
-	Game* rondo = new Rondo(theServer, theServer->getNextGameId());
-	relay->mServer->mGameVector.push_back(rondo);
+	Game* rondo = new Rondo(server, server->getNextGameId());
+	server->mGameVector.push_back(rondo);
 
 	while (true)
 	{
-		relay->mServer->update();
+		server->update();
 	}	
 }
 
-void readSocketData(Relay* relay)
+void readSocketData(Server* server)
 {
 	int sock;
   	struct sockaddr_in sa; 
@@ -61,17 +67,17 @@ void readSocketData(Relay* relay)
 			int n = int(buffer[0]);
 			int e = n - 49;	
 			printf("game element:%d\n",e);
-			relay->mServer->mGameVector.at(e)->processBuffer(cBuffer);				
+			server->mGameVector.at(e)->processBuffer(cBuffer);				
                 }
 	}
 }
 
 int main(void)
 {
-	Relay relay;
+	Server server;
 
-        std::thread tServer          (server, &relay);
-        std::thread tReadSocketData (readSocketData, &relay);
+        std::thread tServer          (serverThread, &server);
+        std::thread tReadSocketData (readSocketData, &server);
 
         tServer.join();
         tReadSocketData.join();

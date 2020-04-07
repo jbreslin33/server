@@ -23,3 +23,12 @@ void Server::update()
 
 }
 
+
+void Server::log(std::string s)
+{
+        std::ofstream ofs;
+        ofs.open ("server.log", std::ofstream::out | std::ofstream::app);
+        ofs << s << std::endl;
+        ofs.close();
+}
+

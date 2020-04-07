@@ -2,6 +2,10 @@
 #define SERVER_H
 
 #include <vector>
+#include <iostream>
+#include <fstream>
+
+
 
 class Game;
 class Utility;
@@ -14,6 +18,7 @@ class Server
 		Server();
 		void update();
 		int getNextGameId();
+	       	void log(std::string s);
 
 		Utility* mUtility;
 
