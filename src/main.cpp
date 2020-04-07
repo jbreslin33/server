@@ -70,10 +70,9 @@ void writeSocketData(Relay* relay)
 {
 	while (true)
 	{
-		if (relay->mMessage.length() > 0)
-        	{
-			//we then should loop clients......
-			for (int g = 0; g < relay->mServer->mGameVector.size(); g++)
+		for (int g = 0; g < relay->mServer->mGameVector.size(); g++)
+		{
+			if (relay->mServer->mGameVector.at(g)->mMessage.length() > 0)
 			{
 				for (int c = 0; c < relay->mServer->mGameVector.at(g)->mClientVector.size(); c++)
 				{
@@ -82,7 +81,7 @@ void writeSocketData(Relay* relay)
   					int bytes_sent;
   					char buffer[200];
  
-  					strcpy(buffer, relay->mMessage.c_str());
+  					strcpy(buffer, relay->mServer->mGameVector.at(g)->mMessage.c_str());
  
   					/* create an Internet, datagram, socket using UDP */
   					sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -115,8 +114,8 @@ void writeSocketData(Relay* relay)
   					close(sock); /* close the socket */
 				}
 			}
+	  		relay->mServer->mGameVector.at(g)->mMessage.clear();
 		}
-	  	relay->mMessage.clear();
 	}
 }
 

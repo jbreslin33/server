@@ -25,7 +25,6 @@ class Relay
 	
 	Relay();
 	void log(std::string s);
-	std::string mMessage;
 
 	Server* mServer;
 

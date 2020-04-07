@@ -97,7 +97,7 @@ void Game::processBuffer(char* buffer)
                	
 				std::string id = std::to_string(mClientVector.at(c)->mId); 
                			m.append(mServer->mUtility->padZerosLeft(5,id)); //client id
-               			mMessage = m;
+               			//mMessage = m;
 
 				//break out
 				c = mClientVector.size() + 3;
