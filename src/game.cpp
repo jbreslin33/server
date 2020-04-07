@@ -89,7 +89,7 @@ void Game::processBuffer(char* buffer)
 		{
 			if (mClientVector.at(c)->mPort == 0)
 			{
-				printf("found client id: %d with port zero",mClientVector.at(c)->mId);
+				printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
 				mClientVector.at(c)->mPort = portInt;
 		
                			//lets send message back to client and clients later....
