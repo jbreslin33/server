@@ -157,7 +157,8 @@ void Game::update()
 void Game::tick()
 {
 	//printf("tick:%ld\n",mDelta);
-	//any new clients
+	
+	//any new clients then send them message with the port
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
 		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
