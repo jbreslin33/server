@@ -23,9 +23,9 @@ class Game
 		long getCurrentMilliseconds();
 
 		//buffer
-		void processBuffer(char* buffer);
-		void processMove(char* buffer);
-		void processNewClient(char* buffer);
+		void processBuffer(std::vector<std::string> stringVector);
+		void processMove(std::vector<std::string> stringVector);
+		void processNewClient(std::vector<std::string> stringVector);
 
 		//send
 		void sendDataToNewClients();

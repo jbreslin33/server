@@ -69,9 +69,12 @@ Game::Game(Server* server, int id)
 
 }
 
-void Game::processNewClient(char* buffer)
+void Game::processNewClient(std::vector<std::string> stringVector)
 {
+	int portInt = atoi(stringVector.at(3).c_str()); 
+
 	bool foundClient = false;
+	/*
 
 	printf("we have a 50 which is a connect.\n");
 	std::string port;
@@ -95,6 +98,7 @@ void Game::processNewClient(char* buffer)
 	}       
         //relay->mPort = stoi(port);
        	int portInt = stoi(port);
+	*/
 
        	//lets find a client with a port 0 so its not being used by human
 	for (int c = 0; c < mClientVector.size(); c++)
@@ -117,8 +121,11 @@ void Game::processNewClient(char* buffer)
 	}
 }
 
-void Game::processMove(char* buffer)
+void Game::processMove(std::vector<std::string> stringVector)
 {
+	//int code = atoi(stringVector.at(1).c_str()); 
+	
+	/*
 	std::string clientId;
         for (int i = 2; i < 7; i++)
         {
@@ -176,10 +183,21 @@ void Game::processMove(char* buffer)
 			}
 		}
 	}
+	*/
 }
 
-void Game::processBuffer(char* buffer)
+void Game::processBuffer(std::vector<std::string> stringVector)
 {
+	printf("S:%s\n",stringVector.at(0).c_str());
+	int code = atoi(stringVector.at(1).c_str()); 
+	printf("I:%d\n",code);
+
+	if (code == 2)
+	{
+		processNewClient(stringVector);
+	}
+	//if (
+	/*
   	if (buffer[1] == 50)
 	{
 		processNewClient(buffer);
@@ -189,6 +207,7 @@ void Game::processBuffer(char* buffer)
 	{
 		processMove(buffer);
 	}
+	*/
 }
 
 int Game::getNextClientId()
