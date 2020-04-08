@@ -198,15 +198,24 @@ void Game::sendMovesToClients()
 		{
 			//we could just send 5 a pop with no id??? that would be 20...
 			std::string message = "1"; //move
+			message.append(",");
 
 			for (int p = 0; p < mPlayerVector.size(); p++)
 			{
 
-                        	std::string x = std::to_string(mPlayerVector.at(p)->mX); //player x
-                        	std::string y = std::to_string(mPlayerVector.at(p)->mY); //player y 
+                        	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
+                        	std::string x  = std::to_string(mPlayerVector.at(p)->mX); //player x
+                        	std::string y  = std::to_string(mPlayerVector.at(p)->mY); //player y 
 
-				message.append(mServer->mUtility->padZerosLeft(5,x));
-				message.append(mServer->mUtility->padZerosLeft(5,y));
+				//message.append(mServer->mUtility->padZerosLeft(5,x));
+				//message.append(mServer->mUtility->padZerosLeft(5,y));
+				
+				message.append(id);
+				message.append(",");
+				message.append(x);
+				message.append(",");
+				message.append(y);
+				message.append(",");
 			}
 
 			if (c == 0)
