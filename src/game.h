@@ -27,6 +27,11 @@ class Game
 		void processMove(char* buffer);
 		void processNewClient(char* buffer);
 
+		//send
+		void sendDataToNewClients();
+		void movePlayers();
+		void sendMovesToClients();
+
 		//message to clients
 		std::string mMessage;
 

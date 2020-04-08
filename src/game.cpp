@@ -223,11 +223,8 @@ void Game::update()
 	}
 }
 
-void Game::tick()
+void Game::sendDataToNewClients()
 {
-	//printf("tick:%ld\n",mDelta);
-	
-	//any new clients then send them message with the port
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
 		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
@@ -246,15 +243,19 @@ void Game::tick()
 			mClientVector.at(c)->mSentToClient = true;
 		}
 	}
+}
 
-	//move players
+void Game::movePlayers()
+{
 	for (int p = 0; p < mPlayerVector.size(); p++)
 	{
 		mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
 		mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
 	}
+}
 
-	//send coords to clients
+void Game::sendMovesToClients()
+{
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
 		//only clients with ports
@@ -269,24 +270,33 @@ void Game::tick()
                         	std::string x = std::to_string(mPlayerVector.at(p)->mX); //player x
                         	std::string y = std::to_string(mPlayerVector.at(p)->mY); //player y 
 
-
 				message.append(mServer->mUtility->padZerosLeft(5,x));
 				message.append(mServer->mUtility->padZerosLeft(5,y));
 			}
 
-                        //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
 			if (c == 0)
 			{	
                         	printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
 			}
 
                         sendToClient(mClientVector.at(c),message);
-
-                       // mClientVector.at(c)->mSentToClient = true;
-
 		}
-
 	}
+}
+
+void Game::tick()
+{
+	//printf("tick:%ld\n",mDelta);
+	
+	//any new clients then send them message with the port
+	sendDataToNewClients();
+
+	//move players
+	movePlayers();
+
+	//send moves to clients
+	sendMovesToClients();
+
 	
 }
 
