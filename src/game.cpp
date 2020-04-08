@@ -172,9 +172,7 @@ void Game::processMove(std::vector<std::string> stringVector)
 
 void Game::processBuffer(std::vector<std::string> stringVector)
 {
-	printf("S:%s\n",stringVector.at(0).c_str());
 	int code = atoi(stringVector.at(1).c_str()); 
-	printf("I:%d\n",code);
 
 	if (code == 1)
 	{
@@ -185,18 +183,6 @@ void Game::processBuffer(std::vector<std::string> stringVector)
 	{
 		processNewClient(stringVector);
 	}
-	//if (
-	/*
-  	if (buffer[1] == 50)
-	{
-		processNewClient(buffer);
-	}
-
-  	if (buffer[1] == 49)
-	{
-		processMove(buffer);
-	}
-	*/
 }
 
 int Game::getNextClientId()
@@ -244,7 +230,7 @@ void Game::sendDataToNewClients()
                         std::string id = std::to_string(mClientVector.at(c)->mId); //client id
 
                         message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
-                        printf("Game sending this message to client id %s: %s\n",id.c_str(),message.c_str()); //print to console what we are about to send
+                        //printf("Game sending this message to client id %s: %s\n",id.c_str(),message.c_str()); //print to console what we are about to send
 
 			sendToClient(mClientVector.at(c),message);
 
@@ -284,7 +270,7 @@ void Game::sendMovesToClients()
 
 			if (c == 0)
 			{	
-                        	printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
+                        	//printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
 			}
 
                         sendToClient(mClientVector.at(c),message);
