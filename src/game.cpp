@@ -74,31 +74,6 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 	int portInt = atoi(stringVector.at(3).c_str()); 
 
 	bool foundClient = false;
-	/*
-
-	printf("we have a 50 which is a connect.\n");
-	std::string port;
-        for (int i = 2; i < 7; i++)
-        {
-        	if (i == 1)
-                {
-                   	if (buffer[i] == 48)
-                        {
-                              	//port is below 10000 and has leading zero from client so dont put in port string
-                        }
-                        else
-                        {
-                             	port.push_back(buffer[i]);
-                        }
-               }
-               else
-               {
-                   	port.push_back(buffer[i]);
-               }
-	}       
-        //relay->mPort = stoi(port);
-       	int portInt = stoi(port);
-	*/
 
        	//lets find a client with a port 0 so its not being used by human
 	for (int c = 0; c < mClientVector.size(); c++)
@@ -123,7 +98,7 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 
 void Game::processMove(std::vector<std::string> stringVector)
 {
-	//int code = atoi(stringVector.at(1).c_str()); 
+	int clientIdInt = atoi(stringVector.at(2).c_str()); 
 	
 	/*
 	std::string clientId;
@@ -138,14 +113,22 @@ void Game::processMove(std::vector<std::string> stringVector)
 	//std::string right;
 	//std::string down;
 	//std::string left;
+	*/
+	
 
-	up.push_back(buffer[7]);	
+	//up.push_back(buffer[7]);	
 	//printf("up:%s\n",up.c_str());
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
 		if (mClientVector.at(c)->mId == clientIdInt)
 		{
+			mClientVector.at(c)->mUp = atoi(stringVector.at(3).c_str()); 
+			mClientVector.at(c)->mRight = atoi(stringVector.at(4).c_str()); 
+			mClientVector.at(c)->mDown = atoi(stringVector.at(5).c_str()); 
+			mClientVector.at(c)->mLeft = atoi(stringVector.at(6).c_str()); 
 
+
+			/*
 			if (buffer[7] == 49)
 			{
 				mClientVector.at(c)->mUp = 1;
@@ -181,9 +164,10 @@ void Game::processMove(std::vector<std::string> stringVector)
 			{
 				mClientVector.at(c)->mLeft = 0;
 			}
+			*/
 		}
+
 	}
-	*/
 }
 
 void Game::processBuffer(std::vector<std::string> stringVector)
@@ -191,6 +175,11 @@ void Game::processBuffer(std::vector<std::string> stringVector)
 	printf("S:%s\n",stringVector.at(0).c_str());
 	int code = atoi(stringVector.at(1).c_str()); 
 	printf("I:%d\n",code);
+
+	if (code == 1)
+	{
+		processMove(stringVector);
+	}
 
 	if (code == 2)
 	{
