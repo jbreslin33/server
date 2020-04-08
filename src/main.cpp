@@ -49,7 +49,7 @@ void readSocketData(Server* server)
 
   	for (;;) 
 	{
-		printf("waiting on port %d\n", 7654);
+		//printf("waiting on port %d\n", 7654);
 
     		recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
 
@@ -61,7 +61,7 @@ void readSocketData(Server* server)
 				
 			int n = int(buffer[0]);
 			int e = n - 49;	
-			printf("game element:%d\n",e);
+			//printf("game element:%d\n",e);
 			server->mGameVector.at(e)->processBuffer(cBuffer);				
                 }
 	}

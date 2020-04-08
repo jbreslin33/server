@@ -119,6 +119,44 @@ void Game::processNewClient(char* buffer)
 
 void Game::processMove(char* buffer)
 {
+	std::string clientId;
+        for (int i = 2; i < 7; i++)
+        {
+               clientId.push_back(buffer[i]);
+        }
+        //relay->mPort = stoi(port);
+        int clientIdInt = stoi(clientId);
+
+	std::string up;
+	//std::string right;
+	//std::string down;
+	//std::string left;
+
+	up.push_back(buffer[7]);	
+	//printf("up:%s\n",up.c_str());
+
+	if (buffer[7] == 49)
+	{
+		printf("up");
+	}
+	if (buffer[7] == 48)
+	{
+		printf("not up");
+	}
+
+	//right.push_back(buffer[8]);	
+	//down.push_back(buffer[9]);	
+	//left.push_back(buffer[10]);	
+
+
+	//int upInt = stoi(up);
+	//int rightInt = stoi(right);
+	//int downInt = stoi(down);
+	//int leftInt = stoi(left);
+
+	//printf("clientId:%d is sending a move. up:%d right:%d down:%d left:%d \n",clientIdInt, upInt, rightInt, downInt, leftInt);
+	//printf("clientId:%d is sending a move. up:%d\n",clientIdInt, upInt);
+	//printf("clientId:%d is sending a move.\n",clientIdInt);
 
 }
 
