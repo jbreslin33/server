@@ -100,24 +100,6 @@ void Game::processMove(std::vector<std::string> stringVector)
 {
 	int clientIdInt = atoi(stringVector.at(2).c_str()); 
 	
-	/*
-	std::string clientId;
-        for (int i = 2; i < 7; i++)
-        {
-               clientId.push_back(buffer[i]);
-        }
-        //relay->mPort = stoi(port);
-        int clientIdInt = stoi(clientId);
-
-	std::string up;
-	//std::string right;
-	//std::string down;
-	//std::string left;
-	*/
-	
-
-	//up.push_back(buffer[7]);	
-	//printf("up:%s\n",up.c_str());
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
 		if (mClientVector.at(c)->mId == clientIdInt)
@@ -126,47 +108,7 @@ void Game::processMove(std::vector<std::string> stringVector)
 			mClientVector.at(c)->mRight = atoi(stringVector.at(4).c_str()); 
 			mClientVector.at(c)->mDown = atoi(stringVector.at(5).c_str()); 
 			mClientVector.at(c)->mLeft = atoi(stringVector.at(6).c_str()); 
-
-
-			/*
-			if (buffer[7] == 49)
-			{
-				mClientVector.at(c)->mUp = 1;
-			}
-			if (buffer[7] == 48)
-			{
-				mClientVector.at(c)->mUp = 0;
-			}
-			
-			if (buffer[8] == 49)
-			{
-				mClientVector.at(c)->mRight = 1;
-			}
-			if (buffer[8] == 48)
-			{
-				mClientVector.at(c)->mRight = 0;
-			}
-
-			if (buffer[9] == 49)
-			{
-				mClientVector.at(c)->mDown = 1;
-			}
-			if (buffer[9] == 48)
-			{
-				mClientVector.at(c)->mDown = 0;
-			}
-			
-			if (buffer[10] == 49)
-			{
-				mClientVector.at(c)->mLeft = 1;
-			}
-			if (buffer[10] == 48)
-			{
-				mClientVector.at(c)->mLeft = 0;
-			}
-			*/
 		}
-
 	}
 }
 
@@ -230,7 +172,6 @@ void Game::sendDataToNewClients()
                         std::string id = std::to_string(mClientVector.at(c)->mId); //client id
 
                         message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
-                        //printf("Game sending this message to client id %s: %s\n",id.c_str(),message.c_str()); //print to console what we are about to send
 
 			sendToClient(mClientVector.at(c),message);
 
@@ -290,8 +231,6 @@ void Game::tick()
 
 	//send moves to clients
 	sendMovesToClients();
-
-	
 }
 
 void Game::sendToClient(Client* client, std::string message)
