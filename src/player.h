@@ -6,9 +6,12 @@ class Client;
 class Player
 {
 	public:
-		Player(Client* client);
+		Player(Client* client, int id);
 		int mX;
 		int mY;
+
+		int mId;
+		
 		Client* mClient;
 
 		void update();

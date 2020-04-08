@@ -57,13 +57,13 @@ Game::Game(Server* server, int id)
 	Client* awayClientOne = new Client(getNextClientId(),0);
 	mClientVector.push_back(awayClientOne);
 
-	Player* homePlayerOne = new Player(homeClientOne);
+	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId());
 	mPlayerVector.push_back(homePlayerOne);
-	Player* homePlayerTwo = new Player(homeClientTwo);
+	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId());
 	mPlayerVector.push_back(homePlayerTwo);
-	Player* homePlayerThree = new Player(homeClientThree);
+	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId());
 	mPlayerVector.push_back(homePlayerThree);
-	Player* awayPlayerOne = new Player(awayClientOne);
+	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId());
 	mPlayerVector.push_back(awayPlayerOne);
 	
 
@@ -247,11 +247,47 @@ void Game::tick()
 		}
 	}
 
+	//move players
 	for (int p = 0; p < mPlayerVector.size(); p++)
 	{
 		mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
 		mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
 	}
+
+	//send coords to clients
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		//only clients with ports
+		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == true)
+		{
+			//we could just send 5 a pop with no id??? that would be 20...
+			std::string message = "1"; //move
+
+			for (int p = 0; p < mPlayerVector.size(); p++)
+			{
+
+                        	std::string x = std::to_string(mPlayerVector.at(p)->mX); //player x
+                        	std::string y = std::to_string(mPlayerVector.at(p)->mY); //player y 
+
+
+				message.append(mServer->mUtility->padZerosLeft(5,x));
+				message.append(mServer->mUtility->padZerosLeft(5,y));
+			}
+
+                        //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
+			if (c == 0)
+			{	
+                        	printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
+			}
+
+                        sendToClient(mClientVector.at(c),message);
+
+                       // mClientVector.at(c)->mSentToClient = true;
+
+		}
+
+	}
+	
 }
 
 void Game::sendToClient(Client* client, std::string message)
