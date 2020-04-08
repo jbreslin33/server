@@ -11,6 +11,11 @@ class Client
 		int mPort;
 
 		bool mSentToClient;
+
+		int mUp;
+		int mRight;
+		int mDown;
+		int mLeft;
 };
 
 #endif

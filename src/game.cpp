@@ -134,30 +134,48 @@ void Game::processMove(char* buffer)
 
 	up.push_back(buffer[7]);	
 	//printf("up:%s\n",up.c_str());
-
-	if (buffer[7] == 49)
+	for (int c = 0; c < mClientVector.size(); c++)
 	{
-		printf("up");
+		if (mClientVector.at(c)->mId == clientIdInt)
+		{
+
+			if (buffer[7] == 49)
+			{
+				mClientVector.at(c)->mUp = 1;
+			}
+			if (buffer[7] == 48)
+			{
+				mClientVector.at(c)->mUp = 0;
+			}
+			
+			if (buffer[8] == 49)
+			{
+				mClientVector.at(c)->mRight = 1;
+			}
+			if (buffer[8] == 48)
+			{
+				mClientVector.at(c)->mRight = 0;
+			}
+
+			if (buffer[9] == 49)
+			{
+				mClientVector.at(c)->mDown = 1;
+			}
+			if (buffer[9] == 48)
+			{
+				mClientVector.at(c)->mDown = 0;
+			}
+			
+			if (buffer[10] == 49)
+			{
+				mClientVector.at(c)->mLeft = 1;
+			}
+			if (buffer[10] == 48)
+			{
+				mClientVector.at(c)->mLeft = 0;
+			}
+		}
 	}
-	if (buffer[7] == 48)
-	{
-		printf("not up");
-	}
-
-	//right.push_back(buffer[8]);	
-	//down.push_back(buffer[9]);	
-	//left.push_back(buffer[10]);	
-
-
-	//int upInt = stoi(up);
-	//int rightInt = stoi(right);
-	//int downInt = stoi(down);
-	//int leftInt = stoi(left);
-
-	//printf("clientId:%d is sending a move. up:%d right:%d down:%d left:%d \n",clientIdInt, upInt, rightInt, downInt, leftInt);
-	//printf("clientId:%d is sending a move. up:%d\n",clientIdInt, upInt);
-	//printf("clientId:%d is sending a move.\n",clientIdInt);
-
 }
 
 void Game::processBuffer(char* buffer)
@@ -227,6 +245,12 @@ void Game::tick()
 
 			mClientVector.at(c)->mSentToClient = true;
 		}
+	}
+
+	for (int p = 0; p < mPlayerVector.size(); p++)
+	{
+		mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
+		mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
 	}
 }
 

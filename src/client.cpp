@@ -8,5 +8,10 @@ Client::Client(int id, int port)
 	mPort = port;
 	mSentToClient = false;
 	printf("client %d listening on port %d\n",id,port);
+
+	mUp = 0;
+	mRight = 0;
+	mDown = 0;
+	mLeft = 0;
 }
 
