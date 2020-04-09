@@ -166,13 +166,19 @@ void Game::sendDataToNewClients()
 		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
 		{
 			//then we need to send to client so lets construct a messsage
+			std::string message = "";
+		
+			message.append(std::to_string(mId)); //gameID
+			message.append(",");	
 
-                        std::string message = "2"; //new client
+			message.append("2"); //new client code	
+			message.append(",");	
 
-                        std::string id = std::to_string(mClientVector.at(c)->mId); //client id
+                        message.append(std::to_string(mClientVector.at(c)->mId)); //client id
+			message.append(",");	 //extra comma
 
-                        message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
-
+                        //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
+			printf("TO NEW CLIENT:%s\n",message.c_str());
 			sendToClient(mClientVector.at(c),message);
 
 			mClientVector.at(c)->mSentToClient = true;
@@ -197,8 +203,12 @@ void Game::sendMovesToClients()
 		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == true)
 		{
 			//we could just send 5 a pop with no id??? that would be 20...
-			std::string message = "1"; //move
+			std::string message = "";
+			message.append(std::to_string(mId)); //game id
 			message.append(",");
+			message.append("1"); //move code
+			message.append(",");
+
 
 			for (int p = 0; p < mPlayerVector.size(); p++)
 			{
@@ -207,9 +217,6 @@ void Game::sendMovesToClients()
                         	std::string x  = std::to_string(mPlayerVector.at(p)->mX); //player x
                         	std::string y  = std::to_string(mPlayerVector.at(p)->mY); //player y 
 
-				//message.append(mServer->mUtility->padZerosLeft(5,x));
-				//message.append(mServer->mUtility->padZerosLeft(5,y));
-				
 				message.append(id);
 				message.append(",");
 				message.append(x);

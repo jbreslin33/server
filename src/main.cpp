@@ -59,6 +59,7 @@ void readSocketData(Server* server)
 			char* cBuffer;
 			cBuffer = (char*)buffer;
 			std::string s = std::string(cBuffer);
+			//printf("recfrom on server:%s\n",s.c_str());
 			std::string delimiter = ",";
 
 			server->mUtility->split(s,delimiter);
