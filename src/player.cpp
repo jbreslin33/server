@@ -1,10 +1,10 @@
 #include "player.h"
 
-Player::Player(Client* client, int id)
+Player::Player(Client* client, int id, int startX, int startY)
 {
 
-	mX = 0;
-	mY = 0;
+	mX = startX;
+	mY = startY;
 
 	mId = id;
 

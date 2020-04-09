@@ -57,13 +57,15 @@ Game::Game(Server* server, int id)
 	Client* awayClientOne = new Client(getNextClientId(),0);
 	mClientVector.push_back(awayClientOne);
 
-	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId());
+
+	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId(),30,30);
 	mPlayerVector.push_back(homePlayerOne);
-	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId());
+	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),400,30);
 	mPlayerVector.push_back(homePlayerTwo);
-	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId());
+	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),30,200);
 	mPlayerVector.push_back(homePlayerThree);
-	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId());
+
+	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),200,150);
 	mPlayerVector.push_back(awayPlayerOne);
 	
 

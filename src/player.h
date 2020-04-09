@@ -6,7 +6,7 @@ class Client;
 class Player
 {
 	public:
-		Player(Client* client, int id);
+		Player(Client* client, int id, int startX, int startY);
 		int mX;
 		int mY;
 
