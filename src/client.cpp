@@ -2,10 +2,12 @@
 
 #include "client.h"
 
-Client::Client(int id, int port)
+Client::Client(int id, int port, int personId)
 {
 	mId = id;
 	mPort = port;
+	mPersonId = personId;
+
 	mSentToClient = false;
 	printf("client %d listening on port %d\n",id,port);
 

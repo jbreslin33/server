@@ -45,16 +45,16 @@ Game::Game(Server* server, int id)
 	mClientIdCounter = 0;
 
 	//make 4 players and clients
-	Client* homeClientOne = new Client(getNextClientId(),0);
+	Client* homeClientOne = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(homeClientOne);
 
-	Client* homeClientTwo = new Client(getNextClientId(),0);
+	Client* homeClientTwo = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(homeClientTwo);
 
-	Client* homeClientThree = new Client(getNextClientId(),0);
+	Client* homeClientThree = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(homeClientThree);
 
-	Client* awayClientOne = new Client(getNextClientId(),0);
+	Client* awayClientOne = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(awayClientOne);
 
 
@@ -67,27 +67,51 @@ Game::Game(Server* server, int id)
 
 	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),200,150);
 	mPlayerVector.push_back(awayPlayerOne);
+
+	//assign players to clients
+	homeClientOne->mPlayer = homePlayerOne;
+	homeClientTwo->mPlayer = homePlayerTwo;
+	homeClientThree->mPlayer = homePlayerThree;
 	
+	awayClientOne->mPlayer = awayPlayerOne;
 
 }
 
 void Game::processNewClient(std::vector<std::string> stringVector)
 {
+	int personIdInt = atoi(stringVector.at(2).c_str()); 
 	int portInt = atoi(stringVector.at(3).c_str()); 
 
 	bool foundClient = false;
 
        	//lets find a client with a port 0 so its not being used by human
+
+	bool foundPersonId = false;	
+	
 	for (int c = 0; c < mClientVector.size(); c++)
 	{
-		if (!foundClient)
+		if (mClientVector.at(c)->mPersonId == personIdInt)
 		{
-			if (mClientVector.at(c)->mPort == 0)
+			foundPersonId = true;
+			printf("Person ID:%d already has a client. Do not give another connection right now. Should we do any other actions?\n",personIdInt);
+		}
+	}
+
+	//continue on if person does not have a client yet
+	if (foundPersonId == false)
+	{
+		for (int c = 0; c < mClientVector.size(); c++)
+		{
+			if (!foundClient)
 			{
-				printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
-				mClientVector.at(c)->mPort = portInt;
+				if (mClientVector.at(c)->mPort == 0)
+				{
+					printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
+					mClientVector.at(c)->mPort = portInt;
+					mClientVector.at(c)->mPersonId = personIdInt;
 	
-				foundClient = true;
+					foundClient = true;
+				}
 			}
 		}
 	}		
