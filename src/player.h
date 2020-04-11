@@ -2,21 +2,21 @@
 #define PLAYER_H
 
 class Client;
+class Vector3d;
 
 class Player
 {
 	public:
-		Player(Client* client, int id, int startX, int startY);
-		int mX;
-		int mY;
+		Player(Client* client, int id, int x, int y, int z);
+		
+		void update();
+
+		Client* mClient;
+		Vector3d* mPosition;
 
 		int mId;
-
 		double mSpeed;
-		
-		Client* mClient;
 
-		void update();
 	private:
 
 };

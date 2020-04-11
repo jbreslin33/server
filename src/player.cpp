@@ -1,10 +1,10 @@
 #include "player.h"
+#include "vector3d.h"
 
-Player::Player(Client* client, int id, int startX, int startY)
+Player::Player(Client* client, int id, int x, int y, int z)
 {
 
-	mX = startX;
-	mY = startY;
+	mPosition = new Vector3d(x,y,z);	
 
 	mId = id;
 

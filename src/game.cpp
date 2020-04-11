@@ -20,6 +20,7 @@
 #include <arpa/inet.h>
 
 #include <math.h> 
+#include "vector3d.h"
 
 Game::Game(Server* server, int id)
 {
@@ -66,14 +67,14 @@ Game::Game(Server* server, int id)
 	mClientVector.push_back(awayClientOne);
 
 
-	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId(),30,30);
+	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId(),30,30,0);
 	mPlayerVector.push_back(homePlayerOne);
-	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),30,-30);
+	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),30,-30,0);
 	mPlayerVector.push_back(homePlayerTwo);
-	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),-30,-30);
+	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),-30,-30,0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),0,0);
+	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),0,0,0);
 	mPlayerVector.push_back(awayPlayerOne);
 
 	//assign players to clients
@@ -240,8 +241,8 @@ void Game::movePlayers()
     		}
 		*/
 
-		mPlayerVector.at(p)->mX += directionX;
-		mPlayerVector.at(p)->mY += directionY;
+		mPlayerVector.at(p)->mPosition->mX += directionX;
+		mPlayerVector.at(p)->mPosition->mY += directionY;
 	}
 }
 
@@ -264,8 +265,8 @@ void Game::sendMovesToClients()
 			{
 
                         	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
-                        	std::string x  = std::to_string(mPlayerVector.at(p)->mX); //player x
-                        	std::string y  = std::to_string(mPlayerVector.at(p)->mY); //player y 
+                        	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition->mX); //player x
+                        	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition->mY); //player y 
 
 				message.append(id);
 				message.append(",");
