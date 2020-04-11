@@ -93,7 +93,8 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 		if (mClientVector.at(c)->mPersonId == personIdInt)
 		{
 			foundPersonId = true;
-			printf("Person ID:%d already has a client. Do not give another connection right now. Should we do any other actions?\n",personIdInt);
+			printf("Person ID:%d already has a client.\n",personIdInt);
+			return;
 		}
 	}
 
@@ -118,7 +119,7 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 
 	if (!foundClient)
 	{
-		printf("Game is full!!! we need another game");
+		printf("Game is full.\n");
 	}
 }
 
