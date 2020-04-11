@@ -11,6 +11,8 @@ class Player
 		int mY;
 
 		int mId;
+
+		double mSpeed;
 		
 		Client* mClient;
 

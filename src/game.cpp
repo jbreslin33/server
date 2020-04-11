@@ -19,6 +19,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#include <math.h> 
+
 Game::Game(Server* server, int id)
 {
 	//server
@@ -223,8 +225,23 @@ void Game::movePlayers()
 {
 	for (int p = 0; p < mPlayerVector.size(); p++)
 	{
-		mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
-		mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
+		//mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) ) * mPlayerVector.at(p)->mSpeed;
+		//mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) ) * mPlayerVector.at(p)->mSpeed;	
+		int directionX =  mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1);
+		int directionY =  mPlayerVector.at(p)->mClient->mDown + (mPlayerVector.at(p)->mClient->mUp * -1);
+		
+		//mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
+		//mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
+/*
+		if ( directionX != 0 && directionY != 0) 
+		{
+        		directionX = directionX * sqrt(directionX);
+        		directionY = directionY * sqrt(directionY);
+    		}
+		*/
+
+		mPlayerVector.at(p)->mX += directionX;
+		mPlayerVector.at(p)->mY += directionY;
 	}
 }
 
