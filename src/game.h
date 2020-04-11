@@ -32,6 +32,9 @@ class Game
 		void movePlayers();
 		void sendMovesToClients();
 
+		int mPitchWidth;
+		int mPitchHeight;
+
 		//message to clients
 		std::string mMessage;
 

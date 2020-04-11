@@ -29,6 +29,12 @@ Game::Game(Server* server, int id)
 
 	//class
 	mId = id;
+
+	//pitch size
+	mPitchWidth = 105;
+	mPitchHeight = 68;
+
+	//lets setup our own cartesian coordinate system on server...than let clients translate it
 	
 	printf("game id %d started.\n", mId);
 
@@ -60,12 +66,12 @@ Game::Game(Server* server, int id)
 
 	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId(),30,30);
 	mPlayerVector.push_back(homePlayerOne);
-	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),400,30);
+	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),30,-30);
 	mPlayerVector.push_back(homePlayerTwo);
-	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),30,200);
+	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),-30,-30);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),200,150);
+	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),0,0);
 	mPlayerVector.push_back(awayPlayerOne);
 
 	//assign players to clients
