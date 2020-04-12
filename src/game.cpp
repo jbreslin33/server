@@ -71,19 +71,19 @@ Game::Game(Server* server, int id)
 	
 
 	//players and ball
-	mBall = new Ball(30,30,0);
-
-	Player* homePlayerOne = new Player(homeClientOne,30,30,0);
+	Player* homePlayerOne = new Player(homeClientOne,10,10,0);
 	mPlayerVector.push_back(homePlayerOne);
 
-	Player* homePlayerTwo = new Player(homeClientTwo,30,-30,0);
+	Player* homePlayerTwo = new Player(homeClientTwo,10,-10,0);
 	mPlayerVector.push_back(homePlayerTwo);
 
-	Player* homePlayerThree = new Player(homeClientThree,-30,-30,0);
+	Player* homePlayerThree = new Player(homeClientThree,-10,-10,0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(awayClientOne,0,0,0);
+	Player* awayPlayerOne = new Player(awayClientOne,-10,10,0);
 	mPlayerVector.push_back(awayPlayerOne);
+	
+	mBall = new Ball(0,0,0);
 		
 
 	//assign players to clients
