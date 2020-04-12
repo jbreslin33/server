@@ -67,14 +67,14 @@ Game::Game(Server* server, int id)
 	mClientVector.push_back(awayClientOne);
 
 
-	Player* homePlayerOne = new Player(homeClientOne,getNextPlayerId(),30,30,0);
+	Player* homePlayerOne = new Player(homeClientOne,30,30,0);
 	mPlayerVector.push_back(homePlayerOne);
-	Player* homePlayerTwo = new Player(homeClientTwo,getNextPlayerId(),30,-30,0);
+	Player* homePlayerTwo = new Player(homeClientTwo,30,-30,0);
 	mPlayerVector.push_back(homePlayerTwo);
-	Player* homePlayerThree = new Player(homeClientThree,getNextPlayerId(),-30,-30,0);
+	Player* homePlayerThree = new Player(homeClientThree,-30,-30,0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(awayClientOne,getNextPlayerId(),0,0,0);
+	Player* awayPlayerOne = new Player(awayClientOne,0,0,0);
 	mPlayerVector.push_back(awayPlayerOne);
 
 	//assign players to clients
