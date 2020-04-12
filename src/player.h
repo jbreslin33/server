@@ -5,13 +5,14 @@
 
 class Client;
 
-
 class Player : public MovePiece
 {
 	public:
 		Player(Client* client, int x, int y, int z);
 		
 		void update();
+
+		Client* mClient;
 
 	private:
 

@@ -9,6 +9,7 @@ using namespace std::chrono;
 class Client;
 class Player;
 class Server;
+class Ball;
 
 class Game
 {
@@ -40,6 +41,9 @@ class Game
 
 		//server
 		Server* mServer;
+
+		//ball
+		Ball* mBall;
 	
 		//class	
 		int mId;

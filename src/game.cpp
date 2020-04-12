@@ -3,6 +3,7 @@
 #include "game.h"
 #include "client.h"
 #include "player.h"
+#include "ball.h"
 #include "server.h"
 #include "utility.h"
 
@@ -54,6 +55,8 @@ Game::Game(Server* server, int id)
 	mClientIdCounter = 0;
 
 	//make 4 players and clients
+	//clients for ball and players
+
 	Client* homeClientOne = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(homeClientOne);
 
@@ -65,17 +68,23 @@ Game::Game(Server* server, int id)
 
 	Client* awayClientOne = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(awayClientOne);
+	
 
+	//players and ball
+	mBall = new Ball(30,30,0);
 
 	Player* homePlayerOne = new Player(homeClientOne,30,30,0);
 	mPlayerVector.push_back(homePlayerOne);
+
 	Player* homePlayerTwo = new Player(homeClientTwo,30,-30,0);
 	mPlayerVector.push_back(homePlayerTwo);
+
 	Player* homePlayerThree = new Player(homeClientThree,-30,-30,0);
 	mPlayerVector.push_back(homePlayerThree);
 
 	Player* awayPlayerOne = new Player(awayClientOne,0,0,0);
 	mPlayerVector.push_back(awayPlayerOne);
+		
 
 	//assign players to clients
 	homeClientOne->mPlayer = homePlayerOne;
