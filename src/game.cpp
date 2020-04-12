@@ -241,8 +241,20 @@ void Game::movePlayers()
     		}
 		*/
 
-		mPlayerVector.at(p)->mPosition->mX += directionX;
-		mPlayerVector.at(p)->mPosition->mY += directionY;
+		//set velocity to incoming client move
+		mPlayerVector.at(p)->mVelocity->mX = directionX;
+		mPlayerVector.at(p)->mVelocity->mY = directionY;
+
+		//normalize
+		mPlayerVector.at(p)->mVelocity->normalize();
+
+
+	//	mPlayerVector.at(p)->mPosition->mX += directionX;
+	//	mPlayerVector.at(p)->mPosition->mY += directionY;
+	
+		//add normalized velocity to current position	
+		mPlayerVector.at(p)->mPosition->mX += mPlayerVector.at(p)->mVelocity->mX;
+		mPlayerVector.at(p)->mPosition->mY += mPlayerVector.at(p)->mVelocity->mY;
 	}
 }
 

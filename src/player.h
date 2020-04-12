@@ -13,6 +13,7 @@ class Player
 
 		Client* mClient;
 		Vector3d* mPosition;
+		Vector3d* mVelocity;
 
 		int mId;
 		double mSpeed;
