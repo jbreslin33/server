@@ -1,16 +1,13 @@
-#ifndef PLAYER_H
-#define PLAYER_
-
-#include "movePiece.h"
+#ifndef BALL_H
+#define BALL_H
 
 class Client;
 class Vector3d;
 
-
-class Player : public MovePiece
+class Ball
 {
 	public:
-		Player(Client* client, int id, int x, int y, int z);
+		Ball(Client* client, int id, int x, int y, int z);
 		
 		void update();
 

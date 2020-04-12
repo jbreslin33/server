@@ -1,7 +1,7 @@
 #include "player.h"
 #include "vector3d.h"
 
-Player::Player(Client* client, int id, int x, int y, int z) : MovePiece(client,id,x,y,z)
+Player::Player(Client* client, int id, int x, int y, int z)
 {
 
 	mPosition = new Vector3d(x,y,z);	

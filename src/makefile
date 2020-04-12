@@ -1,5 +1,5 @@
-make-server: main.cpp server.cpp client.cpp game.cpp rondo.cpp player.cpp utility.cpp vector3d.cpp Common/2D/Vector2D.cpp
-	g++ -std=c++11 -pthread -o server main.cpp server.cpp client.cpp game.cpp rondo.cpp player.cpp utility.cpp vector3d.cpp Common/2D/Vector2D.cpp -I. 
+make-server: main.cpp server.cpp client.cpp game.cpp rondo.cpp player.cpp utility.cpp vector3d.cpp basePiece.cpp movePiece.cpp
+	g++ -std=c++11 -pthread -o server main.cpp server.cpp client.cpp game.cpp rondo.cpp player.cpp utility.cpp vector3d.cpp basePiece.cpp movePiece.cpp -I. 
 clean :
 	rm server
 
