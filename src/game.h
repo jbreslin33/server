@@ -31,6 +31,7 @@ class Game
 		//send
 		void sendDataToNewClients();
 		void movePlayers();
+		void moveBall();
 		void sendMovesToClients();
 
 		int mPitchWidth;

@@ -235,21 +235,9 @@ void Game::movePlayers()
 {
 	for (int p = 0; p < mPlayerVector.size(); p++)
 	{
-		//mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) ) * mPlayerVector.at(p)->mSpeed;
-		//mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) ) * mPlayerVector.at(p)->mSpeed;	
 		int directionX =  mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1);
 		int directionY =  mPlayerVector.at(p)->mClient->mDown + (mPlayerVector.at(p)->mClient->mUp * -1);
 		
-		//mPlayerVector.at(p)->mX += ( mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1) );
-		//mPlayerVector.at(p)->mY += ( mPlayerVector.at(p)->mClient->mDown  + (mPlayerVector.at(p)->mClient->mUp * -1) );	
-/*
-		if ( directionX != 0 && directionY != 0) 
-		{
-        		directionX = directionX * sqrt(directionX);
-        		directionY = directionY * sqrt(directionY);
-    		}
-		*/
-
 		//set velocity to incoming client move
 		mPlayerVector.at(p)->mVelocity->mX = directionX;
 		mPlayerVector.at(p)->mVelocity->mY = directionY;
@@ -257,14 +245,21 @@ void Game::movePlayers()
 		//normalize
 		mPlayerVector.at(p)->mVelocity->normalize();
 
-
-	//	mPlayerVector.at(p)->mPosition->mX += directionX;
-	//	mPlayerVector.at(p)->mPosition->mY += directionY;
-	
 		//add normalized velocity to current position	
 		mPlayerVector.at(p)->mPosition->mX += mPlayerVector.at(p)->mVelocity->mX;
 		mPlayerVector.at(p)->mPosition->mY += mPlayerVector.at(p)->mVelocity->mY;
 	}
+}
+
+void Game::moveBall()
+{
+	mBall->mVelocity->mX = 0;	
+	mBall->mVelocity->mY = 0;	
+
+	mBall->mVelocity->normalize();
+
+	mBall->mPosition->mX += mBall->mVelocity->mX;
+	mBall->mPosition->mY += mBall->mVelocity->mY;
 }
 
 void Game::sendMovesToClients()
@@ -296,6 +291,14 @@ void Game::sendMovesToClients()
 				message.append(y);
 				message.append(",");
 			}
+
+			//add ball
+                        std::string x  = std::to_string(mBall->mPosition->mX); //ball x
+                        std::string y  = std::to_string(mBall->mPosition->mY); //ball y 
+			message.append(x);
+			message.append(",");
+			message.append(y);
+			message.append(",");
 
 			if (c == 0)
 			{	
