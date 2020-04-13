@@ -16,13 +16,14 @@
 #include "common/misc/utils.h"
 
 
-struct Vector2D
+class Vector2D
 {
-  double x;
-  double y;
+	public:
+		double x;
+  		double y;
 
-  Vector2D():x(0.0),y(0.0){}
-  Vector2D(double a, double b):x(a),y(b){}
+  	Vector2D():x(0.0),y(0.0){}
+  	Vector2D(double a, double b):x(a),y(b){}
 
   //sets x and y to zero
   void Zero(){x=0.0; y=0.0;}
