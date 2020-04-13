@@ -13,10 +13,8 @@ PlayerStateMachine::PlayerStateMachine(Player* owner)
 
 void PlayerStateMachine::update()
 {
-	printf("in PlayerStateMachine update\n");
 	if (mGlobalState)
 	{
-		printf("in if PlayerStateMachine update\n");
 		mGlobalState->execute(mOwner);
 	}	
 
@@ -24,7 +22,6 @@ void PlayerStateMachine::update()
 	{
 		mCurrentState->execute(mOwner);
 	}	
-
 }
 
 PlayerState* PlayerStateMachine::getCurrentState()

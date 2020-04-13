@@ -9,23 +9,21 @@ Player::Player(Client* client, int x, int y, int z) : MovePiece(x,y,z)
 {
 	mClient = client;
 
-
-
 	//states
 	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
+	ChaseBallPlayerState* mChaseBallPlayerState = new ChaseBallPlayerState();
 	
 	mPlayerStateMachine = new PlayerStateMachine(this);    //setup the state machine
 
-	mPlayerStateMachine->setCurrentState(mGlobalPlayerState);
+	mPlayerStateMachine->setCurrentState(nullptr);
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
-    	//mPlayerStateMachine->changeState(nullptr);
+    	mPlayerStateMachine->changeState(mChaseBallPlayerState);
 
 
 }
 
 void Player::update()
 {
-	printf("update in player\n");
 	mPlayerStateMachine->update();
 }
