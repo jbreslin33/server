@@ -32,36 +32,36 @@ class Vector2D
   		bool isZero()const{return (x*x + y*y) < MinDouble;}
 
   		//returns the length of the vector
-  		inline double    Length()const;
+  		double    Length();
 
   		//returns the squared length of the vector (thereby avoiding the sqrt)
-  		inline double    LengthSq()const;
+  		double    LengthSq();
 
-  		inline void      Normalize();
+  		void      Normalize();
 
-  		inline double    Dot(const Vector2D& v2)const;
+  		double    Dot(const Vector2D& v2);
 
  	 	//returns positive if v2 is clockwise of this vector,
   		//negative if anticlockwise (assuming the Y axis is pointing down,
   		//X axis to right like a Window app)
-  		inline int       Sign(const Vector2D& v2)const;
+  		int       Sign(const Vector2D& v2);
 
   		//returns the vector that is perpendicular to this one.
-  		inline Vector2D  Perp()const;
+  		Vector2D  Perp();
 
   		//adjusts x and y so that the length of the vector does not exceed max
-  		inline void      Truncate(double max);
+  		void      Truncate(double max);
 
  		//returns the distance between this vector and th one passed as a parameter
-  		inline double    Distance(const Vector2D &v2)const;
+  		double    Distance(const Vector2D &v2);
 
   		//squared version of above.
-  		inline double    DistanceSq(const Vector2D &v2)const;
+  		double    DistanceSq(const Vector2D &v2);
 
-  		inline void      Reflect(const Vector2D& norm);
+  		void      Reflect(Vector2D& norm);
 
   		//returns the vector that is the reverse of this vector
-  		inline Vector2D  GetReverse()const;
+  		Vector2D  GetReverse();
 
   		//we need some overloaded operators
   		const Vector2D& operator+=(const Vector2D &rhs)
@@ -114,136 +114,7 @@ std::ifstream& operator>>(std::ifstream& is, Vector2D& lhs);
 
 
 //------------------------------------------------------------------------member functions
-
-//------------------------- Length ---------------------------------------
 //
-//  returns the length of a 2D vector
-//------------------------------------------------------------------------
-inline double Vector2D::Length()const
-{
-	return sqrt(x * x + y * y);
-}
-
-
-//------------------------- LengthSq -------------------------------------
-//
-//  returns the squared length of a 2D vector
-//------------------------------------------------------------------------
-inline double Vector2D::LengthSq()const
-{
-	return (x * x + y * y);
-}
-
-
-//------------------------- Vec2DDot -------------------------------------
-//
-//  calculates the dot product
-//------------------------------------------------------------------------
-inline double Vector2D::Dot(const Vector2D &v2)const
-{
-	return x*v2.x + y*v2.y;
-}
-
-//------------------------ Sign ------------------------------------------
-//
-//  returns positive if v2 is clockwise of this vector,
-//  minus if anticlockwise (Y axis pointing down, X axis to right)
-//------------------------------------------------------------------------
-enum {clockwise = 1, anticlockwise = -1};
-
-inline int Vector2D::Sign(const Vector2D& v2)const
-{
-	if (y*v2.x > x*v2.y)
-  	{	 
-    		return anticlockwise;
-  	}
-  	else 
-  	{
-    		return clockwise;
-  	}
-}
-
-//------------------------------ Perp ------------------------------------
-//
-//  Returns a vector perpendicular to this vector
-//------------------------------------------------------------------------
-inline Vector2D Vector2D::Perp()const
-{
-	return Vector2D(-y, x);
-}
-
-//------------------------------ Distance --------------------------------
-//
-//  calculates the euclidean distance between two vectors
-//------------------------------------------------------------------------
-inline double Vector2D::Distance(const Vector2D &v2)const
-{
-	double ySeparation = v2.y - y;
-  	double xSeparation = v2.x - x;
-
-  	return sqrt(ySeparation*ySeparation + xSeparation*xSeparation);
-}
-
-
-//------------------------------ DistanceSq ------------------------------
-//
-//  calculates the euclidean distance squared between two vectors 
-//------------------------------------------------------------------------
-inline double Vector2D::DistanceSq(const Vector2D &v2)const
-{
-	double ySeparation = v2.y - y;
-  	double xSeparation = v2.x - x;
-
-  	return ySeparation*ySeparation + xSeparation*xSeparation;
-}
-
-//----------------------------- Truncate ---------------------------------
-//
-//  truncates a vector so that its length does not exceed max
-//------------------------------------------------------------------------
-inline void Vector2D::Truncate(double max)
-{
-	if (this->Length() > max)
-  	{
-    		this->Normalize();
-    		*this *= max;
-  	}	 
-}
-
-//--------------------------- Reflect ------------------------------------
-//
-//  given a normalized vector this method reflects the vector it
-//  is operating upon. (like the path of a ball bouncing off a wall)
-//------------------------------------------------------------------------
-inline void Vector2D::Reflect(const Vector2D& norm)
-{
-	*this += 2.0 * this->Dot(norm) * norm.GetReverse();
-}
-
-//----------------------- GetReverse ----------------------------------------
-//
-//  returns the vector that is the reverse of this vector
-//------------------------------------------------------------------------
-inline Vector2D Vector2D::GetReverse()const
-{
-	return Vector2D(-this->x, -this->y);
-}
-
-
-//------------------------- Normalize ------------------------------------
-//
-//  normalizes a 2D Vector
-//------------------------------------------------------------------------
-inline void Vector2D::Normalize()
-{ 
-	double vector_length = this->Length();
-
-  	if (vector_length > std::numeric_limits<double>::epsilon())
-  	{
-    		this->x /= vector_length;
-    		this->y /= vector_length;
-  	}
-}
 
 //------------------------------------------------------------------------non member functions
 
