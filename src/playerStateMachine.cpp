@@ -1,9 +1,10 @@
 #include "playerStateMachine.h"
 #include "playerState.h"
+#include <iostream>
 
 PlayerStateMachine::PlayerStateMachine(Player* owner)
 {
-	mOwner = mOwner;
+	mOwner = owner;
 
 	mGlobalState = nullptr;
 	mCurrentState = nullptr;
@@ -12,9 +13,10 @@ PlayerStateMachine::PlayerStateMachine(Player* owner)
 
 void PlayerStateMachine::update()
 {
-
+	printf("in PlayerStateMachine update\n");
 	if (mGlobalState)
 	{
+		printf("in if PlayerStateMachine update\n");
 		mGlobalState->execute(mOwner);
 	}	
 
@@ -33,6 +35,11 @@ PlayerState* PlayerStateMachine::getCurrentState()
 void PlayerStateMachine::setCurrentState(PlayerState* playerState)
 {
 	mCurrentState = playerState;
+}
+
+void PlayerStateMachine::setPreviousState(PlayerState* playerState)
+{
+	mPreviousState = playerState;
 }
 
 void PlayerStateMachine::setGlobalState(PlayerState* playerState)

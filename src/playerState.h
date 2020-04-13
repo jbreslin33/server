@@ -9,9 +9,9 @@ class PlayerState
 {
 	public: 
 		PlayerState();
-		void enter(Player* player);
-		void execute(Player* player);
-		void exit(Player* player);
+		virtual void enter(Player* player);
+		virtual void execute(Player* player);
+		virtual void exit(Player* player);
 
 	private:
 

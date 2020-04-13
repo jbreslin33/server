@@ -322,6 +322,12 @@ void Game::tick()
 
 	//send moves to clients
 	sendMovesToClients();
+
+	//call update on players
+	for (int p = 0; p < mPlayerVector.size(); p++)
+	{
+		mPlayerVector.at(p)->update();
+	}
 }
 
 void Game::sendToClient(Client* client, std::string message)

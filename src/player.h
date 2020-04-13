@@ -4,6 +4,7 @@
 #include "movePiece.h"
 
 class Client;
+class PlayerStateMachine;
 
 class Player : public MovePiece
 {
@@ -13,6 +14,9 @@ class Player : public MovePiece
 		void update();
 
 		Client* mClient;
+
+		//states
+		PlayerStateMachine* mPlayerStateMachine;
 
 	private:
 
