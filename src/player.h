@@ -6,15 +6,17 @@
 class Client;
 class PlayerStateMachine;
 class Steering;
+class Game;
 
 class Player : public MovePiece
 {
 	public:
-		Player(Client* client, int x, int y, int z);
+		Player(Game* game, Client* client, int x, int y, int z);
 		
 		void update();
 
 		Client* mClient;
+		Game* mGame;
 
 		//states
 		PlayerStateMachine* mPlayerStateMachine;

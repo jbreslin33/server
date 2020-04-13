@@ -3,12 +3,15 @@
 
 #include "movePiece.h"
 
+class Game;
+
 class Ball : public MovePiece
 {
 	public:
-		Ball(int x, int y, int z);
+		Ball(Game* game, int x, int y, int z);
 		
 		void update();
+		Game* mGame;
 
 	private:
 

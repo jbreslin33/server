@@ -21,7 +21,7 @@
 #include <arpa/inet.h>
 
 #include <math.h> 
-#include "vector3d.h"
+#include "common/2d/vector2d.h"
 
 Game::Game(Server* server, int id)
 {
@@ -68,22 +68,22 @@ Game::Game(Server* server, int id)
 
 	Client* awayClientOne = new Client(getNextClientId(),0,0);
 	mClientVector.push_back(awayClientOne);
-	
+
 
 	//players and ball
-	Player* homePlayerOne = new Player(homeClientOne,10,10,0);
+	Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
 	mPlayerVector.push_back(homePlayerOne);
 
-	Player* homePlayerTwo = new Player(homeClientTwo,10,-10,0);
+	Player* homePlayerTwo = new Player(this,homeClientTwo,10,-10,0);
 	mPlayerVector.push_back(homePlayerTwo);
 
-	Player* homePlayerThree = new Player(homeClientThree,-10,-10,0);
+	Player* homePlayerThree = new Player(this,homeClientThree,-10,-10,0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(awayClientOne,-10,10,0);
+	Player* awayPlayerOne = new Player(this,awayClientOne,-10,10,0);
 	mPlayerVector.push_back(awayPlayerOne);
 	
-	mBall = new Ball(0,0,0);
+	mBall = new Ball(this,0,0,0);
 		
 
 	//assign players to clients
@@ -239,27 +239,28 @@ void Game::movePlayers()
 		int directionY =  mPlayerVector.at(p)->mClient->mDown + (mPlayerVector.at(p)->mClient->mUp * -1);
 		
 		//set velocity to incoming client move
-		mPlayerVector.at(p)->mVelocity->mX = directionX;
-		mPlayerVector.at(p)->mVelocity->mY = directionY;
+		mPlayerVector.at(p)->mVelocity.x = directionX;
+		mPlayerVector.at(p)->mVelocity.y = directionY;
 
 		//normalize
-		mPlayerVector.at(p)->mVelocity->normalize();
+		mPlayerVector.at(p)->mVelocity.Normalize();
 
 		//add normalized velocity to current position	
-		mPlayerVector.at(p)->mPosition->mX += mPlayerVector.at(p)->mVelocity->mX;
-		mPlayerVector.at(p)->mPosition->mY += mPlayerVector.at(p)->mVelocity->mY;
+		mPlayerVector.at(p)->mPosition.x += mPlayerVector.at(p)->mVelocity.x;
+		mPlayerVector.at(p)->mPosition.y += mPlayerVector.at(p)->mVelocity.y;
 	}
 }
 
 void Game::moveBall()
 {
-	mBall->mVelocity->mX = 0;	
-	mBall->mVelocity->mY = 0;	
+	mBall->mVelocity.x = 0;	
+	mBall->mVelocity.y = 0;	
 
-	mBall->mVelocity->normalize();
 
-	mBall->mPosition->mX += mBall->mVelocity->mX;
-	mBall->mPosition->mY += mBall->mVelocity->mY;
+	mBall->mVelocity.Normalize();
+
+	mBall->mPosition.x += mBall->mVelocity.x;
+	mBall->mPosition.y += mBall->mVelocity.y;
 }
 
 void Game::sendMovesToClients()
@@ -281,8 +282,8 @@ void Game::sendMovesToClients()
 			{
 
                         	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
-                        	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition->mX); //player x
-                        	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition->mY); //player y 
+                        	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition.x); //player x
+                        	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition.y); //player y 
 
 				message.append(id);
 				message.append(",");
@@ -293,8 +294,8 @@ void Game::sendMovesToClients()
 			}
 
 			//add ball
-                        std::string x  = std::to_string(mBall->mPosition->mX); //ball x
-                        std::string y  = std::to_string(mBall->mPosition->mY); //ball y 
+                        std::string x  = std::to_string(mBall->mPosition.x); //ball x
+                        std::string y  = std::to_string(mBall->mPosition.y); //ball y 
 			message.append(x);
 			message.append(",");
 			message.append(y);

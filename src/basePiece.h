@@ -1,7 +1,7 @@
 #ifndef BASEPIECE_H
 #define BASEPIECE_H
 
-class Vector3d;
+#include "common/2d/vector2d.h"
 
 class BasePiece
 {
@@ -10,7 +10,7 @@ class BasePiece
 		
 		void update();
 
-                Vector3d* mPosition;
+                Vector2D mPosition;
 
 		//id
                 int mId;

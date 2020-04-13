@@ -1,14 +1,18 @@
 #include <iostream>
 #include "player.h"
-#include "vector3d.h"
 
 #include "playerStates.h"
 #include "playerStateMachine.h"
 #include "steering.h"
 
-Player::Player(Client* client, int x, int y, int z) : MovePiece(x,y,z)
+//Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
+
+
+Player::Player(Game* game, Client* client, int x, int y, int z) : MovePiece(x,y,z)
 {
+	printf("c\n");
 	mClient = client;
+	mGame = game;
 
 	//states
 	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
@@ -20,9 +24,10 @@ Player::Player(Client* client, int x, int y, int z) : MovePiece(x,y,z)
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
     	mPlayerStateMachine->changeState(mChaseBallPlayerState);
+	printf("d\n");
 
 	//steering
-	mSteering = new Steering();
+	//mSteering = new Steering(this);
 }
 
 void Player::update()

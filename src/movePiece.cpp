@@ -1,8 +1,9 @@
 #include "movePiece.h"
-#include "vector3d.h"
+#include "common/2d/vector2d.h"
 
 MovePiece::MovePiece(int x, int y, int z) : BasePiece(x,y,z)
 {
-        mVelocity = new Vector3d(0,0,0);
+        mVelocity.x = x;
+        mVelocity.y = y;
 	mMaxSpeed = 0.25;
 }

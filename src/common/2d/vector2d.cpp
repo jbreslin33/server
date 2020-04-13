@@ -1,4 +1,4 @@
-#include "Vector2D.h"
+#include "vector2d.h"
 #include <fstream>
 
 std::ostream& operator<<(std::ostream& os, const Vector2D& rhs)

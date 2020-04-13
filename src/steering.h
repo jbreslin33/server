@@ -1,17 +1,21 @@
 #ifndef STEERING_H
 #define STEERING_H
 
-class Vector3d;
+struct Vector2D;
+class Player;
 
 class Steering
 {
 	public:
-		Steering();
+		Steering(Player* player);
 
-		Vector3d* mTarget;
+		Vector2D* mTarget;
 		bool mSeekOn;
 
-		void setTarget(Vector3d* target);
+		void setTarget(Vector2D* target);
+		Vector2D seekTarget(Vector2D target);
+
+		Player* mPlayer;
 };
 
 #endif

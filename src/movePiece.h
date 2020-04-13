@@ -2,6 +2,7 @@
 #define MOVEPIECE_H
 
 #include "basePiece.h"
+#include "common/2d/vector2d.h"
 
 class MovePiece : public BasePiece
 {
@@ -10,7 +11,7 @@ class MovePiece : public BasePiece
 
  		void update();
 
-                Vector3d* mVelocity;
+                Vector2D mVelocity;
 
                 double mMaxSpeed;
 

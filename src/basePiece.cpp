@@ -1,11 +1,12 @@
 #include "basePiece.h"
-#include "vector3d.h"
+#include "common/2d/vector2d.h"
 
 int BasePiece::mNextId = 1;
 
 BasePiece::BasePiece(int x, int y, int z)
 {
-        mPosition = new Vector3d(x,y,z);
+        mPosition.x = x;
+        mPosition.y = y;
 	setId(mNextId);
 }
 
