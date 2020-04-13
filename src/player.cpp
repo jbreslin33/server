@@ -4,6 +4,7 @@
 
 #include "playerStates.h"
 #include "playerStateMachine.h"
+#include "steering.h"
 
 Player::Player(Client* client, int x, int y, int z) : MovePiece(x,y,z)
 {
@@ -20,7 +21,8 @@ Player::Player(Client* client, int x, int y, int z) : MovePiece(x,y,z)
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
     	mPlayerStateMachine->changeState(mChaseBallPlayerState);
 
-
+	//steering
+	mSteering = new Steering();
 }
 
 void Player::update()

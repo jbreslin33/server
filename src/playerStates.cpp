@@ -1,6 +1,9 @@
 #include "playerStates.h"
 #include <iostream>
 
+#include "player.h"
+#include "steering.h"
+
 /**** GlobalPlayerState ****************************/
 
 GlobalPlayerState::GlobalPlayerState()
@@ -46,9 +49,11 @@ ChaseBallPlayerState::ChaseBallPlayerState()
 void ChaseBallPlayerState::enter(Player* player)
 {
         printf("ChaseBallPlayerState::enter\n");
+	player->mSteering->mSeekOn = true;
 }
 void ChaseBallPlayerState::execute(Player* player)
 {
+	player->mSteering->setTarget(player->mGame);
 }
 void ChaseBallPlayerState::exit(Player* player)
 {

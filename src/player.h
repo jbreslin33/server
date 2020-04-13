@@ -5,6 +5,7 @@
 
 class Client;
 class PlayerStateMachine;
+class Steering;
 
 class Player : public MovePiece
 {
@@ -17,6 +18,9 @@ class Player : public MovePiece
 
 		//states
 		PlayerStateMachine* mPlayerStateMachine;
+
+		//steering
+		Steering* mSteering;
 
 	private:
 

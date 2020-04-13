@@ -13,6 +13,8 @@ class Vector3d
 		double getLength();
 		void normalize();
 
+		double length();
+		void truncate(double max);
 
 	private:
 };

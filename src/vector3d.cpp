@@ -27,4 +27,19 @@ void Vector3d::normalize()
   	}
 }
 
+double Vector3d::length()
+{
+	return sqrt(mX * mX + mY * mY);
+}
+
+
+void Vector3d::truncate(double max)
+{
+	if (this->length() > max)
+  	{
+    		this->normalize();
+		this->mX = this->mX * max;
+		this->mY = this->mY * max;
+  	}
+}
 

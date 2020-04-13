@@ -12,7 +12,7 @@ class MovePiece : public BasePiece
 
                 Vector3d* mVelocity;
 
-                double mSpeed;
+                double mMaxSpeed;
 
 };
 
