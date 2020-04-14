@@ -15,6 +15,8 @@
 #include <limits>
 #include "common/misc/utils.h"
 
+#include "utility.h"
+
 
 class Vector2D
 {
@@ -117,22 +119,6 @@ std::ifstream& operator>>(std::ifstream& is, Vector2D& lhs);
 //
 
 //------------------------------------------------------------------------non member functions
-
-inline Vector2D Vec2DNormalize(const Vector2D &v)
-{
-	Vector2D vec = v;
-
-  	double vector_length = vec.Length();
-
-  	if (vector_length > std::numeric_limits<double>::epsilon())
-  	{
-    		vec.x /= vector_length;
-    		vec.y /= vector_length;
-  	}
-
-  	return vec;
-}
-
 
 inline double Vec2DDistance(const Vector2D &v1, const Vector2D &v2)
 {
@@ -264,7 +250,8 @@ inline bool isSecondInFOVOfFirst(Vector2D posFirst,
                                  Vector2D posSecond,
                                  double    fov)
 {
-	Vector2D toTarget = Vec2DNormalize(posSecond - posFirst);
+	Utility utility;
+	Vector2D toTarget = utility.Vec2DNormalize(posSecond - posFirst);
 
   	return facingFirst.Dot(toTarget) >= cos(fov/2.0);
 }

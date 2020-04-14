@@ -20,7 +20,12 @@ Vector2D Steering::seekTarget(Vector2D target)
 	Vector2D p; 
 	p.x = mPlayer->mPosition.x;
 	p.y = mPlayer->mPosition.y;
-	Vector2D DesiredVelocity = Vec2DNormalize(target - p)
+
+	Utility utility;
+
+
+
+	Vector2D DesiredVelocity = utility.Vec2DNormalize(target - p)
                             * mPlayer->mMaxSpeed;
 
 	Vector2D v; 
