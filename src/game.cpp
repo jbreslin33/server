@@ -96,6 +96,35 @@ Game::Game(Server* server, int id)
 
 }
 
+void Game::requestClient(std::vector<std::string> stringVector)
+{
+	int personIdInt = atoi(stringVector.at(2).c_str()); 
+	int portInt = atoi(stringVector.at(3).c_str()); 
+
+	bool foundClient = false;
+
+       	//lets find a client with a port 0 so its not being used by human
+
+	bool foundPersonId = false;	
+	
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		if (mClientVector.at(c)->mPersonId == personIdInt)
+		{
+			foundPersonId = true;
+			printf("Person ID:%d already has a client.\n",personIdInt);
+			return;
+		}
+	}
+
+	//fall thru make a new client instance
+	Client* client = new PlayerClient(getNextClientId(),0,0);
+	mClientVector.push_back(client);
+	client->mPort = portInt;
+	client->mPersonId = personIdInt;
+	printf("Make new Client for Person ID:%d \n",personIdInt);
+}
+
 void Game::requestPlayerClientAndPlayer(std::vector<std::string> stringVector)
 {
 	int personIdInt = atoi(stringVector.at(2).c_str()); 
@@ -174,7 +203,7 @@ void Game::processBuffer(std::vector<std::string> stringVector)
 	}
 	if (code == 3) //new Coach / Spectator
 	{
-		requestPlayerClientAndPlayer(stringVector);
+		requestClient(stringVector);
 	}
 }
 
@@ -212,9 +241,9 @@ void Game::update()
 
 void Game::sendDataToNewClients()
 {
-	for (int c = 0; c < mPlayerClientVector.size(); c++)
+	for (int c = 0; c < mClientVector.size(); c++)
 	{
-		if (mPlayerClientVector.at(c)->mPort != 0 && mPlayerClientVector.at(c)->mSentToClient == false)
+		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
 		{
 			//then we need to send to client so lets construct a messsage
 			std::string message = "";
@@ -230,12 +259,40 @@ void Game::sendDataToNewClients()
 
                         //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
 			printf("TO NEW CLIENT:%s\n",message.c_str());
-			sendToClient(mPlayerClientVector.at(c),message);
+			sendToClient(mClientVector.at(c),message);
 
-			mPlayerClientVector.at(c)->mSentToClient = true;
+			mClientVector.at(c)->mSentToClient = true;
 		}
 	}
 }
+
+void Game::sendDataToNewPlayerClients()
+{
+        for (int c = 0; c < mPlayerClientVector.size(); c++)
+        {
+                if (mPlayerClientVector.at(c)->mPort != 0 && mPlayerClientVector.at(c)->mSentToClient == false)
+                {
+                        //then we need to send to client so lets construct a messsage
+                        std::string message = "";
+
+                        message.append(std::to_string(mId)); //gameID
+                        message.append(",");
+
+                        message.append("2"); //new client code
+                        message.append(",");
+
+                        message.append(std::to_string(mPlayerClientVector.at(c)->mId)); //client id
+                        message.append(",");     //extra comma
+
+                        //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
+                        printf("TO NEW CLIENT:%s\n",message.c_str());
+                        sendToClient(mPlayerClientVector.at(c),message);
+
+                        mPlayerClientVector.at(c)->mSentToClient = true;
+                }
+        }
+}
+
 
 void Game::movePlayers()
 {
@@ -277,6 +334,54 @@ void Game::moveBall()
 }
 
 void Game::sendMovesToClients()
+{
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		//only clients with ports
+		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == true)
+		{
+			//we could just send 5 a pop with no id??? that would be 20...
+			std::string message = "";
+			message.append(std::to_string(mId)); //game id
+			message.append(",");
+			message.append("1"); //move code
+			message.append(",");
+
+
+			for (int p = 0; p < mPlayerVector.size(); p++)
+			{
+
+                        	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
+                        	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition.x); //player x
+                        	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition.y); //player y 
+
+				message.append(id);
+				message.append(",");
+				message.append(x);
+				message.append(",");
+				message.append(y);
+				message.append(",");
+			}
+
+			//add ball
+                        std::string x  = std::to_string(mBall->mPosition.x); //ball x
+                        std::string y  = std::to_string(mBall->mPosition.y); //ball y 
+			message.append(x);
+			message.append(",");
+			message.append(y);
+			message.append(",");
+
+			if (c == 0)
+			{	
+                        	//printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
+			}
+
+                        sendToClient(mClientVector.at(c),message);
+		}
+	}
+}
+
+void Game::sendMovesToPlayerClients()
 {
 	for (int c = 0; c < mPlayerClientVector.size(); c++)
 	{
@@ -329,12 +434,14 @@ void Game::tick()
 	//printf("tick:%ld\n",mDelta);
 	
 	//any new clients then send them message with the port
+	sendDataToNewPlayerClients();
 	sendDataToNewClients();
 
 	//move players
 	movePlayers();
 
 	//send moves to clients
+	sendMovesToPlayerClients();
 	sendMovesToClients();
 
 	//call update on players

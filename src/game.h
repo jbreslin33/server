@@ -28,12 +28,17 @@ class Game
 		void processBuffer(std::vector<std::string> stringVector);
 		void processMove(std::vector<std::string> stringVector);
 		void requestPlayerClientAndPlayer(std::vector<std::string> stringVector);
+		void requestClient(std::vector<std::string> stringVector);
 
-		//send
+		//network
 		void sendDataToNewClients();
+		void sendDataToNewPlayerClients();
+		void sendMovesToPlayerClients();
+		void sendMovesToClients();
+
+		//physics
 		void movePlayers();
 		void moveBall();
-		void sendMovesToClients();
 
 		int mPitchWidth;
 		int mPitchHeight;
