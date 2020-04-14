@@ -106,6 +106,7 @@ class Vector2D
 };
 
 //-----------------------------------------------------------------------some more operator overloads
+/*
 inline Vector2D operator*(const Vector2D &lhs, double rhs);
 inline Vector2D operator*(double lhs, const Vector2D &rhs);
 inline Vector2D operator-(const Vector2D &lhs, const Vector2D &rhs);
@@ -113,7 +114,7 @@ inline Vector2D operator+(const Vector2D &lhs, const Vector2D &rhs);
 inline Vector2D operator/(const Vector2D &lhs, double val);
 std::ostream& operator<<(std::ostream& os, const Vector2D& rhs);
 std::ifstream& operator>>(std::ifstream& is, Vector2D& lhs);
-
+*/
 
 //------------------------------------------------------------------------member functions
 //
