@@ -15,14 +15,20 @@ class Player : public MovePiece
 		
 		void update();
 
+		bool getHuman();
+		void setHuman(bool b);
+		void checkIfHuman();
+
 		Client* mClient;
 		Game* mGame;
+		bool mHuman;
 
 		//states
 		PlayerStateMachine* mPlayerStateMachine;
 
 		//steering
 		Steering* mSteering;
+
 
 	private:
 

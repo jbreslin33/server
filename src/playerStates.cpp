@@ -43,6 +43,26 @@ void InitPlayerState::exit(Player* player)
         printf("InitPlayerState::exit\n");
 }
 
+/**** HumanPlayerState ****************************/
+
+HumanPlayerState::HumanPlayerState()
+{
+}
+
+void HumanPlayerState::enter(Player* player)
+{
+        printf("HumanPlayerState::enter\n");
+}
+void HumanPlayerState::execute(Player* player)
+{
+}
+void HumanPlayerState::exit(Player* player)
+{
+        printf("HumanPlayerState::exit\n");
+}
+
+
+
 /**** ChaseBallPlayerState ****************************/
 
 ChaseBallPlayerState::ChaseBallPlayerState()

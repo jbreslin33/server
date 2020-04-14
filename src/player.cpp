@@ -31,8 +31,25 @@ Player::Player(Game* game, Client* client, int x, int y, int z) : MovePiece(x,y,
 
 void Player::update()
 {
+	//check if lost connection or switch to human
+	checkIfHuman();	
+
 	mPlayerStateMachine->update();
 	
 	mSteering->calculate();
+}
+void Player::checkIfHuman()
+{
+	//check to see if client is sending moves and or if port is 0	
+	
+}
 
+bool Player::getHuman()
+{
+	return mHuman;
+}
+
+void Player::setHuman(bool b)
+{
+	mHuman = b;
 }
