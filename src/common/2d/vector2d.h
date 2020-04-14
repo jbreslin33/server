@@ -120,31 +120,6 @@ std::ifstream& operator>>(std::ifstream& is, Vector2D& lhs);
 
 //------------------------------------------------------------------------non member functions
 
-inline double Vec2DDistance(const Vector2D &v1, const Vector2D &v2)
-{
-  	double ySeparation = v2.y - v1.y;
-  	double xSeparation = v2.x - v1.x;
-
-  	return sqrt(ySeparation*ySeparation + xSeparation*xSeparation);
-}
-
-inline double Vec2DDistanceSq(const Vector2D &v1, const Vector2D &v2)
-{
-	double ySeparation = v2.y - v1.y;
-  	double xSeparation = v2.x - v1.x;
-
-  	return ySeparation*ySeparation + xSeparation*xSeparation;
-}
-
-inline double Vec2DLength(const Vector2D& v)
-{
-	return sqrt(v.x*v.x + v.y*v.y);
-}
-
-inline double Vec2DLengthSq(const Vector2D& v)
-{
-	return (v.x*v.x + v.y*v.y);
-}
 
 //------------------------------------------------------------------------operator overloads
 inline Vector2D operator*(const Vector2D &lhs, double rhs)
