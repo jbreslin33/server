@@ -7,6 +7,7 @@
 using namespace std::chrono;
 
 class Client;
+class PlayerClient;
 class Player;
 class Server;
 class Ball;
@@ -26,7 +27,7 @@ class Game
 		//buffer
 		void processBuffer(std::vector<std::string> stringVector);
 		void processMove(std::vector<std::string> stringVector);
-		void processNewClient(std::vector<std::string> stringVector);
+		void requestPlayerClientAndPlayer(std::vector<std::string> stringVector);
 
 		//send
 		void sendDataToNewClients();
@@ -52,6 +53,7 @@ class Game
 		//client
                 int getNextClientId();
                 std::vector<Client*> mClientVector;
+                std::vector<PlayerClient*> mPlayerClientVector;
                 int mClientIdCounter;
 
 		//player

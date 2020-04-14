@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "client.h"
+#include "playerClient.h"
 #include "player.h"
 #include "ball.h"
 #include "server.h"
@@ -57,17 +58,17 @@ Game::Game(Server* server, int id)
 	//make 4 players and clients
 	//clients for ball and players
 
-	Client* homeClientOne = new Client(getNextClientId(),0,0);
-	mClientVector.push_back(homeClientOne);
+	PlayerClient* homeClientOne = new PlayerClient(getNextClientId(),0,0);
+	mPlayerClientVector.push_back(homeClientOne);
 
-	Client* homeClientTwo = new Client(getNextClientId(),0,0);
-	mClientVector.push_back(homeClientTwo);
+	PlayerClient* homeClientTwo = new PlayerClient(getNextClientId(),0,0);
+	mPlayerClientVector.push_back(homeClientTwo);
 
-	Client* homeClientThree = new Client(getNextClientId(),0,0);
-	mClientVector.push_back(homeClientThree);
+	PlayerClient* homeClientThree = new PlayerClient(getNextClientId(),0,0);
+	mPlayerClientVector.push_back(homeClientThree);
 
-	Client* awayClientOne = new Client(getNextClientId(),0,0);
-	mClientVector.push_back(awayClientOne);
+	PlayerClient* awayClientOne = new PlayerClient(getNextClientId(),0,0);
+	mPlayerClientVector.push_back(awayClientOne);
 
 
 	//players and ball
@@ -95,7 +96,7 @@ Game::Game(Server* server, int id)
 
 }
 
-void Game::processNewClient(std::vector<std::string> stringVector)
+void Game::requestPlayerClientAndPlayer(std::vector<std::string> stringVector)
 {
 	int personIdInt = atoi(stringVector.at(2).c_str()); 
 	int portInt = atoi(stringVector.at(3).c_str()); 
@@ -106,12 +107,13 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 
 	bool foundPersonId = false;	
 	
-	for (int c = 0; c < mClientVector.size(); c++)
+	for (int c = 0; c < mPlayerClientVector.size(); c++)
 	{
-		if (mClientVector.at(c)->mPersonId == personIdInt)
+		if (mPlayerClientVector.at(c)->mPersonId == personIdInt)
 		{
 			foundPersonId = true;
 			printf("Person ID:%d already has a client.\n",personIdInt);
+			//give them that one
 			return;
 		}
 	}
@@ -119,15 +121,15 @@ void Game::processNewClient(std::vector<std::string> stringVector)
 	//continue on if person does not have a client yet
 	if (foundPersonId == false)
 	{
-		for (int c = 0; c < mClientVector.size(); c++)
+		for (int c = 0; c < mPlayerClientVector.size(); c++)
 		{
 			if (!foundClient)
 			{
-				if (mClientVector.at(c)->mPort == 0)
+				if (mPlayerClientVector.at(c)->mPort == 0)
 				{
-					printf("found client id: %d with port zero giving it port %d\n",mClientVector.at(c)->mId, portInt);
-					mClientVector.at(c)->mPort = portInt;
-					mClientVector.at(c)->mPersonId = personIdInt;
+					printf("found client id: %d with port zero giving it port %d\n",mPlayerClientVector.at(c)->mId, portInt);
+					mPlayerClientVector.at(c)->mPort = portInt;
+					mPlayerClientVector.at(c)->mPersonId = personIdInt;
 	
 					foundClient = true;
 				}
@@ -145,14 +147,14 @@ void Game::processMove(std::vector<std::string> stringVector)
 {
 	int clientIdInt = atoi(stringVector.at(2).c_str()); 
 	
-	for (int c = 0; c < mClientVector.size(); c++)
+	for (int c = 0; c < mPlayerClientVector.size(); c++)
 	{
-		if (mClientVector.at(c)->mId == clientIdInt)
+		if (mPlayerClientVector.at(c)->mId == clientIdInt)
 		{
-			mClientVector.at(c)->mUp = atoi(stringVector.at(3).c_str()); 
-			mClientVector.at(c)->mRight = atoi(stringVector.at(4).c_str()); 
-			mClientVector.at(c)->mDown = atoi(stringVector.at(5).c_str()); 
-			mClientVector.at(c)->mLeft = atoi(stringVector.at(6).c_str()); 
+			mPlayerClientVector.at(c)->mUp = atoi(stringVector.at(3).c_str()); 
+			mPlayerClientVector.at(c)->mRight = atoi(stringVector.at(4).c_str()); 
+			mPlayerClientVector.at(c)->mDown = atoi(stringVector.at(5).c_str()); 
+			mPlayerClientVector.at(c)->mLeft = atoi(stringVector.at(6).c_str()); 
 		}
 	}
 }
@@ -166,9 +168,13 @@ void Game::processBuffer(std::vector<std::string> stringVector)
 		processMove(stringVector);
 	}
 
-	if (code == 2)
+	if (code == 2) //new player
 	{
-		processNewClient(stringVector);
+		requestPlayerClientAndPlayer(stringVector);
+	}
+	if (code == 3) //new Coach / Spectator
+	{
+		requestPlayerClientAndPlayer(stringVector);
 	}
 }
 
@@ -206,9 +212,9 @@ void Game::update()
 
 void Game::sendDataToNewClients()
 {
-	for (int c = 0; c < mClientVector.size(); c++)
+	for (int c = 0; c < mPlayerClientVector.size(); c++)
 	{
-		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == false)
+		if (mPlayerClientVector.at(c)->mPort != 0 && mPlayerClientVector.at(c)->mSentToClient == false)
 		{
 			//then we need to send to client so lets construct a messsage
 			std::string message = "";
@@ -219,14 +225,14 @@ void Game::sendDataToNewClients()
 			message.append("2"); //new client code	
 			message.append(",");	
 
-                        message.append(std::to_string(mClientVector.at(c)->mId)); //client id
+                        message.append(std::to_string(mPlayerClientVector.at(c)->mId)); //client id
 			message.append(",");	 //extra comma
 
                         //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
 			printf("TO NEW CLIENT:%s\n",message.c_str());
-			sendToClient(mClientVector.at(c),message);
+			sendToClient(mPlayerClientVector.at(c),message);
 
-			mClientVector.at(c)->mSentToClient = true;
+			mPlayerClientVector.at(c)->mSentToClient = true;
 		}
 	}
 }
@@ -272,10 +278,10 @@ void Game::moveBall()
 
 void Game::sendMovesToClients()
 {
-	for (int c = 0; c < mClientVector.size(); c++)
+	for (int c = 0; c < mPlayerClientVector.size(); c++)
 	{
 		//only clients with ports
-		if (mClientVector.at(c)->mPort != 0 && mClientVector.at(c)->mSentToClient == true)
+		if (mPlayerClientVector.at(c)->mPort != 0 && mPlayerClientVector.at(c)->mSentToClient == true)
 		{
 			//we could just send 5 a pop with no id??? that would be 20...
 			std::string message = "";
@@ -313,7 +319,7 @@ void Game::sendMovesToClients()
                         	//printf("Game sending this message to clients: %s\n",message.c_str()); //print to console what we are about to send
 			}
 
-                        sendToClient(mClientVector.at(c),message);
+                        sendToClient(mPlayerClientVector.at(c),message);
 		}
 	}
 }

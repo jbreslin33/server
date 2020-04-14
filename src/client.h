@@ -1,12 +1,8 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-class Player;
-
 class Client
 {
-	private:
-
 	public:
 		Client(int id, int port, int personId);
 		int mId;
@@ -20,7 +16,7 @@ class Client
 		int mDown;
 		int mLeft;
 
-		Player* mPlayer;
+	private:
 };
 
 #endif
