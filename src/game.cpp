@@ -188,6 +188,22 @@ void Game::processMove(std::vector<std::string> stringVector)
 	}
 }
 
+void Game::processClientMove(std::vector<std::string> stringVector)
+{
+	int clientIdInt = atoi(stringVector.at(2).c_str()); 
+	
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		if (mClientVector.at(c)->mId == clientIdInt)
+		{
+			mClientVector.at(c)->mUp = atoi(stringVector.at(3).c_str()); 
+			mClientVector.at(c)->mRight = atoi(stringVector.at(4).c_str()); 
+			mClientVector.at(c)->mDown = atoi(stringVector.at(5).c_str()); 
+			mClientVector.at(c)->mLeft = atoi(stringVector.at(6).c_str()); 
+		}
+	}
+}
+
 void Game::processBuffer(std::vector<std::string> stringVector)
 {
 	int code = atoi(stringVector.at(1).c_str()); 
