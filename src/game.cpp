@@ -239,8 +239,15 @@ void Game::movePlayers()
 		int directionY =  mPlayerVector.at(p)->mClient->mDown + (mPlayerVector.at(p)->mClient->mUp * -1);
 		
 		//set velocity to incoming client move
-		mPlayerVector.at(p)->mVelocity.x = directionX;
-		mPlayerVector.at(p)->mVelocity.y = directionY;
+		if (mPlayerVector.at(p)->mClient->mPort != 0)
+		{
+			mPlayerVector.at(p)->mVelocity.x = directionX;
+			mPlayerVector.at(p)->mVelocity.y = directionY;
+		}
+		else //ai
+		{
+
+		}
 
 		//normalize
 		mPlayerVector.at(p)->mVelocity.Normalize();

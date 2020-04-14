@@ -5,6 +5,7 @@
 #include "steering.h"
 #include "game.h"
 #include "ball.h"
+#include "common/2d/vector2d.h"
 
 /**** GlobalPlayerState ****************************/
 
@@ -51,11 +52,15 @@ ChaseBallPlayerState::ChaseBallPlayerState()
 void ChaseBallPlayerState::enter(Player* player)
 {
         printf("ChaseBallPlayerState::enter\n");
-	//player->mSteering->mSeekOn = true;
+	player->mSteering->mSeekOn = true;
 }
 void ChaseBallPlayerState::execute(Player* player)
 {
-	//player->mSteering->setTarget(player->mGame->mBall->mPosition);
+	Vector2D v;
+	v.x = player->mGame->mBall->mPosition.x;
+	v.y = player->mGame->mBall->mPosition.y;
+
+	player->mSteering->setTarget(v);
 }
 void ChaseBallPlayerState::exit(Player* player)
 {

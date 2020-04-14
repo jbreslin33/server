@@ -5,12 +5,11 @@
 Steering::Steering(Player* player)
 {
 
-	mTarget = nullptr;
 	mSeekOn = false;
 	mPlayer = player; 
 }
 
-void Steering::setTarget(Vector2D* target)
+void Steering::setTarget(Vector2D target)
 {
 	mTarget = target;
 }
@@ -23,8 +22,6 @@ Vector2D Steering::seekTarget(Vector2D target)
 
 	Utility utility;
 
-
-
 	Vector2D DesiredVelocity = utility.Vec2DNormalize(target - p)
                             * mPlayer->mMaxSpeed;
 
@@ -32,7 +29,25 @@ Vector2D Steering::seekTarget(Vector2D target)
 	v.x = mPlayer->mVelocity.x;
 	v.y = mPlayer->mVelocity.y;
 
-	return (DesiredVelocity - v);
+	Vector2D returnVelocity = DesiredVelocity - v;
+	//printf("x:%f y:%f\n",returnVelocity.x,returnVelocity.y);
+
+	return (returnVelocity);
+}
+
+Vector2D Steering::calculate()
+{
+	mPlayer->mVelocity.Zero();
+
+	mPlayer->mVelocity = sumForces();
+}	
+
+Vector2D Steering::sumForces()
+{
+	Vector2D force;
+
+	force = seekTarget(mTarget);
+	return force;
 }
 
 

@@ -10,9 +10,11 @@
 
 Player::Player(Game* game, Client* client, int x, int y, int z) : MovePiece(x,y,z)
 {
-	printf("c\n");
 	mClient = client;
 	mGame = game;
+	
+	//steering
+	mSteering = new Steering(this);
 
 	//states
 	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
@@ -24,13 +26,13 @@ Player::Player(Game* game, Client* client, int x, int y, int z) : MovePiece(x,y,
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
     	mPlayerStateMachine->changeState(mChaseBallPlayerState);
-	printf("d\n");
 
-	//steering
-	//mSteering = new Steering(this);
 }
 
 void Player::update()
 {
 	mPlayerStateMachine->update();
+	
+	mSteering->calculate();
+
 }
