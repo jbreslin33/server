@@ -78,7 +78,7 @@ void Game::requestClient(std::vector<std::string> stringVector)
 		{
 			if (mClientVector.at(c)->mPort == portInt)
 			{
-				printf("Person ID:%d already has a client and port is good to go at:%d.\n",personIdInt, portInt);
+				//printf("Person ID:%d already has a client and port is good to go at:%d.\n",personIdInt, portInt);
 			}
 			else
 			{
@@ -98,6 +98,29 @@ void Game::requestClient(std::vector<std::string> stringVector)
 
 void Game::requestPlayer(std::vector<std::string> stringVector)
 {
+	int personIdInt = atoi(stringVector.at(2).c_str()); 
+	int portInt = atoi(stringVector.at(3).c_str()); 
+
+	//who is this client
+	for (int c = 0; c < mClientVector.size(); c++)
+	{
+		if (mClientVector.at(c)->mPersonId == personIdInt)
+		{
+			//found client	lets see if we can give a player a pointer to this client		
+			for (int p = 0; p < mPlayerVector.size(); p++)
+			{
+				if (mPlayerVector.at(p)->mClient == nullptr)
+				{
+					//we got a player with a nullptr client
+					mPlayerVector.at(p)->mClient = mClientVector.at(c);	
+					printf("Able to assign a player with id:%d to person id:%d with port:%d\n",mPlayerVector.at(p)->mId,personIdInt,portInt);
+					return;
+				}
+			}
+		}
+	}
+
+	printf("not able to assign a player to person:%d with port:%d\n",personIdInt,portInt);
 
 }
 
@@ -119,19 +142,20 @@ void Game::processMove(std::vector<std::string> stringVector)
 
 void Game::processBuffer(std::vector<std::string> stringVector)
 {
-	int code = atoi(stringVector.at(1).c_str()); 
+	//int code = atoi(stringVector.at(1).c_str()); 
+	//int code = atoi(stringVector.at(1).c_str()); 
 
-	if (code == 1)
+	if (stringVector.at(1).compare(0,1,"m") == 0)
 	{
 		processMove(stringVector);
 	}
 
-	if (code == 2) //request client
+	if (stringVector.at(1).compare(0,1,"j") == 0)
 	{
 		requestClient(stringVector);
 	}
 
-	if (code == 3) //request player
+	if (stringVector.at(1).compare(0,1,"p") == 0)
 	{
 		requestPlayer(stringVector);
 	}
@@ -181,7 +205,7 @@ void Game::sendDataToNewClients()
 			message.append(std::to_string(mId)); //gameID
 			message.append(",");	
 
-			message.append("2"); //new client code	
+			message.append("j"); //new client code	
 			message.append(",");	
 
                         message.append(std::to_string(mClientVector.at(c)->mId)); //client id
@@ -248,7 +272,7 @@ void Game::sendMovesToClients()
 			std::string message = "";
 			message.append(std::to_string(mId)); //game id
 			message.append(",");
-			message.append("1"); //move code
+			message.append("m"); //move code
 			message.append(",");
 
 
