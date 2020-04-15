@@ -38,6 +38,12 @@ void Player::update()
 	
 	mSteering->calculate();
 
+	if (mSteering->mSteeringForce.isZero())
+	{
+		const double BrakingRate = 0.8;
+
+		mVelocity = mVelocity * BrakingRate;
+	}
 }
 /*
   //run the logic for the current state
