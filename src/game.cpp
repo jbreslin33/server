@@ -107,8 +107,17 @@ void Game::requestPlayer(std::vector<std::string> stringVector)
 		if (mClientVector.at(c)->mPersonId == personIdInt)
 		{
 			//found client	lets see if we can give a player a pointer to this client		
+			
 			for (int p = 0; p < mPlayerVector.size(); p++)
 			{
+				//but first make sure client is not assigned to another player already
+				if (mClientVector.at(c) == mPlayerVector.at(p)->mClient)
+				{
+					return; //becuase this client is already assigned to a player...
+				}
+	
+				//we go this far so client is not linked to player try to find a player with nullptr client...
+
 				if (mPlayerVector.at(p)->mClient == nullptr)
 				{
 					//we got a player with a nullptr client
