@@ -12,9 +12,12 @@ class MovePiece : public BasePiece
  		void update();
 
                 Vector2D mVelocity;
+		Vector2D mSide;
+		Vector2D mHeading;
 
                 double mMaxSpeed;
                 double mMaxForce;
+                double mMaxTurnRate;
 
 };
 

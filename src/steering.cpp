@@ -57,3 +57,22 @@ Vector2D Steering::sumForces()
 	return force;
 }
 
+//--------------------------- SideComponent ------------------------------
+//
+//  //  calculates the side component of the steering force
+//------------------------------------------------------------------------
+double Steering::sideComponent()
+{
+  return mPlayer->mSide.Dot(mSteeringForce) * mPlayer->mMaxTurnRate;
+}
+//------------------------- ForwardComponent -----------------------------
+//
+//  calculates the forward component of the steering force
+//------------------------------------------------------------------------
+double Steering::forwardComponent()
+{
+  return mPlayer->mHeading.Dot(mSteeringForce);
+}
+
+
+

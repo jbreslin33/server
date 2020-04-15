@@ -44,6 +44,11 @@ void Player::update()
 
 		mVelocity = mVelocity * BrakingRate;
 	}
+  
+	double TurningForce = mSteering->sideComponent();
+	//printf("TurningForce:%f",TurningForce);
+  
+	Clamp(TurningForce, -mMaxTurnRate, mMaxTurnRate);
 }
 /*
   //run the logic for the current state

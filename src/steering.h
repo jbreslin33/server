@@ -22,6 +22,10 @@ class Steering
 		Vector2D sumForces();
 
 		Player* mPlayer;
+
+		double sideComponent();
+		double forwardComponent();
+
 };
 
 #endif
