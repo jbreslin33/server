@@ -142,8 +142,6 @@ void Game::processMove(std::vector<std::string> stringVector)
 
 void Game::processBuffer(std::vector<std::string> stringVector)
 {
-	//int code = atoi(stringVector.at(1).c_str()); 
-	//int code = atoi(stringVector.at(1).c_str()); 
 
 	if (stringVector.at(1).compare(0,1,"m") == 0)
 	{
