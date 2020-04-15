@@ -14,6 +14,7 @@ class MovePiece : public BasePiece
                 Vector2D mVelocity;
 
                 double mMaxSpeed;
+                double mMaxForce;
 
 };
 

@@ -11,7 +11,10 @@ class Steering
 		Steering(Player* player);
 
 		Vector2D mTarget;
+		Vector2D mSteeringForce;
+
 		bool mSeekOn;
+
 
 		void setTarget(Vector2D target);
 		Vector2D seekTarget(Vector2D target);
