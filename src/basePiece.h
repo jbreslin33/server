@@ -10,6 +10,7 @@ class BasePiece
 		
 		void update();
 
+                Vector2D mStartPosition;
                 Vector2D mPosition;
 
 		//id

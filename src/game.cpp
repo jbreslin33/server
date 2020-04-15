@@ -66,6 +66,16 @@ Game::Game(Server* server, int id)
 	mBall = new Ball(this,0,0,0);
 }
 
+void Game::startGame(std::vector<std::string> stringVector)
+{
+        for (int p = 0; p < mPlayerVector.size(); p++)
+        {
+                mPlayerVector.at(p)->mPosition.x = mPlayerVector.at(p)->mStartPosition.x;
+                mPlayerVector.at(p)->mPosition.y = mPlayerVector.at(p)->mStartPosition.y;
+        }
+
+}
+
 void Game::requestClient(std::vector<std::string> stringVector)
 {
 	int personIdInt = atoi(stringVector.at(2).c_str()); 
@@ -165,6 +175,11 @@ void Game::processBuffer(std::vector<std::string> stringVector)
 	if (stringVector.at(1).compare(0,1,"p") == 0)
 	{
 		requestPlayer(stringVector);
+	}
+	
+	if (stringVector.at(1).compare(0,1,"g") == 0)
+	{
+		startGame(stringVector);
 	}
 }
 

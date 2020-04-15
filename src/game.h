@@ -30,6 +30,7 @@ class Game
 
 		void requestClient(std::vector<std::string> stringVector);
 		void requestPlayer(std::vector<std::string> stringVector);
+		void startGame(std::vector<std::string> stringVector);
 
 		//network
 		void sendDataToNewClients();
