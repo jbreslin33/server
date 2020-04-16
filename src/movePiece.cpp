@@ -11,6 +11,8 @@ MovePiece::MovePiece(int x, int y, int z) : BasePiece(x,y,z)
 	mMaxForce = 1.0;
 	mMaxTurnRate = 0.4;
 
+	mFacingAngle = 90.0;
+	
 	mLooking = 0.0;
 
 	mSide = mHeading.Perp();

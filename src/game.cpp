@@ -60,7 +60,7 @@ Game::Game(Server* server, int id)
 	Player* homePlayerThree = new Player(this,-10,-10,0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(this,10,10,0);
+	Player* awayPlayerOne = new Player(this,-10,10,0);
 	mPlayerVector.push_back(awayPlayerOne);
 	
 	mBall = new Ball(this,0,0,0);
@@ -298,7 +298,7 @@ void Game::sendMovesToClients()
                         	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
                         	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition.x); //player x
                         	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition.y); //player y 
-                        	std::string looking  = std::to_string(mPlayerVector.at(p)->mLooking); //player y 
+                        	std::string facingAngle = std::to_string(mPlayerVector.at(p)->mFacingAngle); //left foot angle 
 
 				message.append(id);
 				message.append(",");
@@ -306,7 +306,7 @@ void Game::sendMovesToClients()
 				message.append(",");
 				message.append(y);
 				message.append(",");
-				message.append(looking);
+				message.append(facingAngle);
 				message.append(",");
 			}
 

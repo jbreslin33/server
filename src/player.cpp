@@ -47,8 +47,12 @@ void Player::update()
 	mHeading = mPosition - mSteering->mTarget;
 	mHeading.Normalize();
 
-	mLooking = atan2(mHeading.x,mHeading.y);
-	printf("mLooking:%f",mLooking);
+	mLooking = atan2(mHeading.x,mHeading.y) * 180 / 3.14;
+	//atan2 (y,x) * 180 / PI;
+	if (mClient)
+	{
+		printf("mLooking:%f",mLooking);
+	}
 
 	//RotateHeadingToFacePosition(mSteering->mTarget);
 	
@@ -154,8 +158,6 @@ void Player::update()
 
 void Player::checkIfHuman()
 {
-	//check to see if client is sending moves and or if port is 0	
-	
 }
 
 bool Player::getHuman()
