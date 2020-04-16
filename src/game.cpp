@@ -254,20 +254,14 @@ void Game::movePlayers()
 		
 			mPlayerVector.at(p)->mVelocity.x = directionX;
 			mPlayerVector.at(p)->mVelocity.y = directionY;
-		} 
-		else //ai
-		{
-			//do nothing and let the state machine do its thing
-		}
-
-		//whether ai or not....
 		
-		//normalize
-		mPlayerVector.at(p)->mVelocity.Normalize();
+			//normalize
+			mPlayerVector.at(p)->mVelocity.Normalize();
 
-		//add normalized velocity to current position	
-		mPlayerVector.at(p)->mPosition.x += mPlayerVector.at(p)->mVelocity.x;
-		mPlayerVector.at(p)->mPosition.y += mPlayerVector.at(p)->mVelocity.y;
+			//add normalized velocity to current position	
+			mPlayerVector.at(p)->mPosition.x += mPlayerVector.at(p)->mVelocity.x;
+			mPlayerVector.at(p)->mPosition.y += mPlayerVector.at(p)->mVelocity.y;
+		}
 	}
 }
 
