@@ -4,6 +4,7 @@
 #include "playerStates.h"
 #include "playerStateMachine.h"
 #include "steering.h"
+#include "common/2d/transformations.h"
 
 //Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
 
@@ -49,6 +50,8 @@ void Player::update()
 	//printf("TurningForce:%f",TurningForce);
   
 	Clamp(TurningForce, -mMaxTurnRate, mMaxTurnRate);
+  
+	Vec2DRotateAroundOrigin(mHeading, TurningForce);
 }
 /*
   //run the logic for the current state
