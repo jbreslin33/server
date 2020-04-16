@@ -32,16 +32,19 @@ Player::Player(Game* game, int x, int y, int z) : MovePiece(x,y,z)
 
 void Player::update()
 {
+
+
+
 	//check if lost connection or switch to human
 	checkIfHuman();	
 
   	//run the logic for the current state
 	mPlayerStateMachine->update();
+
+	//RotateHeadingToFacePosition(mSteering->mTarget);
 	
   	//calculate the combined steering force
 	mSteering->calculate();
-	
-	printf("x:%f y:%f\n",mSteering->mSteeringForce.x,mSteering->mSteeringForce.y);
 
   	//if no steering force is produced decelerate the player by applying a
  	//braking force
@@ -55,28 +58,30 @@ void Player::update()
   	//the steering force's side component is a force that rotates the 
   	//player about its axis. We must limit the rotation so that a player
   	//can only turn by PlayerMaxTurnRate rads per update.
-	double TurningForce = mSteering->sideComponent();
+	//double TurningForce = mSteering->sideComponent();
   
-	Clamp(TurningForce, -mMaxTurnRate, mMaxTurnRate);
+	//Clamp(TurningForce, -mMaxTurnRate, mMaxTurnRate);
   
   	//rotate the heading vector
-	Vec2DRotateAroundOrigin(mHeading, TurningForce);
+	//Vec2DRotateAroundOrigin(mHeading, TurningForce);
+	//printf("x:%f y:%f TurningForce:%f mHeading.x:%f mHeading.y:%f \n",mSteering->mSteeringForce.x,mSteering->mSteeringForce.y, TurningForce,mHeading.x,mHeading.y);
 
   
 	//make sure the velocity vector points in the same direction as
   	//the heading vector
-  	mVelocity = mHeading * mVelocity.Length();
+  	//mVelocity = mHeading * mVelocity.Length();
 
   
 	//and recreate m_vSide
-  	mSide = mHeading.Perp();
+  	//mSide = mHeading.Perp();
   
   	//and recreate m_vSide
-	Vector2D accel = mHeading * mSteering->forwardComponent(); // m_dMass;
+	//Vector2D accel = mHeading * mSteering->forwardComponent(); // m_dMass;
   
-	mVelocity += accel;
+	//mVelocity += accel;
   
 	//make sure player does not exceed maximum velocity
+	mVelocity = mSteering->mSteeringForce;
   	mVelocity.Truncate(mMaxSpeed);
 
   	//update the position

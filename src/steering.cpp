@@ -63,6 +63,11 @@ Vector2D Steering::sumForces()
 //------------------------------------------------------------------------
 double Steering::sideComponent()
 {
+	//printf("X:%f Y:%F\n",mSteeringForce.x, mSteeringForce.y);
+	printf("sx:%f sy:%F\n",mPlayer->mSide.x, mPlayer->mSide.y);
+  	double s = mPlayer->mSide.Dot(mSteeringForce);;
+	printf("S:%f\n",s);
+
   return mPlayer->mSide.Dot(mSteeringForce) * mPlayer->mMaxTurnRate;
 }
 //------------------------- ForwardComponent -----------------------------

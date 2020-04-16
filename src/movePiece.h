@@ -3,6 +3,7 @@
 
 #include "basePiece.h"
 #include "common/2d/vector2d.h"
+#include "utility.h"
 
 class MovePiece : public BasePiece
 {
@@ -11,6 +12,9 @@ class MovePiece : public BasePiece
 
  		void update();
 
+		bool RotateHeadingToFacePosition(Vector2D target);
+
+
                 Vector2D mVelocity;
 		Vector2D mSide;
 		Vector2D mHeading;
@@ -18,6 +22,7 @@ class MovePiece : public BasePiece
                 double mMaxSpeed;
                 double mMaxForce;
                 double mMaxTurnRate;
+		Utility utility;
 
 };
 
