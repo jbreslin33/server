@@ -5,6 +5,7 @@
 #include "playerStateMachine.h"
 #include "steering.h"
 #include "common/2d/transformations.h"
+#include <math.h>
 
 //Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
 
@@ -40,6 +41,14 @@ void Player::update()
 
   	//run the logic for the current state
 	mPlayerStateMachine->update();
+
+	//set looking at
+	//mHeading = mSteering->mTarget - mPosition;
+	mHeading = mPosition - mSteering->mTarget;
+	mHeading.Normalize();
+
+	mLooking = atan2(mHeading.x,mHeading.y);
+	printf("mLooking:%f",mLooking);
 
 	//RotateHeadingToFacePosition(mSteering->mTarget);
 	

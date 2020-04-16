@@ -298,12 +298,15 @@ void Game::sendMovesToClients()
                         	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
                         	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition.x); //player x
                         	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition.y); //player y 
+                        	std::string looking  = std::to_string(mPlayerVector.at(p)->mLooking); //player y 
 
 				message.append(id);
 				message.append(",");
 				message.append(x);
 				message.append(",");
 				message.append(y);
+				message.append(",");
+				message.append(looking);
 				message.append(",");
 			}
 
