@@ -10,7 +10,7 @@
 //Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
 
 
-Player::Player(Game* game, int x, int y, int z) : MovePiece(x,y,z)
+Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(x,y,z,facingAngle)
 {
 	mClient = nullptr;
 	mGame = game;

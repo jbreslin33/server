@@ -2,7 +2,7 @@
 #include "common/2d/vector2d.h"
 #include "common/2d/c2dMatrix.h"
 
-MovePiece::MovePiece(int x, int y, int z) : BasePiece(x,y,z)
+MovePiece::MovePiece(int x, int y, int z, double facingAngle) : BasePiece(x,y,z)
 {
         mVelocity.x = x;
         mVelocity.y = y;
@@ -11,7 +11,7 @@ MovePiece::MovePiece(int x, int y, int z) : BasePiece(x,y,z)
 	mMaxForce = 1.0;
 	mMaxTurnRate = 0.4;
 
-	mFacingAngle = 90.0;
+	mFacingAngle = facingAngle;
 	
 	mLooking = 0.0;
 

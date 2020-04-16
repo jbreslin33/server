@@ -8,7 +8,7 @@
 class MovePiece : public BasePiece
 {
 	public: 
-		MovePiece(int x, int y, int z);
+		MovePiece(int x, int y, int z, double facingAngle);
 
  		void update();
 

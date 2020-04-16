@@ -51,19 +51,19 @@ Game::Game(Server* server, int id)
 	mClientIdCounter = 0;
 
 	//players and ball
-	Player* homePlayerOne = new Player(this,10,10,0);
+	Player* homePlayerOne = new Player(this,10,10,0,0.0);
 	mPlayerVector.push_back(homePlayerOne);
 
-	Player* homePlayerTwo = new Player(this,10,-10,0);
+	Player* homePlayerTwo = new Player(this,10,-10,0,90.0);
 	mPlayerVector.push_back(homePlayerTwo);
 
-	Player* homePlayerThree = new Player(this,-10,-10,0);
+	Player* homePlayerThree = new Player(this,-10,-10,0,180.0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(this,-10,10,0);
+	Player* awayPlayerOne = new Player(this,-10,10,0,270.0);
 	mPlayerVector.push_back(awayPlayerOne);
 	
-	mBall = new Ball(this,0,0,0);
+	mBall = new Ball(this,0,0,0,90.0);
 }
 
 void Game::startGame(std::vector<std::string> stringVector)

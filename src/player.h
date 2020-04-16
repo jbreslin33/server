@@ -11,7 +11,7 @@ class Game;
 class Player : public MovePiece
 {
 	public:
-		Player(Game* game, int x, int y, int z);
+		Player(Game* game, int x, int y, int z, double facingAngle);
 		
 		void update();
 

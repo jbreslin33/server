@@ -8,7 +8,7 @@ class Game;
 class Ball : public MovePiece
 {
 	public:
-		Ball(Game* game, int x, int y, int z);
+		Ball(Game* game, int x, int y, int z, double facingAngle);
 		
 		void update();
 		Game* mGame;
