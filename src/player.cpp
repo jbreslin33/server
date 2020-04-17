@@ -1,10 +1,9 @@
 #include <iostream>
 #include "player.h"
 
-#include "playerStates.h"
 #include "playerStateMachine.h"
+#include "playerStates.h"
 #include "playerControlStates.h"
-#include "playerControlStateMachine.h"
 #include "steering.h"
 #include "client.h"
 #include "common/2d/transformations.h"
@@ -20,26 +19,30 @@ Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(
 	
 	//steering
 	mSteering = new Steering(this);
+	
+	//state machines
+	mPlayerStateMachine = new PlayerStateMachine(this);    //setup the state machine
+	mPlayerControlStateMachine = new PlayerStateMachine(this);    //setup the state machine
 
 	//player states
-	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
-	InitPlayerState* mInitPlayerState = new InitPlayerState();
-	ChaseBallPlayerState* mChaseBallPlayerState = new ChaseBallPlayerState();
+	mGlobalPlayerState = new GlobalPlayerState();
+	mInitPlayerState = new InitPlayerState();
+	mChaseBallPlayerState = new ChaseBallPlayerState();
 	
 	//player control states
-	GlobalPlayerControlState* mGlobalPlayerControlState = new GlobalPlayerControlState();
-	InitPlayerControlState* mInitPlayerControlState = new InitPlayerControlState();
-	HumanPlayerControlState* mHumanPlayerControlState = new HumanPlayerControlState();
-	ComputerPlayerControlState* mComputerPlayerControlState = new ComputerPlayerControlState();
+	mGlobalPlayerControlState = new GlobalPlayerControlState();
+	mInitPlayerControlState = new InitPlayerControlState();
+	mHumanPlayerControlState = new HumanPlayerControlState();
+	mComputerPlayerControlState = new ComputerPlayerControlState();
 
-	mPlayerStateMachine = new PlayerStateMachine(this);    //setup the state machine
-	mPlayerControlStateMachine = new PlayerControlStateMachine(this);    //setup the state machine
-
+	//set states
+	//player states
 	mPlayerStateMachine->setCurrentState(nullptr);
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
     	mPlayerStateMachine->changeState(mInitPlayerState);
-	
+
+	//player control states	
 	mPlayerControlStateMachine->setCurrentState(nullptr);
     	mPlayerControlStateMachine->setPreviousState(nullptr);
     	mPlayerControlStateMachine->setGlobalState(mGlobalPlayerControlState);
@@ -53,6 +56,7 @@ void Player::update()
 	//check if lost connection or switch to human
 	checkIfHuman();	
 		
+	mPlayerControlStateMachine->update();
 	mPlayerStateMachine->update();
 
 	if (mClient)

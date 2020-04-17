@@ -1,4 +1,5 @@
-#include "playerStates.h"
+#include "playerStateMachine.h"
+#include "playerControlStates.h"
 #include <iostream>
 
 #include "player.h"
@@ -7,84 +8,96 @@
 #include "ball.h"
 #include "common/2d/vector2d.h"
 
-/**** GlobalPlayerState ****************************/
+/**** GlobalPlayerControlState ****************************/
 
-GlobalPlayerState::GlobalPlayerState()
-{
-}
-
-void GlobalPlayerState::enter(Player* player)
-{
-        printf("GlobalPlayerState::enter\n");
-}
-void GlobalPlayerState::execute(Player* player)
-{
-}
-void GlobalPlayerState::exit(Player* player)
-{
-        printf("GlobalPlayerState::exit\n");
-}
-
-/**** InitPlayerState ****************************/
-
-InitPlayerState::InitPlayerState()
+GlobalPlayerControlState::GlobalPlayerControlState()
 {
 }
 
-void InitPlayerState::enter(Player* player)
+void GlobalPlayerControlState::enter(Player* player)
 {
-        printf("InitPlayerState::enter\n");
+        printf("GlobalPlayerControlState::enter\n");
 }
-void InitPlayerState::execute(Player* player)
-{
-}
-void InitPlayerState::exit(Player* player)
-{
-        printf("InitPlayerState::exit\n");
-}
-
-/**** HumanPlayerState ****************************/
-
-HumanPlayerState::HumanPlayerState()
+void GlobalPlayerControlState::execute(Player* player)
 {
 }
-
-void HumanPlayerState::enter(Player* player)
+void GlobalPlayerControlState::exit(Player* player)
 {
-        printf("HumanPlayerState::enter\n");
-}
-void HumanPlayerState::execute(Player* player)
-{
-}
-void HumanPlayerState::exit(Player* player)
-{
-        printf("HumanPlayerState::exit\n");
+        printf("GlobalPlayerControlState::exit\n");
 }
 
+/**** InitPlayerControlState ****************************/
 
-
-/**** ChaseBallPlayerState ****************************/
-
-ChaseBallPlayerState::ChaseBallPlayerState()
+InitPlayerControlState::InitPlayerControlState()
 {
 }
 
-void ChaseBallPlayerState::enter(Player* player)
+void InitPlayerControlState::enter(Player* player)
 {
-        printf("ChaseBallPlayerState::enter\n");
-	player->mSteering->mSeekOn = true;
+        printf("InitPlayerControlState::enter\n");
 }
-void ChaseBallPlayerState::execute(Player* player)
+void InitPlayerControlState::execute(Player* player)
 {
-	Vector2D v;
-	v.x = player->mGame->mBall->mPosition.x;
-	v.y = player->mGame->mBall->mPosition.y;
+	if (player->mClient)
+	{
+ 		player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+	}
+	else
+	{
+ 		player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+	}
+}
+void InitPlayerControlState::exit(Player* player)
+{
+        printf("InitPlayerControlState::exit\n");
+}
 
-	player->mSteering->setTarget(v);
-}
-void ChaseBallPlayerState::exit(Player* player)
+/**** HumanPlayerControlState ****************************/
+
+HumanPlayerControlState::HumanPlayerControlState()
 {
-        printf("ChaseBallPlayerState::exit\n");
+}
+
+void HumanPlayerControlState::enter(Player* player)
+{
+        printf("HumanPlayerControlState::enter\n");
+}
+void HumanPlayerControlState::execute(Player* player)
+{
+	if (player->mClient == nullptr)
+	{
+ 		player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+	}
+
+}
+void HumanPlayerControlState::exit(Player* player)
+{
+        printf("HumanPlayerControlState::exit\n");
+}
+
+
+
+/**** ComputerPlayerControlState ****************************/
+
+ComputerPlayerControlState::ComputerPlayerControlState()
+{
+}
+
+void ComputerPlayerControlState::enter(Player* player)
+{
+        printf("ComputerPlayerControlState::enter\n");
+}
+void ComputerPlayerControlState::execute(Player* player)
+{
+	if (player->mClient)
+	{
+ 		player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+	}
+
+}
+void ComputerPlayerControlState::exit(Player* player)
+{
+        printf("ComputerPlayerControlState::exit\n");
 }
 
 

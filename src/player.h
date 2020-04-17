@@ -5,9 +5,18 @@
 
 class Client;
 class PlayerStateMachine;
-class PlayerControlStateMachine;
 class Steering;
 class Game;
+
+class GlobalPlayerState;
+class InitPlayerState;
+class ChaseBallPlayerState;
+class HumanPlayerState;
+
+class GlobalPlayerControlState;
+class InitPlayerControlState;
+class ComputerPlayerControlState;
+class HumanPlayerControlState;
 
 class Player : public MovePiece
 {
@@ -24,9 +33,20 @@ class Player : public MovePiece
 		Game* mGame;
 		bool mHuman;
 
-		//states
+		//states machines
+		PlayerStateMachine* mPlayerStateMachine;
 		PlayerStateMachine* mPlayerControlStateMachine;
-		PlayerControlStateMachine* mPlayerControlStateMachine;
+
+	       	//player states
+       	 	GlobalPlayerState* mGlobalPlayerState;
+        	InitPlayerState* mInitPlayerState;
+        	ChaseBallPlayerState* mChaseBallPlayerState;
+
+        	//player control states
+        	GlobalPlayerControlState* mGlobalPlayerControlState;
+        	InitPlayerControlState* mInitPlayerControlState;
+        	HumanPlayerControlState* mHumanPlayerControlState;
+        	ComputerPlayerControlState* mComputerPlayerControlState;
 
 		//steering
 		Steering* mSteering;

@@ -1,50 +1,37 @@
-#ifndef PLAYERSTATES_H
-#define PLAYERSTATES_H
+#ifndef PLAYERCONTROLSTATES_H
+#define PLAYERCONTROLSTATES_H
 
 #include "playerState.h"
 
 class Player;
 
-class GlobalPlayerState : public PlayerState
+class GlobalPlayerControlState : public PlayerState
 {
 
 	public:
-		GlobalPlayerState();
+		GlobalPlayerControlState();
 
  		void enter(Player* player);
  		void execute(Player* player);
  		void exit(Player* player);
 };
 
-class InitPlayerState : public PlayerState
+class InitPlayerControlState : public PlayerState
 {
 
 	public:
-		InitPlayerState();
+		InitPlayerControlState();
 
  		void enter(Player* player);
  		void execute(Player* player);
  		void exit(Player* player);
 };
 
-class HumanPlayerState : public PlayerState
+class HumanPlayerControlState : public PlayerState
 {
 
 	public:
-		HumanPlayerState();
-
- 		void enter(Player* player);
- 		void execute(Player* player);
- 		void exit(Player* player);
-};
-
-
-
-class ChaseBallPlayerState : public PlayerState
-{
-
-	public:
-		ChaseBallPlayerState();
+		HumanPlayerControlState();
 
  		void enter(Player* player);
  		void execute(Player* player);
@@ -53,6 +40,15 @@ class ChaseBallPlayerState : public PlayerState
 
 
 
+class ComputerPlayerControlState : public PlayerState
+{
 
+	public:
+		ComputerPlayerControlState();
+
+ 		void enter(Player* player);
+ 		void execute(Player* player);
+ 		void exit(Player* player);
+};
 
 #endif
