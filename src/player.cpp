@@ -3,6 +3,8 @@
 
 #include "playerStates.h"
 #include "playerStateMachine.h"
+#include "playerControlStates.h"
+#include "playerControlStateMachine.h"
 #include "steering.h"
 #include "client.h"
 #include "common/2d/transformations.h"
@@ -19,17 +21,29 @@ Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(
 	//steering
 	mSteering = new Steering(this);
 
-	//states
+	//player states
 	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
 	InitPlayerState* mInitPlayerState = new InitPlayerState();
 	ChaseBallPlayerState* mChaseBallPlayerState = new ChaseBallPlayerState();
 	
+	//player control states
+	GlobalPlayerControlState* mGlobalPlayerControlState = new GlobalPlayerControlState();
+	InitPlayerControlState* mInitPlayerControlState = new InitPlayerControlState();
+	HumanPlayerControlState* mHumanPlayerControlState = new HumanPlayerControlState();
+	ComputerPlayerControlState* mComputerPlayerControlState = new ComputerPlayerControlState();
+
 	mPlayerStateMachine = new PlayerStateMachine(this);    //setup the state machine
+	mPlayerControlStateMachine = new PlayerControlStateMachine(this);    //setup the state machine
 
 	mPlayerStateMachine->setCurrentState(nullptr);
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
     	mPlayerStateMachine->changeState(mInitPlayerState);
+	
+	mPlayerControlStateMachine->setCurrentState(nullptr);
+    	mPlayerControlStateMachine->setPreviousState(nullptr);
+    	mPlayerControlStateMachine->setGlobalState(mGlobalPlayerControlState);
+    	mPlayerControlStateMachine->changeState(mInitPlayerControlState);
 
 }
 

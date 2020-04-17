@@ -5,6 +5,7 @@
 
 class Client;
 class PlayerStateMachine;
+class PlayerControlStateMachine;
 class Steering;
 class Game;
 
@@ -24,7 +25,8 @@ class Player : public MovePiece
 		bool mHuman;
 
 		//states
-		PlayerStateMachine* mPlayerStateMachine;
+		PlayerStateMachine* mPlayerControlStateMachine;
+		PlayerControlStateMachine* mPlayerControlStateMachine;
 
 		//steering
 		Steering* mSteering;
