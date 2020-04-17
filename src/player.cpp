@@ -47,11 +47,11 @@ void Player::update()
 	mHeading = mPosition - mSteering->mTarget;
 	mHeading.Normalize();
 
-	mLooking = atan2(mHeading.x,mHeading.y) * 180 / 3.14;
+	mFacingAngle = atan2(mHeading.x,mHeading.y) * 180 / 3.14;
 	//atan2 (y,x) * 180 / PI;
 	if (mClient)
 	{
-		printf("mLooking:%f",mLooking);
+		printf("mFacingAngle:%f",mFacingAngle);
 	}
 
 	//RotateHeadingToFacePosition(mSteering->mTarget);
