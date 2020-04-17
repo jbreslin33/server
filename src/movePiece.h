@@ -19,8 +19,8 @@ class MovePiece : public BasePiece
 		Vector2D mSide;
 		Vector2D mHeading;
 
-		double mLooking;
 		double mFacingAngle;
+		double mRotateVelocity;
 
                 double mMaxSpeed;
                 double mMaxForce;

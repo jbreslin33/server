@@ -15,5 +15,7 @@ Client::Client(int id, int port, int personId)
 	mRight = 0;
 	mDown = 0;
 	mLeft = 0;
+	mRotateLeft = 0;
+	mRotateRight = 0;
 }
 

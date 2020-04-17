@@ -12,9 +12,8 @@ MovePiece::MovePiece(int x, int y, int z, double facingAngle) : BasePiece(x,y,z)
 	mMaxTurnRate = 0.4;
 
 	mFacingAngle = facingAngle;
+	mRotateVelocity = 0.0;
 	
-	mLooking = 0.0;
-
 	mSide = mHeading.Perp();
 	printf("Cx:%f Cy:%f\n",mSide.x,mSide.y);
 

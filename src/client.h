@@ -15,6 +15,8 @@ class Client
 		int mRight;
 		int mDown;
 		int mLeft;
+		int mRotateLeft;
+		int mRotateRight;
 
 	private:
 };
