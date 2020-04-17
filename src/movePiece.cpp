@@ -7,7 +7,7 @@ MovePiece::MovePiece(int x, int y, int z, double facingAngle) : BasePiece(x,y,z)
         mVelocity.x = x;
         mVelocity.y = y;
 
-	mMaxSpeed = 0.25;
+	mMaxSpeed = 0.1;
 	mMaxForce = 1.0;
 	mMaxTurnRate = 0.4;
 

@@ -244,35 +244,6 @@ void Game::sendDataToNewClients()
 	}
 }
 
-void Game::movePlayers()
-{
-	for (int p = 0; p < mPlayerVector.size(); p++)
-	{
-		//human
-		if (mPlayerVector.at(p)->mClient)
-		{
-			int directionX =  mPlayerVector.at(p)->mClient->mRight + (mPlayerVector.at(p)->mClient->mLeft * -1);
-			int directionY =  mPlayerVector.at(p)->mClient->mDown + (mPlayerVector.at(p)->mClient->mUp * -1);
-			int rotate =  mPlayerVector.at(p)->mClient->mRotateRight + (mPlayerVector.at(p)->mClient->mRotateLeft * -1);
-		
-			mPlayerVector.at(p)->mVelocity.x = directionX;
-			mPlayerVector.at(p)->mVelocity.y = directionY;
-			mPlayerVector.at(p)->mRotateVelocity = rotate;
-		
-			//normalize
-			mPlayerVector.at(p)->mVelocity.Normalize();
-
-			//add normalized velocity to current position	
-			mPlayerVector.at(p)->mPosition.x += mPlayerVector.at(p)->mVelocity.x;
-			mPlayerVector.at(p)->mPosition.y += mPlayerVector.at(p)->mVelocity.y;
-
-			//rotate
-			mPlayerVector.at(p)->mFacingAngle += mPlayerVector.at(p)->mRotateVelocity;
-
-		}
-	}
-}
-
 void Game::moveBall()
 {
 	mBall->mVelocity.x = 0;	
@@ -342,18 +313,16 @@ void Game::tick()
 	
 	//any new clients then send them message with the port
 	sendDataToNewClients();
-
-	//move players
-	movePlayers();
-
-	//send moves to clients
-	sendMovesToClients();
-
+	
 	//call update on players
 	for (int p = 0; p < mPlayerVector.size(); p++)
 	{
 		mPlayerVector.at(p)->update();
 	}
+
+	//send moves to clients
+	sendMovesToClients();
+
 }
 
 void Game::sendToClient(Client* client, std::string message)

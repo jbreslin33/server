@@ -4,6 +4,7 @@
 #include "playerStates.h"
 #include "playerStateMachine.h"
 #include "steering.h"
+#include "client.h"
 #include "common/2d/transformations.h"
 #include <math.h>
 
@@ -37,40 +38,72 @@ void Player::update()
 
 	//check if lost connection or switch to human
 	checkIfHuman();	
-
-  	//run the logic for the current state
+		
 	mPlayerStateMachine->update();
 
-	//set looking at
-	
-	mHeading = mPosition - mSteering->mTarget;
-	mHeading.Normalize();
+	if (mClient)
+	{
+		int directionX =  mClient->mRight + (mClient->mLeft * -1);
+                int directionY =  mClient->mDown + (mClient->mUp * -1);
+                int rotate =  mClient->mRotateRight + (mClient->mRotateLeft * -1);
 
-	//mFacingAngle = atan2(mHeading.x,mHeading.y) * 180 / 3.14;
+                mVelocity.x = directionX;
+                mVelocity.y = directionY;
+                mRotateVelocity = rotate;
+
+                //normalize
+                mVelocity.Normalize();
+  		
+		mVelocity.Truncate(mMaxSpeed);
+
+                //add normalized velocity to current position   
+                mPosition.x += mVelocity.x;
+                mPosition.y += mVelocity.y;
+
+                //rotate
+                mFacingAngle += mRotateVelocity;
+        }
+
+	else
+	{
+
+  		//run the logic for the current state
+		mPlayerStateMachine->update();
+
+		//set looking at
+	
+		mHeading = mPosition - mSteering->mTarget;
+		mHeading.Normalize();
+
+  		//calculate the combined steering force
+		mSteering->calculate();
+
+  		//if no steering force is produced decelerate the player by applying a
+ 		//braking force
+		if (mSteering->mSteeringForce.isZero())
+		{
+			const double BrakingRate = 0.8;
+
+			mVelocity = mVelocity * BrakingRate;
+		}
+  
+		//make sure player does not exceed maximum velocity
+		mVelocity = mSteering->mSteeringForce;
+  		mVelocity.Truncate(mMaxSpeed);
+
+  		//update the position
+  		mPosition += mVelocity;
+	}
+
+	if (mVelocity.isZero() == false)
+	{
+		printf("mVelocity.x: %f mVelocity.y: %f \n", mVelocity.x, mVelocity.y);
+	}
 	
 	if (mClient)
 	{
-		//printf("mFacingAngle:%f\n",mFacingAngle);
+		printf("mVelocity.x: %f mVelocity.y: %f \n", mVelocity.x, mVelocity.y);
 	}
-
-  	//calculate the combined steering force
-	mSteering->calculate();
-
-  	//if no steering force is produced decelerate the player by applying a
- 	//braking force
-	if (mSteering->mSteeringForce.isZero())
-	{
-		const double BrakingRate = 0.8;
-
-		mVelocity = mVelocity * BrakingRate;
-	}
-  
-	//make sure player does not exceed maximum velocity
-	mVelocity = mSteering->mSteeringForce;
-  	mVelocity.Truncate(mMaxSpeed);
-
-  	//update the position
-  	mPosition += mVelocity;
 }
 
 void Player::checkIfHuman()
