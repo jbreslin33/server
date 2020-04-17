@@ -20,6 +20,7 @@ Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(
 
 	//states
 	GlobalPlayerState* mGlobalPlayerState = new GlobalPlayerState();
+	InitPlayerState* mInitPlayerState = new InitPlayerState();
 	ChaseBallPlayerState* mChaseBallPlayerState = new ChaseBallPlayerState();
 	
 	mPlayerStateMachine = new PlayerStateMachine(this);    //setup the state machine
@@ -27,7 +28,7 @@ Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(
 	mPlayerStateMachine->setCurrentState(nullptr);
     	mPlayerStateMachine->setPreviousState(nullptr);
     	mPlayerStateMachine->setGlobalState(mGlobalPlayerState);
-    	mPlayerStateMachine->changeState(mChaseBallPlayerState);
+    	mPlayerStateMachine->changeState(mInitPlayerState);
 
 }
 
