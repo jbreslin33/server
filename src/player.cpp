@@ -51,7 +51,7 @@ void Player::update()
 	//atan2 (y,x) * 180 / PI;
 	if (mClient)
 	{
-		printf("mFacingAngle:%f",mFacingAngle);
+//		printf("mFacingAngle:%f",mFacingAngle);
 	}
 
 	//RotateHeadingToFacePosition(mSteering->mTarget);
