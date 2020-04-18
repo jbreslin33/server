@@ -70,7 +70,7 @@ Game::Game(Server* server, int id)
 	
 	mBall = new Ball(this,0,0,0,90.0);
 
-	//awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
+	awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
 
 
 }

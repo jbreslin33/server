@@ -114,16 +114,6 @@ void Player::update()
   		//update the position
   		mPosition += mVelocity;
 	}
-
-	if (mVelocity.isZero() == false)
-	{
-		printf("mVelocity.x: %f mVelocity.y: %f \n", mVelocity.x, mVelocity.y);
-	}
-	
-	if (mClient)
-	{
-		printf("mVelocity.x: %f mVelocity.y: %f \n", mVelocity.x, mVelocity.y);
-	}
 }
 
 void Player::checkIfHuman()
