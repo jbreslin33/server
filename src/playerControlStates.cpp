@@ -40,11 +40,17 @@ void InitPlayerControlState::execute(Player* player)
 {
 	if (player->mClient)
 	{
- 		player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+ 		if (player->mPlayerControlStateMachine->mCurrentState != player->mHumanPlayerControlState);
+		{
+ 			player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+		}
 	}
 	else
 	{
- 		player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+ 		if (player->mPlayerControlStateMachine->mCurrentState != player->mComputerPlayerControlState);
+		{
+ 			player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+		}
 	}
 }
 void InitPlayerControlState::exit(Player* player)
@@ -66,7 +72,10 @@ void HumanPlayerControlState::execute(Player* player)
 {
 	if (player->mClient == nullptr)
 	{
- 		player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+ 		if (player->mPlayerControlStateMachine->mCurrentState != player->mComputerPlayerControlState);
+		{
+ 			player->mPlayerControlStateMachine->changeState(player->mComputerPlayerControlState);
+		}
 	}
 
 }
@@ -91,7 +100,10 @@ void ComputerPlayerControlState::execute(Player* player)
 {
 	if (player->mClient)
 	{
- 		player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+ 		if (player->mPlayerControlStateMachine->mCurrentState != player->mHumanPlayerControlState);
+		{
+ 			player->mPlayerControlStateMachine->changeState(player->mHumanPlayerControlState);
+		}
 	}
 
 }

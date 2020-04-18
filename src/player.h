@@ -10,8 +10,9 @@ class Game;
 
 class GlobalPlayerState;
 class InitPlayerState;
-class ChaseBallPlayerState;
+class WaitPlayerState;
 class HumanPlayerState;
+class ChaseBallPlayerState;
 
 class GlobalPlayerControlState;
 class InitPlayerControlState;
@@ -40,6 +41,8 @@ class Player : public MovePiece
 	       	//player states
        	 	GlobalPlayerState* mGlobalPlayerState;
         	InitPlayerState* mInitPlayerState;
+        	WaitPlayerState* mWaitPlayerState;
+        	HumanPlayerState* mHumanPlayerState;
         	ChaseBallPlayerState* mChaseBallPlayerState;
 
         	//player control states

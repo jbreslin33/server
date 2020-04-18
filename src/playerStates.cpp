@@ -1,4 +1,5 @@
 #include "playerStates.h"
+#include "playerStateMachine.h"
 #include <iostream>
 
 #include "player.h"
@@ -19,6 +20,13 @@ void GlobalPlayerState::enter(Player* player)
 }
 void GlobalPlayerState::execute(Player* player)
 {
+        if (player->mClient)
+        {
+                if (player->mPlayerStateMachine->mCurrentState != player->mHumanPlayerState)
+		{
+                	player->mPlayerStateMachine->changeState(player->mHumanPlayerState);
+		}
+        }
 }
 void GlobalPlayerState::exit(Player* player)
 {
@@ -37,10 +45,32 @@ void InitPlayerState::enter(Player* player)
 }
 void InitPlayerState::execute(Player* player)
 {
+	if (player->mPlayerStateMachine->mCurrentState != player->mWaitPlayerState)
+	{
+               	player->mPlayerStateMachine->changeState(player->mWaitPlayerState);
+	}
 }
 void InitPlayerState::exit(Player* player)
 {
         printf("InitPlayerState::exit\n");
+}
+
+/**** WaitPlayerState ****************************/
+
+WaitPlayerState::WaitPlayerState()
+{
+}
+
+void WaitPlayerState::enter(Player* player)
+{
+        printf("WaitPlayerState::enter\n");
+}
+void WaitPlayerState::execute(Player* player)
+{
+}
+void WaitPlayerState::exit(Player* player)
+{
+        printf("WaitPlayerState::exit\n");
 }
 
 /**** HumanPlayerState ****************************/

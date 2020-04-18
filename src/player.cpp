@@ -27,6 +27,8 @@ Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(
 	//player states
 	mGlobalPlayerState = new GlobalPlayerState();
 	mInitPlayerState = new InitPlayerState();
+	mWaitPlayerState = new WaitPlayerState();
+	mHumanPlayerState = new HumanPlayerState();
 	mChaseBallPlayerState = new ChaseBallPlayerState();
 	
 	//player control states

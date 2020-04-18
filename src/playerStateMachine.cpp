@@ -46,12 +46,19 @@ void PlayerStateMachine::setGlobalState(PlayerState* playerState)
 
 void PlayerStateMachine::changeState(PlayerState* newState)
 {
-	mPreviousState = mCurrentState;
+	if (mCurrentState == nullptr)
+	{
 
-        if(mCurrentState)
-        {
-        	mCurrentState->exit(mOwner);
-        }
+	}
+	else
+	{
+		mPreviousState = mCurrentState;
+
+        	if(mCurrentState)
+        	{
+        		mCurrentState->exit(mOwner);
+        	}
+	}
 
         mCurrentState = newState;
 

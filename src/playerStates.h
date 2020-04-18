@@ -27,6 +27,19 @@ class InitPlayerState : public PlayerState
  		void exit(Player* player);
 };
 
+class WaitPlayerState : public PlayerState
+{
+
+	public:
+		WaitPlayerState();
+
+ 		void enter(Player* player);
+ 		void execute(Player* player);
+ 		void exit(Player* player);
+};
+
+
+
 class HumanPlayerState : public PlayerState
 {
 

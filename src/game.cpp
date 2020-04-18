@@ -19,6 +19,11 @@
 #include <math.h> 
 #include "common/2d/vector2d.h"
 
+#include "playerStateMachine.h"
+#include "playerStates.h"
+
+
+
 Game::Game(Server* server, int id)
 {
 	//server
@@ -64,6 +69,10 @@ Game::Game(Server* server, int id)
 	mPlayerVector.push_back(awayPlayerOne);
 	
 	mBall = new Ball(this,0,0,0,90.0);
+
+	//awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
+
+
 }
 
 void Game::startGame(std::vector<std::string> stringVector)
