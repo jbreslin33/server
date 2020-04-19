@@ -68,6 +68,25 @@ void Player::update()
         	mVelocity.y = mClient->mJoystickDirection.y;
 		mRotateVelocity = mClient->mJoystickRotation;
 	}
+	else //ai
+	{
+                //calculate the combined steering force
+                mSteering->calculate();
+
+                //if no steering force is produced decelerate the player by applying a
+                //braking force
+		/*
+                if (mSteering->mSteeringForce.isZero())
+                {
+                        const double BrakingRate = 0.8;
+
+                        mVelocity = mVelocity * BrakingRate;
+                }
+		*/
+  
+                //make sure player does not exceed maximum velocity
+                mVelocity = mSteering->mSteeringForce;
+	}
 
         //normalize
        	mVelocity.Normalize();

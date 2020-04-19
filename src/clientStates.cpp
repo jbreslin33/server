@@ -90,10 +90,31 @@ void HumanClientState::enter(Client* client)
 }
 void HumanClientState::execute(Client* client)
 {
+	//check if human still
+	bool human = false;
+        for (int p = 0; p < client->mGame->mPlayerVector.size(); p++)
+        {
+                if (client->mGame->mPlayerVector.at(p)->mClient == client)
+                {
+			human = true;
+                }
+        }
+
+	if (!human)
+	{
+		//switch to human
+                if (client->mClientStateMachine->mCurrentState != client->mHumanClientState)
+                {
+                	client->mClientStateMachine->changeState(client->mHumanClientState);
+		}
+
+	}
+
 	//get moves from remote client..in ai you can randomize these to get behaviors..
 	client->mJoystickDirection.x =  client->mRight + (client->mLeft * -1);
         client->mJoystickDirection.y =  client->mDown + (client->mUp * -1);
         client->mJoystickRotation =  client->mRotateRight + (client->mRotateLeft * -1);
+
 }
 
 void HumanClientState::exit(Client* client)
