@@ -67,6 +67,7 @@ void Player::update()
         	mVelocity.x = mClient->mJoystickDirection.x;
         	mVelocity.y = mClient->mJoystickDirection.y;
 		mRotateVelocity = mClient->mJoystickRotation;
+
 	}
 	else //ai
 	{
@@ -86,6 +87,9 @@ void Player::update()
   
                 //make sure player does not exceed maximum velocity
                 mVelocity = mSteering->mSteeringForce;
+		
+
+
 	}
 
         //normalize
@@ -96,65 +100,21 @@ void Player::update()
         //add normalized velocity to current position   
         mPosition.x += mVelocity.x;
         mPosition.y += mVelocity.y;
+       	
 
-       //rotate
-       mFacingAngle += mRotateVelocity;
-
-/*
+       	//rotate
+       	mFacingAngle += mRotateVelocity;
+	
+	//lets rotate to where we are going
+	double radians = ( mFacingAngle * 3.14 ) / 180 ; 
+	Vector2D V; 
+	V.x = cos(radians);
+	V.y = sin(radians);
 	if (mClient)
 	{
-	//	int directionX =  mClient->mRight + (mClient->mLeft * -1);
-         //       int directionY =  mClient->mDown + (mClient->mUp * -1);
-          //      int rotate =  mClient->mRotateRight + (mClient->mRotateLeft * -1);
-
-                mVelocity.x = directionX;
-                mVelocity.y = directionY;
-                mRotateVelocity = rotate;
-
-                //normalize
-                mVelocity.Normalize();
-  		
-		mVelocity.Truncate(mMaxSpeed);
-
-                //add normalized velocity to current position   
-                mPosition.x += mVelocity.x;
-                mPosition.y += mVelocity.y;
-
-                //rotate
-                mFacingAngle += mRotateVelocity;
-        }
-
-	else
-	{
-
-  		//run the logic for the current state
-		mPlayerStateMachine->update();
-
-		//set looking at
-	
-		mHeading = mPosition - mSteering->mTarget;
-		mHeading.Normalize();
-
-  		//calculate the combined steering force
-		mSteering->calculate();
-
-  		//if no steering force is produced decelerate the player by applying a
- 		//braking force
-		if (mSteering->mSteeringForce.isZero())
-		{
-			const double BrakingRate = 0.8;
-
-			mVelocity = mVelocity * BrakingRate;
-		}
-  
-		//make sure player does not exceed maximum velocity
-		mVelocity = mSteering->mSteeringForce;
-  		mVelocity.Truncate(mMaxSpeed);
-
-  		//update the position
-  		mPosition += mVelocity;
+		printf("radians:%f x:%f y:%f \n",radians,V.x,V.y);
 	}
-	*/
+		
 }
 
 void Player::checkIfHuman()
