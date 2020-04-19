@@ -103,9 +103,9 @@ void HumanClientState::execute(Client* client)
 	if (!human)
 	{
 		//switch to human
-                if (client->mClientStateMachine->mCurrentState != client->mHumanClientState)
+                if (client->mClientStateMachine->mCurrentState != client->mComputerClientState)
                 {
-                	client->mClientStateMachine->changeState(client->mHumanClientState);
+                	client->mClientStateMachine->changeState(client->mComputerClientState);
 		}
 
 	}
