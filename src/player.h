@@ -1,5 +1,5 @@
 #ifndef PLAYER_H
-#define PLAYER_
+#define PLAYER_H
 
 #include "movePiece.h"
 

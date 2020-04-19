@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include "clientStateMachine.h"
+#include "clientStates.h"
+
 #include "client.h"
 
 Client::Client(int id, int port, int personId)
@@ -17,5 +20,23 @@ Client::Client(int id, int port, int personId)
 	mLeft = 0;
 	mRotateLeft = 0;
 	mRotateRight = 0;
+
+        //state machines
+        mClientStateMachine = new ClientStateMachine(this);    //setup the state machine
+
+        //player states
+        mGlobalClientState = new GlobalClientState();
+        mInitClientState = new InitClientState();
+        mWaitClientState = new WaitClientState();
+        mHumanClientState = new HumanClientState();
+        mChaseBallClientState = new ChaseBallClientState();
+
+        //set states
+        //player states
+        mClientStateMachine->setCurrentState(nullptr);
+        mClientStateMachine->setPreviousState(nullptr);
+        mClientStateMachine->setGlobalState(mGlobalClientState);
+        mClientStateMachine->changeState(mInitClientState);
+
 }
 
