@@ -102,7 +102,9 @@ void Game::requestClient(std::vector<std::string> stringVector)
 			else
 			{
 				mClientVector.at(c)->mPort = portInt;
-				printf("Person ID:%d already has a client. Updating port to: %d\n",personIdInt, portInt);
+				mClientVector.at(c)->mSentToClient = false;
+				printf("Person ID:%d already has a client. Updating port to: %d\n and sending confirmation to client again.",personIdInt, portInt);
+
 			}
 			return;
 		}
