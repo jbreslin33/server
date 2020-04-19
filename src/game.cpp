@@ -322,8 +322,12 @@ void Game::tick()
 {
 	//printf("tick:%ld\n",mDelta);
 	
-	//any new clients then send them message with the port
-	sendDataToNewClients();
+	//call update on clients
+        for (int p = 0; p < mClientVector.size(); p++)
+        {
+                mClientVector.at(p)->update();
+        }
+	
 	
 	//call update on players
 	for (int p = 0; p < mPlayerVector.size(); p++)
@@ -331,8 +335,12 @@ void Game::tick()
 		mPlayerVector.at(p)->update();
 	}
 
+
 	//send moves to clients
 	sendMovesToClients();
+	
+	//any new clients then send them message with the port
+	sendDataToNewClients();
 
 }
 

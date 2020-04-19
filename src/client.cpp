@@ -40,3 +40,7 @@ Client::Client(int id, int port, int personId)
 
 }
 
+void Client::update()
+{
+        mClientStateMachine->update();
+}

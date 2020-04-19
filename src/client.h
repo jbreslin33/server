@@ -13,6 +13,9 @@ class Client
 {
 	public:
 		Client(int id, int port, int personId);
+
+		void update();
+
 		int mId;
 		int mPort;
 		int mPersonId;
