@@ -11,7 +11,7 @@ class GlobalClientState;
 class InitClientState;
 class WaitClientState;
 class HumanClientState;
-class ChaseBallClientState;
+class ComputerClientState;
 
 class Client
 {
@@ -49,7 +49,7 @@ class Client
                 InitClientState* mInitClientState;
                 WaitClientState* mWaitClientState;
                 HumanClientState* mHumanClientState;
-                ChaseBallClientState* mChaseBallClientState;
+                ComputerClientState* mComputerClientState;
 
 
 	private:

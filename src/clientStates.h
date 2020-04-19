@@ -53,11 +53,11 @@ class HumanClientState : public ClientState
 
 
 
-class ChaseBallClientState : public ClientState
+class ComputerClientState : public ClientState
 {
 
 	public:
-		ChaseBallClientState();
+		ComputerClientState();
 
  		void enter(Client* client);
  		void execute(Client* client);

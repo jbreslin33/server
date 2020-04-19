@@ -124,32 +124,22 @@ void HumanClientState::exit(Client* client)
 
 
 
-/**** ChaseBallClientState ****************************/
+/**** ComputerClientState ****************************/
 
-ChaseBallClientState::ChaseBallClientState()
+ComputerClientState::ComputerClientState()
 {
 }
 
-void ChaseBallClientState::enter(Client* client)
+void ComputerClientState::enter(Client* client)
 {
-        printf("ChaseBallClientState::enter\n");
-	/*
-	client->mSteering->mSeekOn = true;
-	*/
+        printf("ComputerClientState::enter\n");
 }
-void ChaseBallClientState::execute(Client* client)
+void ComputerClientState::execute(Client* client)
 {
-	/*
-	Vector2D v;
-	v.x = client->mGame->mBall->mPosition.x;
-	v.y = client->mGame->mBall->mPosition.y;
-
-	client->mSteering->setTarget(v);
-	*/
 }
-void ChaseBallClientState::exit(Client* client)
+void ComputerClientState::exit(Client* client)
 {
-        printf("ChaseBallClientState::exit\n");
+        printf("ComputerClientState::exit\n");
 }
 
 

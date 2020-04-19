@@ -35,7 +35,7 @@ Client::Client(Game* game, int id, int port, int personId)
         mInitClientState = new InitClientState();
         mWaitClientState = new WaitClientState();
         mHumanClientState = new HumanClientState();
-        mChaseBallClientState = new ChaseBallClientState();
+        mComputerClientState = new ComputerClientState();
 
         //set states
         //player states
