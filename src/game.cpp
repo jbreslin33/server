@@ -111,7 +111,7 @@ void Game::requestClient(std::vector<std::string> stringVector)
 	}
 
 	//fall thru make a new client instance
-	Client* client = new Client(getNextClientId(),0,0);
+	Client* client = new Client(this,getNextClientId(),0,0);
 	mClientVector.push_back(client);
 	client->mPersonId = personIdInt;
 	printf("Make new Client for Person ID:%d \n",personIdInt);

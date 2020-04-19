@@ -3,10 +3,13 @@
 #include "clientStateMachine.h"
 #include "clientStates.h"
 
+#include "game.h"
 #include "client.h"
 
-Client::Client(int id, int port, int personId)
+Client::Client(Game* game, int id, int port, int personId)
 {
+	mGame = game;
+
 	mId = id;
 	mPort = port;
 	mPersonId = personId;
@@ -20,6 +23,9 @@ Client::Client(int id, int port, int personId)
 	mLeft = 0;
 	mRotateLeft = 0;
 	mRotateRight = 0;
+
+	//joystick
+	mJoystickRotation = 0;
 
         //state machines
         mClientStateMachine = new ClientStateMachine(this);    //setup the state machine

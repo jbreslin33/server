@@ -61,11 +61,32 @@ void Player::update()
 	mPlayerControlStateMachine->update();
 	mPlayerStateMachine->update();
 
+	//move
 	if (mClient)
 	{
-		int directionX =  mClient->mRight + (mClient->mLeft * -1);
-                int directionY =  mClient->mDown + (mClient->mUp * -1);
-                int rotate =  mClient->mRotateRight + (mClient->mRotateLeft * -1);
+        	mVelocity.x = mClient->mJoystickDirection.x;
+        	mVelocity.y = mClient->mJoystickDirection.y;
+		mRotateVelocity = mClient->mJoystickRotation;
+	}
+
+        //normalize
+       	mVelocity.Normalize();
+                
+       	mVelocity.Truncate(mMaxSpeed);
+
+        //add normalized velocity to current position   
+        mPosition.x += mVelocity.x;
+        mPosition.y += mVelocity.y;
+
+       //rotate
+       mFacingAngle += mRotateVelocity;
+
+/*
+	if (mClient)
+	{
+	//	int directionX =  mClient->mRight + (mClient->mLeft * -1);
+         //       int directionY =  mClient->mDown + (mClient->mUp * -1);
+          //      int rotate =  mClient->mRotateRight + (mClient->mRotateLeft * -1);
 
                 mVelocity.x = directionX;
                 mVelocity.y = directionY;
@@ -114,6 +135,7 @@ void Player::update()
   		//update the position
   		mPosition += mVelocity;
 	}
+	*/
 }
 
 void Player::checkIfHuman()

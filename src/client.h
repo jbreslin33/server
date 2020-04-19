@@ -1,6 +1,10 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include "common/2d/vector2d.h"
+
+class Game;
+
 class ClientStateMachine;
 
 class GlobalClientState;
@@ -12,9 +16,11 @@ class ChaseBallClientState;
 class Client
 {
 	public:
-		Client(int id, int port, int personId);
+		Client(Game* game, int id, int port, int personId);
 
 		void update();
+
+		Game* mGame;
 
 		int mId;
 		int mPort;
@@ -28,6 +34,10 @@ class Client
 		int mLeft;
 		int mRotateLeft;
 		int mRotateRight;
+
+		//joystick
+		Vector2D mJoystickDirection;
+		double mJoystickRotation;
 
 		//states
 

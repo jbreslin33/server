@@ -6,6 +6,7 @@
 #include "steering.h"
 #include "game.h"
 #include "ball.h"
+#include "player.h"
 #include "common/2d/vector2d.h"
 
 /**** GlobalClientState ****************************/
@@ -20,15 +21,17 @@ void GlobalClientState::enter(Client* client)
 }
 void GlobalClientState::execute(Client* client)
 {
-	/*
-        if (client->mClient)
-        {
-                if (client->mClientStateMachine->mCurrentState != client->mHumanClientState)
+	for (int p = 0; p < client->mGame->mPlayerVector.size(); p++)
+	{
+		if (client->mGame->mPlayerVector.at(p)->mClient == client)
 		{
-                	client->mClientStateMachine->changeState(client->mHumanClientState);
+			//switch to human
+                	if (client->mClientStateMachine->mCurrentState != client->mHumanClientState)
+			{
+                		client->mClientStateMachine->changeState(client->mHumanClientState);
+			}
 		}
-        }
-	*/
+	}
 }
 void GlobalClientState::exit(Client* client)
 {
@@ -87,7 +90,12 @@ void HumanClientState::enter(Client* client)
 }
 void HumanClientState::execute(Client* client)
 {
+	//get moves from remote client..in ai you can randomize these to get behaviors..
+	client->mJoystickDirection.x =  client->mRight + (client->mLeft * -1);
+        client->mJoystickDirection.y =  client->mDown + (client->mUp * -1);
+        client->mJoystickRotation =  client->mRotateRight + (client->mRotateLeft * -1);
 }
+
 void HumanClientState::exit(Client* client)
 {
         printf("HumanClientState::exit\n");
