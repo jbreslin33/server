@@ -384,3 +384,4 @@ void Game::sendToClient(Client* client, std::string message)
 	close(sock); /* close the socket */
 }
 
+

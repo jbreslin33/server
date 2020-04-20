@@ -30,6 +30,10 @@ class Player : public MovePiece
 		void setHuman(bool b);
 		void checkIfHuman();
 
+                //collision
+                void detectCollision();
+                void playerCollision(Player* player);
+
 		Client* mClient;
 		Game* mGame;
 		bool mHuman;

@@ -13,6 +13,7 @@ class BasePiece
                 Vector2D mStartPosition;
                 Vector2D mPosition;
 
+
 		//id
                 int mId;
 		static int mNextId; 

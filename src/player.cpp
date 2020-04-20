@@ -208,3 +208,27 @@ void Player::setHuman(bool b)
 {
 	mHuman = b;
 }
+
+
+void Player::playerCollision(Player* player)
+{
+        printf("player:%d collided with player:%d\n",mId,player->mId);
+}
+
+void Player::detectCollision()
+{
+        for (int p = 0; p < mGame->mPlayerVector.size(); p++)
+        {
+                double dx = mPosition.x - mGame->mPlayerVector.at(p)->mPosition.x;
+                double dy = mPosition.y - mGame->mPlayerVector.at(p)->mPosition.y;
+                double distance = sqrt(dx * dx + dy * dy);
+
+                if (distance < mSize / 2 + mGame->mPlayerVector.at(p)->mSize / 2)
+                {
+                        playerCollision(mGame->mPlayerVector.at(p));
+                }
+
+        }
+
+}
+
