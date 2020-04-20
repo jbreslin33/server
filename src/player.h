@@ -22,7 +22,7 @@ class HumanPlayerControlState;
 class Player : public MovePiece
 {
 	public:
-		Player(Game* game, int x, int y, int z, double facingAngle);
+		Player(Game* game, int x, int y, int z, double facingAngle, double diameter);
 		
 		void update();
 

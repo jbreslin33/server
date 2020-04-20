@@ -3,7 +3,7 @@
 
 int BasePiece::mNextId = 1;
 
-BasePiece::BasePiece(int x, int y, int z)
+BasePiece::BasePiece(int x, int y, int z, double diameter)
 {
 	//start position
         mStartPosition.x = x;
@@ -15,7 +15,7 @@ BasePiece::BasePiece(int x, int y, int z)
 
 	setId(mNextId);
 
-	mRadius = 2.0;
+	mDiameter = diameter;
 }
 
 void BasePiece::setId(int id)

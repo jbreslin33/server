@@ -2,7 +2,7 @@
 #include "common/2d/vector2d.h"
 #include "common/2d/c2dMatrix.h"
 
-MovePiece::MovePiece(int x, int y, int z, double headingAngle) : BasePiece(x,y,z)
+MovePiece::MovePiece(int x, int y, int z, double headingAngle,double diameter) : BasePiece(x,y,z,diameter)
 {
         mVelocity.x = x;
         mVelocity.y = y;

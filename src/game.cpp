@@ -56,19 +56,19 @@ Game::Game(Server* server, int id)
 	mClientIdCounter = 0;
 
 	//players and ball
-	Player* homePlayerOne = new Player(this,10,10,0,0.0);
+	Player* homePlayerOne = new Player(this,10,10,0,0.0,1.0);
 	mPlayerVector.push_back(homePlayerOne);
 
-	Player* homePlayerTwo = new Player(this,10,-10,0,90.0);
+	Player* homePlayerTwo = new Player(this,10,-10,0,90.0,1.0);
 	mPlayerVector.push_back(homePlayerTwo);
 
-	Player* homePlayerThree = new Player(this,-10,-10,0,180.0);
+	Player* homePlayerThree = new Player(this,-10,-10,0,180.0,1.0);
 	mPlayerVector.push_back(homePlayerThree);
 
-	Player* awayPlayerOne = new Player(this,-10,10,0,270.0);
+	Player* awayPlayerOne = new Player(this,-10,10,0,270.0,1.0);
 	mPlayerVector.push_back(awayPlayerOne);
 	
-	mBall = new Ball(this,0,0,0,90.0);
+	mBall = new Ball(this,0,0,0,90.0,0.5);
 
 	awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
 
@@ -246,8 +246,7 @@ void Game::sendDataToNewClients()
                         message.append(std::to_string(mClientVector.at(c)->mId)); //client id
 			message.append(",");	 //extra comma
 
-                        //message.append(mServer->mUtility->padZerosLeft(5,id)); //append client id
-			printf("TO NEW CLIENT:%s\n",message.c_str());
+			//printf("TO NEW CLIENT:%s\n",message.c_str());
 			sendToClient(mClientVector.at(c),message);
 
 			mClientVector.at(c)->mSentToClient = true;

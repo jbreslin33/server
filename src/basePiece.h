@@ -6,13 +6,13 @@
 class BasePiece
 {
 	public:
-		BasePiece(int x, int y, int z);
+		BasePiece(int x, int y, int z, double diameter);
 		
 		void update();
 
                 Vector2D mStartPosition;
                 Vector2D mPosition;
-		double mRadius;
+		double mDiameter;
 
 
 		//id

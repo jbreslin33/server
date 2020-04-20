@@ -14,7 +14,7 @@
 //Player* homePlayerOne = new Player(this,homeClientOne,10,10,0);
 
 
-Player::Player(Game* game, int x, int y, int z, double facingAngle) : MovePiece(x,y,z,facingAngle)
+Player::Player(Game* game, int x, int y, int z, double facingAngle, double diameter) : MovePiece(x,y,z,facingAngle,diameter)
 {
 	mClient = nullptr;
 	mGame = game;
@@ -231,7 +231,7 @@ void Player::detectPlayerCollision()
                 	double dy = mPosition.y - mGame->mPlayerVector.at(p)->mPosition.y;
                 	double distance = sqrt(dx * dx + dy * dy);
 
-                	if (distance < mRadius / 2 + mGame->mPlayerVector.at(p)->mRadius / 2)
+                	if (distance < mDiameter / 2 + mGame->mPlayerVector.at(p)->mDiameter / 2)
                 	{
                         	playerCollision(mGame->mPlayerVector.at(p));
                 	}
