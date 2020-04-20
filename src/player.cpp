@@ -192,7 +192,8 @@ void Player::update()
 
 	//desiredFacingAngle
 	//mDesiredFacingAngle
-		
+	
+	detectCollision();	
 }
 
 void Player::checkIfHuman()
@@ -219,16 +220,17 @@ void Player::detectCollision()
 {
         for (int p = 0; p < mGame->mPlayerVector.size(); p++)
         {
-                double dx = mPosition.x - mGame->mPlayerVector.at(p)->mPosition.x;
-                double dy = mPosition.y - mGame->mPlayerVector.at(p)->mPosition.y;
-                double distance = sqrt(dx * dx + dy * dy);
+		if (mGame->mPlayerVector.at(p) != this)
+		{
+                	double dx = mPosition.x - mGame->mPlayerVector.at(p)->mPosition.x;
+                	double dy = mPosition.y - mGame->mPlayerVector.at(p)->mPosition.y;
+                	double distance = sqrt(dx * dx + dy * dy);
 
-                if (distance < mSize / 2 + mGame->mPlayerVector.at(p)->mSize / 2)
-                {
-                        playerCollision(mGame->mPlayerVector.at(p));
-                }
-
+                	if (distance < mRadius / 2 + mGame->mPlayerVector.at(p)->mRadius / 2)
+                	{
+                        	playerCollision(mGame->mPlayerVector.at(p));
+                	}
+		}
         }
-
 }
 

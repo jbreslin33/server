@@ -12,6 +12,7 @@ class BasePiece
 
                 Vector2D mStartPosition;
                 Vector2D mPosition;
+		double mRadius;
 
 
 		//id

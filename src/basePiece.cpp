@@ -14,6 +14,8 @@ BasePiece::BasePiece(int x, int y, int z)
         mPosition.y = y;
 
 	setId(mNextId);
+
+	mRadius = 2.0;
 }
 
 void BasePiece::setId(int id)
