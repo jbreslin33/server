@@ -174,7 +174,7 @@ void Player::update()
 				mHeadingAngle = 315;	
 			}
 		}
-		printf("mHeadingAngle:%f mVelocityAngle:%f\n",mHeadingAngle,mVelocityAngle);
+		//printf("mHeadingAngle:%f mVelocityAngle:%f\n",mHeadingAngle,mVelocityAngle);
 	}
 
 	
@@ -193,7 +193,7 @@ void Player::update()
 	//desiredFacingAngle
 	//mDesiredFacingAngle
 	
-	detectCollision();	
+	detectPlayerCollision();	
 }
 
 void Player::checkIfHuman()
@@ -216,7 +216,12 @@ void Player::playerCollision(Player* player)
         printf("player:%d collided with player:%d\n",mId,player->mId);
 }
 
-void Player::detectCollision()
+void Player::detectBallCollision()
+{
+	
+}
+
+void Player::detectPlayerCollision()
 {
         for (int p = 0; p < mGame->mPlayerVector.size(); p++)
         {

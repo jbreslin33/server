@@ -31,7 +31,8 @@ class Player : public MovePiece
 		void checkIfHuman();
 
                 //collision
-                void detectCollision();
+                void detectPlayerCollision();
+                void detectBallCollision();
                 void playerCollision(Player* player);
 
 		Client* mClient;
