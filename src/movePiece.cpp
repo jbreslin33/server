@@ -11,8 +11,12 @@ MovePiece::MovePiece(int x, int y, int z, double headingAngle) : BasePiece(x,y,z
 	mMaxForce = 1.0;
 	mMaxTurnRate = 0.4;
 
+	mHeading.x = 0.0;
+	mHeading.y = 1.0; //face up
+
 	mHeadingAngle = headingAngle;
 	mRotateVelocity = 0.0;
+	mVelocityAngle = 0.0;
 	
 	mSideHeading = mHeading.Perp();
 	//printf("Cx:%f Cy:%f\n",mSideHeading.x,mSideHeading.y);

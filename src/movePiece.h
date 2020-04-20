@@ -22,6 +22,7 @@ class MovePiece : public BasePiece
 
 		double mHeadingAngle; //to send to game clients
 		double mRotateVelocity;
+		double mVelocityAngle;
 
 
                 double mMaxSpeed;

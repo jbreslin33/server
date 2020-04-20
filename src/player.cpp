@@ -6,6 +6,8 @@
 #include "playerControlStates.h"
 #include "steering.h"
 #include "client.h"
+#include "game.h"
+#include "ball.h"
 #include "common/2d/transformations.h"
 #include <math.h>
 
@@ -101,12 +103,80 @@ void Player::update()
         mPosition.x += mVelocity.x;
         mPosition.y += mVelocity.y;
       
-       	//for now set the desiredFacingVector to the mVelocity that you get from controls	
-	mDesiredHeading = mVelocity;	
-	//mHeadingVector;
-
-       	//rotate
+       	//set mHeadingAngle to send to clients based on rotateVelocity from client joysticks etc.
        	mHeadingAngle += mRotateVelocity;
+
+	mHeadingAngle = fmod(mHeadingAngle,360.0);
+
+	//this code will overide above code in regards to setting mHeadingAngle for transit to clients
+
+	//what is desiredHeading? for now make it your velocity 
+	//mDesiredHeading = mVelocity;	
+
+	//what is current heading? its mHeading....dont need to set it here as it will be set later in code below...
+
+	//int sign = mGame->mBall->mPosition.Sign(mDesiredHeading);	
+	double angle = 0.0;
+	if (mClient)
+	{
+		//result = acos (param) * 180.0 / PI;
+		//angle = acos(v1•v2)
+		mHeading.Normalize();
+		angle = acos (mHeading.Dot(mVelocity));
+		//printf("angle:%f\n",angle);
+		//
+		//double mVelocityAngle = atan2(0.5, 0.5)*180/3.14;
+		double mVelocityAngle = atan2(mVelocity.x, mVelocity.y)*180/3.14;
+
+		if (mVelocity.isZero())
+		{
+
+		}
+		else
+		{
+			if (mVelocityAngle > 179 && mVelocityAngle < 181)
+			{
+				mHeadingAngle = 0;	
+			}
+
+			if (mVelocityAngle > 134 && mVelocityAngle < 136)
+			{
+				mHeadingAngle = 45;	
+			}
+
+			if (mVelocityAngle > 89 && mVelocityAngle < 91)
+			{
+				mHeadingAngle = 90;	
+			}
+
+			if (mVelocityAngle > 44 && mVelocityAngle < 46)
+			{
+				mHeadingAngle = 135;	
+			}
+
+			if (mVelocityAngle > -1 && mVelocityAngle < 1 )
+			{
+				mHeadingAngle = 180;	
+			}
+
+			if (mVelocityAngle > -46 && mVelocityAngle < -44)
+			{
+				mHeadingAngle = 225;	
+			}
+
+			if (mVelocityAngle > -91 && mVelocityAngle < -89)
+			{
+				mHeadingAngle = 270;	
+			}
+
+			if (mVelocityAngle > -136 && mVelocityAngle < -134)
+			{
+				mHeadingAngle = 315;	
+			}
+		}
+		printf("mHeadingAngle:%f mVelocityAngle:%f\n",mHeadingAngle,mVelocityAngle);
+	}
+
 	
 	//lets rotate to where we are going
 	/*
