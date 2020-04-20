@@ -16,11 +16,13 @@ class MovePiece : public BasePiece
 
 
                 Vector2D mVelocity;
-		Vector2D mSide;
-		Vector2D mHeading;
+		Vector2D mSideHeading;
+		Vector2D mHeading; //is actually where we are pointing
+		Vector2D mDesiredHeading; //where we want to point
 
-		double mFacingAngle;
+		double mHeadingAngle; //to send to game clients
 		double mRotateVelocity;
+
 
                 double mMaxSpeed;
                 double mMaxForce;

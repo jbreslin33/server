@@ -288,7 +288,7 @@ void Game::sendMovesToClients()
                         	std::string id = std::to_string(mPlayerVector.at(p)->mId); //player id 
                         	std::string x  = std::to_string(mPlayerVector.at(p)->mPosition.x); //player x
                         	std::string y  = std::to_string(mPlayerVector.at(p)->mPosition.y); //player y 
-                        	std::string facingAngle = std::to_string(mPlayerVector.at(p)->mFacingAngle); //left foot angle 
+                        	std::string headingAngle = std::to_string(mPlayerVector.at(p)->mHeadingAngle); //left foot angle 
 
 				message.append(id);
 				message.append(",");
@@ -296,7 +296,7 @@ void Game::sendMovesToClients()
 				message.append(",");
 				message.append(y);
 				message.append(",");
-				message.append(facingAngle);
+				message.append(headingAngle);
 				message.append(",");
 			}
 

@@ -2,7 +2,7 @@
 #include "common/2d/vector2d.h"
 #include "common/2d/c2dMatrix.h"
 
-MovePiece::MovePiece(int x, int y, int z, double facingAngle) : BasePiece(x,y,z)
+MovePiece::MovePiece(int x, int y, int z, double headingAngle) : BasePiece(x,y,z)
 {
         mVelocity.x = x;
         mVelocity.y = y;
@@ -11,11 +11,11 @@ MovePiece::MovePiece(int x, int y, int z, double facingAngle) : BasePiece(x,y,z)
 	mMaxForce = 1.0;
 	mMaxTurnRate = 0.4;
 
-	mFacingAngle = facingAngle;
+	mHeadingAngle = headingAngle;
 	mRotateVelocity = 0.0;
 	
-	mSide = mHeading.Perp();
-	printf("Cx:%f Cy:%f\n",mSide.x,mSide.y);
+	mSideHeading = mHeading.Perp();
+	//printf("Cx:%f Cy:%f\n",mSideHeading.x,mSideHeading.y);
 
 }
 
@@ -58,7 +58,7 @@ bool MovePiece::RotateHeadingToFacePosition(Vector2D target)
   RotationMatrix.TransformVector2Ds(mVelocity);
 
   //finally recreate m_vSide
-  mSide = mHeading.Perp();
+  mSideHeading = mHeading.Perp();
 
   return false;
 }

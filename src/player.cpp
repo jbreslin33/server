@@ -100,13 +100,17 @@ void Player::update()
         //add normalized velocity to current position   
         mPosition.x += mVelocity.x;
         mPosition.y += mVelocity.y;
-       	
+      
+       	//for now set the desiredFacingVector to the mVelocity that you get from controls	
+	mDesiredHeading = mVelocity;	
+	//mHeadingVector;
 
        	//rotate
-       	mFacingAngle += mRotateVelocity;
+       	mHeadingAngle += mRotateVelocity;
 	
 	//lets rotate to where we are going
-	double radians = ( mFacingAngle * 3.14 ) / 180 ; 
+	/*
+	double radians = ( mDesiredFacingAngle * 3.14 ) / 180 ; 
 	Vector2D V; 
 	V.x = cos(radians);
 	V.y = sin(radians);
@@ -114,6 +118,10 @@ void Player::update()
 	{
 		printf("radians:%f x:%f y:%f \n",radians,V.x,V.y);
 	}
+	*/
+
+	//desiredFacingAngle
+	//mDesiredFacingAngle
 		
 }
 
