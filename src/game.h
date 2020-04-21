@@ -51,6 +51,8 @@ class Game
 
 		//ball
 		Ball* mBall;
+
+		Player* mControllingPlayer;
 	
 		//class	
 		int mId;

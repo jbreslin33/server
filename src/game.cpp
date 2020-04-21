@@ -70,7 +70,9 @@ Game::Game(Server* server, int id)
 	
 	mBall = new Ball(this,0,0,0,90.0,0.5);
 
-	awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
+	//awayPlayerOne->mPlayerStateMachine->changeState(awayPlayerOne->mChaseBallPlayerState);
+
+	mControllingPlayer = nullptr;
 
 
 }
@@ -319,8 +321,9 @@ void Game::sendMovesToClients()
 
 void Game::tick()
 {
-	//printf("tick:%ld\n",mDelta);
-	
+	//update ball
+	mBall->update();
+
 	//call update on clients
         for (int p = 0; p < mClientVector.size(); p++)
         {
@@ -333,7 +336,6 @@ void Game::tick()
 	{
 		mPlayerVector.at(p)->update();
 	}
-
 
 	//send moves to clients
 	sendMovesToClients();

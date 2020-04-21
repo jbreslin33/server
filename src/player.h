@@ -7,6 +7,7 @@ class Client;
 class PlayerStateMachine;
 class Steering;
 class Game;
+class Ball;
 
 class GlobalPlayerState;
 class InitPlayerState;
@@ -32,8 +33,8 @@ class Player : public MovePiece
 
                 //collision
                 void detectPlayerCollision();
-                void detectBallCollision();
                 void playerCollision(Player* player);
+                void ballCollision(Ball* ball);
 
 		Client* mClient;
 		Game* mGame;
