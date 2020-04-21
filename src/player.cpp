@@ -76,22 +76,8 @@ void Player::update()
                 //calculate the combined steering force
                 mSteering->calculate();
 
-                //if no steering force is produced decelerate the player by applying a
-                //braking force
-		/*
-                if (mSteering->mSteeringForce.isZero())
-                {
-                        const double BrakingRate = 0.8;
-
-                        mVelocity = mVelocity * BrakingRate;
-                }
-		*/
-  
                 //make sure player does not exceed maximum velocity
                 mVelocity = mSteering->mSteeringForce;
-		
-
-
 	}
 
         //normalize
@@ -108,24 +94,11 @@ void Player::update()
 
 	mHeadingAngle = fmod(mHeadingAngle,360.0);
 
-	//this code will overide above code in regards to setting mHeadingAngle for transit to clients
-
-	//what is desiredHeading? for now make it your velocity 
-	//mDesiredHeading = mVelocity;	
-
-	//what is current heading? its mHeading....dont need to set it here as it will be set later in code below...
-
-	//int sign = mGame->mBall->mPosition.Sign(mDesiredHeading);	
 	double angle = 0.0;
 	if (mClient)
 	{
-		//result = acos (param) * 180.0 / PI;
-		//angle = acos(v1•v2)
 		mHeading.Normalize();
 		angle = acos (mHeading.Dot(mVelocity));
-		//printf("angle:%f\n",angle);
-		//
-		//double mVelocityAngle = atan2(0.5, 0.5)*180/3.14;
 		double mVelocityAngle = atan2(mVelocity.x, mVelocity.y)*180/3.14;
 
 		if (mVelocity.isZero())
@@ -177,27 +150,11 @@ void Player::update()
 		//printf("mHeadingAngle:%f mVelocityAngle:%f\n",mHeadingAngle,mVelocityAngle);
 	}
 	detectPlayerCollision();	
-
-	
-	//lets rotate to where we are going
-	/*
-	double radians = ( mDesiredFacingAngle * 3.14 ) / 180 ; 
-	Vector2D V; 
-	V.x = cos(radians);
-	V.y = sin(radians);
-	if (mClient)
-	{
-		printf("radians:%f x:%f y:%f \n",radians,V.x,V.y);
-	}
-	*/
-
-	//desiredFacingAngle
-	//mDesiredFacingAngle
-	
 }
 
 void Player::checkIfHuman()
 {
+
 }
 
 bool Player::getHuman()
@@ -210,17 +167,15 @@ void Player::setHuman(bool b)
 	mHuman = b;
 }
 
-
 void Player::playerCollision(Player* player)
 {
         printf("player:%d collided with player:%d\n",mId,player->mId);
 }
+
 void Player::ballCollision(Ball* ball)
 {
-        //printf("player:%d collided with ball\n",mId);
-	//mGame->mControllingPlayer = this;
-}
 
+}
 
 void Player::detectPlayerCollision()
 {
